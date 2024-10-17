@@ -1,0 +1,51 @@
+[versions]
+agp = "8.3.2"
+hiltAndroid = "2.51.1"
+hiltAndroidCompiler = "2.48"
+kotlin = "1.9.21"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+activityCompose = "1.9.2"
+composeBom = "2024.09.03"
+retrofit = "2.9.0"
+okhttp3 = "4.12.0"
+gsonConverter = "2.9.0"
+loggingInterceptor = "4.9.0"
+glide = "1.0.0-beta01"
+parcelize = "1.9.21"
+room = "2.6.1"
+
+
+[libraries]
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-core = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+glide-compose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
+okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp3" }
+logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
+retrofit-gsonConverter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gsonConverter"}
+
+
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+icons = { group = "androidx.compose.material", name = "material-icons-extended" }
+
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+daggerHilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid"}
+parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize"}
