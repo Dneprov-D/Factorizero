@@ -21,4 +21,15 @@ dependencyResolutionManagement {
 
 rootProject.name = "Factorizero"
 include(":app")
- 
+include(":core")
+include(":core:designsystem")
+include(":feature")
+include(":feature:authorization")
+include(":core:data")
+include(":core:domain")
+include(":core:domain")
+include(":core:model")
+include(":core:navigation")
+include(":core:network")
+include(":core:ui")
+include(":core:common")

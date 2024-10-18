@@ -4,5 +4,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
     alias(libs.plugins.daggerHilt) apply false
     alias(libs.plugins.parcelize) apply false
+    alias(libs.plugins.jetbrainsKotlinJvm) apply false
+    alias(libs.plugins.androidLibrary) apply false
 
 }
