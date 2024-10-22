@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.hfad.factorizero.ui.theme.FactorizeroTheme
+import com.hfad.designsystem.components.theme.FactorizeroTheme
 
 
 class MainActivity : ComponentActivity() {

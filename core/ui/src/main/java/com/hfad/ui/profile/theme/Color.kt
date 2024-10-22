@@ -1,4 +1,4 @@
-package com.hfad.factorizero.ui.theme
+package com.hfad.ui.profile.theme
 
 import androidx.compose.ui.graphics.Color
 
