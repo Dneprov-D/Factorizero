@@ -10,6 +10,10 @@ android {
     buildFeatures {
         compose = true
     }
+    
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.7"
+    }
 
     defaultConfig {
         minSdk = 24
