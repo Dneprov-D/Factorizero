@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.hfad.designsystem.components.theme.FactorizeroTheme
 import com.hfad.ui.R
 
@@ -47,12 +48,11 @@ fun EmployeeCard() {
             ) {
                 Text(
                     text = "Имя Фамилия",
-                    color = MaterialTheme.colorScheme.onPrimary
+                    fontSize = 20.sp
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = "Должность",
-                            color = MaterialTheme.colorScheme.onSecondary
                 )
             }
         }
