@@ -15,31 +15,40 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import org.jetbrains.annotations.VisibleForTesting
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Black900,
-    secondary = Black900,
-    tertiary = Black900,
-    onPrimary = Color.White,
-    onSecondary = Black500
+val DarkColorScheme = darkColorScheme(
+    primary = FzPrimaryDark,
+    secondary = FzSecondaryDark,
+    tertiary = FzTertiaryDark,
+    onPrimary = FzOnPrimaryDark,
+    onSecondary = FzOnSecondaryDark,
+    onTertiary = FzOnTertiaryDark,
+    error = FzErrorDark,
+    primaryContainer = FzPrimaryDarkContainer,
+    secondaryContainer = FzSecondaryDarkContainer,
+    tertiaryContainer = FzTertiaryDarkContainer,
+    errorContainer = FzErrorDarkContainer,
+    surfaceDim = FzSurfaceDimDark,
+    surfaceBright = FzSurfaceBrightDark,
+    surface = FzSurfaceDark
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Color.White,
-    secondary = Color.White,
-    tertiary = Color.White,
-    onPrimary = Black900,
-    onSecondary = Black500
-
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+val LightColorScheme = lightColorScheme(
+    primary = FzPrimary,
+    secondary = FzSecondary,
+    tertiary = FzTertiary,
+    onPrimary = FzOnPrimary,
+    onSecondary = FzOnSecondary,
+    onTertiary = FzOnTertiary,
+    error = FzErrorLight,
+    primaryContainer = FzPrimaryContainer,
+    secondaryContainer = FzSecondaryContainer,
+    tertiaryContainer = FzTertiaryContainer,
+    errorContainer = FzErrorContainer,
+    surfaceDim = FzSurfaceDim,
+    surfaceBright = FzSurfaceBright,
+    surface = FzSurface
 )
 
 @Composable

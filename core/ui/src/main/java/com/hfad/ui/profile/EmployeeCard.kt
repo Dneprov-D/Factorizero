@@ -23,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hfad.designsystem.components.theme.FactorizeroTheme
+import com.hfad.designsystem.components.theme.FzBackground
+import com.hfad.designsystem.components.theme.OnPrimaryDark
 import com.hfad.ui.R
 
 @Composable
@@ -42,7 +44,7 @@ fun EmployeeCard() {
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentDescription = null
             )
-            Spacer(modifier = Modifier.width(15.dp))
+            Spacer(modifier = Modifier.width(25.dp))
             Column(
                 modifier = Modifier.weight(1f)
             ) {
