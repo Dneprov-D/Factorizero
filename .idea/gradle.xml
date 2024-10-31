@@ -21,6 +21,10 @@
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/authorization" />
+            <option value="$PROJECT_DIR$/feature/employee" />
+            <option value="$PROJECT_DIR$/feature/employee/main" />
+            <option value="$PROJECT_DIR$/feature/master" />
+            <option value="$PROJECT_DIR$/feature/master/main" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

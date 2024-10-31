@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -198,66 +199,20 @@ private fun FzButtonContent(
 
 @Preview(showBackground = true)
 @Composable
-fun FzTextButtonPreview() {
-    FactorizeroTheme {
-        FzBackground(modifier = Modifier.size(150.dp, 50.dp)) {
-            FzTextButton(onClick = {}, text = { Text("Test button") })
-        }
-    }
-}
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun DarkFzButtonPreview() {
-    FactorizeroTheme(darkTheme = true) {
-        FzBackground(modifier = Modifier.size(150.dp, 50.dp)) {
-            FzButton(onClick = {}, text = { Text("Test button") })
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DarkFzOutlinedButtonPreview() {
-    FactorizeroTheme(darkTheme = true) {
-        FzBackground(modifier = Modifier.size(150.dp, 50.dp)) {
-            FzOutlinedButton(onClick = {}, text = { Text("Test button") })
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DarkFzButtonLeadingIconPreview() {
-    FactorizeroTheme(darkTheme = true) {
-        FzBackground(modifier = Modifier.size(150.dp, 50.dp)) {
-            FzButton(
-                onClick = {},
-                text = { Text("Test button") },
-                leadingIcon = { Icon(imageVector = Icons.FzIcons.Add, contentDescription = null) },
-            )
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DarkFzTextButtonPreview() {
-    FactorizeroTheme(darkTheme = true) {
-        FzBackground(modifier = Modifier.size(150.dp, 50.dp)) {
-            FzTextButton(onClick = {}, text = { Text("Test button") })
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
 fun FzButtonPreview() {
     FactorizeroTheme {
         FzBackground(modifier = Modifier.size(150.dp, 50.dp)) {
             FzButton(onClick = {}, text = { Text("Test button") })
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FzTextButtonPreview() {
+    FactorizeroTheme {
+        FzBackground(modifier = Modifier.size(150.dp, 50.dp)) {
+            FzTextButton(onClick = {}, text = { Text("Test button") })
         }
     }
 }
@@ -285,6 +240,52 @@ fun FzButtonLeadingIconPreview() {
         }
     }
 }
+
+// Dark Preview's
+
+//@Preview(showBackground = true)
+//@Composable
+//fun DarkFzButtonPreview() {
+//    FactorizeroTheme(darkTheme = true) {
+//        FzBackground(modifier = Modifier.size(150.dp, 50.dp)) {
+//            FzButton(onClick = {}, text = { Text("Test button") })
+//        }
+//    }
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun DarkFzOutlinedButtonPreview() {
+//    FactorizeroTheme(darkTheme = true) {
+//        FzBackground(modifier = Modifier.size(150.dp, 50.dp)) {
+//            FzOutlinedButton(onClick = {}, text = { Text("Test button") })
+//        }
+//    }
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun DarkFzButtonLeadingIconPreview() {
+//    FactorizeroTheme(darkTheme = true) {
+//        FzBackground(modifier = Modifier.size(150.dp, 50.dp)) {
+//            FzButton(
+//                onClick = {},
+//                text = { Text("Test button") },
+//                leadingIcon = { Icon(imageVector = Icons.FzIcons.Add, contentDescription = null) },
+//            )
+//        }
+//    }
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun DarkFzTextButtonPreview() {
+//    FactorizeroTheme(darkTheme = true) {
+//        FzBackground(modifier = Modifier.size(150.dp, 50.dp)) {
+//            FzTextButton(onClick = {}, text = { Text("Test button") })
+//        }
+//    }
+//}
 
 object FzButtonDefaults {
     const val DISABLED_OUTLINED_BUTTON_BORDER_ALPHA = 0.12f

@@ -54,8 +54,10 @@ android {
 
 dependencies {
 
-    implementation(project(":core:designsystem"))
+    implementation(project(":feature:master:main"))
+    implementation(project(":feature:employee:main"))
     implementation(project(":feature:authorization"))
+    implementation(project(":core:designsystem"))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
     implementation(project(":core:model"))

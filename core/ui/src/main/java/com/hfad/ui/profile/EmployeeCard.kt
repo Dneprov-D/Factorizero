@@ -18,13 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hfad.designsystem.components.theme.FactorizeroTheme
 import com.hfad.designsystem.components.theme.FzBackground
-import com.hfad.designsystem.components.theme.OnPrimaryDark
 import com.hfad.ui.R
 
 @Composable
@@ -39,10 +39,10 @@ fun EmployeeCard() {
             Image(
                 modifier = Modifier
                     .size(50.dp)
-                    .clip(CircleShape)
-                    .background(Color.Gray, shape = CircleShape),
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                contentDescription = null
+                    .clip(CircleShape),
+                painter = painterResource(id = R.drawable.employeeorc),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.width(25.dp))
             Column(
