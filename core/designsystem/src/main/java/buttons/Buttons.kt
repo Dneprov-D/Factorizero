@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hfad.designsystem.components.theme.FactorizeroTheme
 import com.hfad.designsystem.components.theme.FzBackground
+import com.hfad.designsystem.components.theme.LightColorScheme
 
 // Core
 @Composable
@@ -40,7 +41,7 @@ fun FzButtonCore(
         enabled = enabled,
         shape = shape,
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.onBackground,
+            containerColor = LightColorScheme.tertiary
         ),
         contentPadding = contentPadding,
         content = content
@@ -92,6 +93,7 @@ fun FzTextButtonCore(
         enabled = enabled,
         colors = ButtonDefaults.textButtonColors(
             contentColor = MaterialTheme.colorScheme.onBackground,
+            containerColor = LightColorScheme.tertiary
         ),
         content = content,
     )

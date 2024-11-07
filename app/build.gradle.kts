@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.daggerHilt)
     alias(libs.plugins.parcelize)
+    alias(libs.plugins.kotlin.serialization)
     kotlin("kapt")
 }
 
@@ -75,6 +76,12 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.icons)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.compose.material)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.preview)
+    implementation(libs.kotlinx.serialization.json)
+
 
     // Dagger Hilt
     implementation(libs.hilt.android)

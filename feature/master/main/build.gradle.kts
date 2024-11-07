@@ -50,6 +50,8 @@ android {
 dependencies {
 
     implementation(project(":core:designsystem"))
+    implementation(project(":core:navigation"))
+    implementation(project(":core:ui"))
 
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.foundation.layout)
@@ -60,6 +62,11 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.icons)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.compose.material)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.preview)
+    implementation("com.exyte:animated-navigation-bar:1.0.0")
 
     testImplementation(libs.junit)
 

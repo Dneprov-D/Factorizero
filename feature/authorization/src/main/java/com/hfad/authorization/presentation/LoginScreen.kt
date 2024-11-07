@@ -36,10 +36,10 @@ fun MainLoginScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = backgroundColor),
+            .background(color = backgroundColor)
+            .padding(top = 50.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(50.dp))
         Text(
             text = stringResource(R.string.factorizerText),
             fontSize = 32.sp,
