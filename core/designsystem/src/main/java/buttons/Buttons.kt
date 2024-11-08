@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -17,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
@@ -101,13 +103,14 @@ fun FzTextButtonCore(
 
 // Custom Button's
 
+
 @Composable
 fun FzButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: @Composable () -> Unit,
-    leadingIcon: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null
 ) {
     FzButtonCore(
         onClick = onClick,
@@ -119,6 +122,33 @@ fun FzButton(
         } else {
             ButtonDefaults.ContentPadding
         },
+    ) {
+        FzButtonContent(
+            text = text,
+            leadingIcon = leadingIcon,
+        )
+    }
+}
+
+
+@Composable
+fun FzAddButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    text: @Composable () -> Unit,
+    leadingIcon: @Composable (() -> Unit)? = null
+) {
+    FzOutlinedButtonCore(
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        shape = RoundedCornerShape(10.dp),
+        contentPadding = if (leadingIcon != null) {
+            ButtonDefaults.ButtonWithIconContentPadding
+        } else {
+            ButtonDefaults.ContentPadding
+        }
     ) {
         FzButtonContent(
             text = text,
@@ -144,7 +174,7 @@ fun FzOutlinedButton(
             ButtonDefaults.ButtonWithIconContentPadding
         } else {
             ButtonDefaults.ContentPadding
-        },
+        }
     ) {
         FzButtonContent(
             text = text,
@@ -174,7 +204,7 @@ fun FzTextButton(
 }
 
 @Composable
-private fun FzButtonContent(
+fun FzButtonContent(
     text: @Composable () -> Unit,
     leadingIcon: @Composable (() -> Unit)? = null,
 ) {
@@ -237,7 +267,7 @@ fun FzButtonLeadingIconPreview() {
             FzButton(
                 onClick = {},
                 text = { Text("Test button") },
-                leadingIcon = { Icon(imageVector = Icons.FzIcons.Add, contentDescription = null) },
+                leadingIcon = { Icon(imageVector = Icons.FzIcons.Add, contentDescription = null) }
             )
         }
     }
