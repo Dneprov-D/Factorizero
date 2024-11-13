@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -18,6 +20,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material.icons.rounded.Key
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.hfad.designsystem.components.theme.LightColorScheme
 import com.hfad.main.R
 import com.hfad.navigation.BottomBarMaster
 import com.hfad.ui.profile.EmployeeCard
@@ -28,7 +34,16 @@ fun MasterMainScreen() {
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
     Scaffold(
-        bottomBar = { BottomBarMaster(onItemSelected = { /* Обработка выбора элемента */ }) }
+        bottomBar = { BottomBarMaster(onItemSelected = {  }) },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {  },
+                containerColor = LightColorScheme.tertiary
+            ) {
+                Icon(Icons.FzIcons.Add, contentDescription = null)
+            }
+        }
+
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -50,4 +65,3 @@ fun MasterMainScreen() {
         }
     }
 }
-

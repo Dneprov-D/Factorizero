@@ -132,32 +132,6 @@ fun FzButton(
 
 
 @Composable
-fun FzAddButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    text: @Composable () -> Unit,
-    leadingIcon: @Composable (() -> Unit)? = null
-) {
-    FzOutlinedButtonCore(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        shape = RoundedCornerShape(10.dp),
-        contentPadding = if (leadingIcon != null) {
-            ButtonDefaults.ButtonWithIconContentPadding
-        } else {
-            ButtonDefaults.ContentPadding
-        }
-    ) {
-        FzButtonContent(
-            text = text,
-            leadingIcon = leadingIcon,
-        )
-    }
-}
-
-@Composable
 fun FzOutlinedButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

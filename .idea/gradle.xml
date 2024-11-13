@@ -25,6 +25,7 @@
             <option value="$PROJECT_DIR$/feature/employee/main" />
             <option value="$PROJECT_DIR$/feature/master" />
             <option value="$PROJECT_DIR$/feature/master/main" />
+            <option value="$PROJECT_DIR$/feature/master/tasks" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

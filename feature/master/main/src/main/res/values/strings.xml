@@ -2,4 +2,6 @@
 <resources>
     <string name="EmployeeText">Сотрудники</string>
     <string name="TasksText">Задачи</string>
+    <string name="TasksInWorkText">Задачи в работе:</string>
+    <string name="EditTasksText">Изменить задачи</string>
 </resources>

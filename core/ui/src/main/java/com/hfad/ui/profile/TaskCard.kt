@@ -1,7 +1,6 @@
 package com.hfad.ui.profile
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,51 +9,43 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hfad.designsystem.components.theme.FactorizeroTheme
-import com.hfad.designsystem.components.theme.FzBackground
 import com.hfad.ui.R
-@Preview(showBackground = true)
+
 @Composable
-fun EmployeeCard() {
+fun TaskCard() {
     Card {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 modifier = Modifier
-                    .size(50.dp)
-                    .clip(CircleShape),
-                painter = painterResource(id = R.drawable.employeeorc),
+                    .size(100.dp)
+                    .clip(RoundedCornerShape(8.dp)),
+                painter = painterResource(id = R.drawable.drawing),
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.width(25.dp))
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
+            Column {
                 Text(
-                    text = "Имя Фамилия",
+                    text = "Название детали из заказа (кол-во. шт.)",
                     fontSize = 20.sp
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = "Должность",
                 )
             }
         }
@@ -63,8 +54,8 @@ fun EmployeeCard() {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewDark() {
-    FactorizeroTheme(darkTheme = true) {
-        EmployeeCard()
+fun TaskCardPreview() {
+    FactorizeroTheme {
+        TaskCard()
     }
 }

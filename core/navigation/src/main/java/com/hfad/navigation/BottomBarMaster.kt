@@ -16,7 +16,6 @@ import com.hfad.designsystem.components.theme.LightColorScheme
 @Composable
 fun BottomBarMaster(onItemSelected: (Int) -> Unit) {
     BottomNavigation(
-        elevation = 15.dp,
         backgroundColor = LightColorScheme.tertiary
     ) {
         val selectedItemPosition = remember { mutableStateOf(0) }

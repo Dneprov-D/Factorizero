@@ -20,4 +20,5 @@ fun AppNavGraph() {
 }
 @Serializable
 object ScreenMain {
+
 }
