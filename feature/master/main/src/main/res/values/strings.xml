@@ -4,4 +4,7 @@
     <string name="TasksText">Задачи</string>
     <string name="TasksInWorkText">Задачи в работе:</string>
     <string name="EditTasksText">Изменить задачи</string>
+    <string name="NewTaskText">Новая задача</string>
+    <string name="AddPhoto">Добавьте фото</string>
+    <string name="SelectAnEmployee">Выберите сотрудника</string>
 </resources>

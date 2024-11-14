@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import com.hfad.authorization.presentation.MainLoginScreen
 import com.hfad.designsystem.components.theme.FactorizeroTheme
 import com.hfad.main.presentation.MasterMainScreen
+import com.hfad.ui.profile.SelectedEmployeeCard
 
 
 class MainActivity : ComponentActivity() {
@@ -15,12 +16,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FactorizeroTheme {
-                MasterMainScreen()
+                SelectedEmployeeCard()
             }
         }
     }
 }
-
-
-//@Preview(showBackground = true)
-//@Composable
