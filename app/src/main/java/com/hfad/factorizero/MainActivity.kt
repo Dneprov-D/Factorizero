@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import com.hfad.authorization.presentation.MainLoginScreen
 import com.hfad.designsystem.components.theme.FactorizeroTheme
 import com.hfad.main.presentation.MasterMainScreen
+import com.hfad.tasks.presentation.CreateNewTasks
 import com.hfad.ui.profile.SelectedEmployeeCard
 
 
@@ -16,7 +17,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FactorizeroTheme {
-                SelectedEmployeeCard()
+                CreateNewTasks()
             }
         }
     }

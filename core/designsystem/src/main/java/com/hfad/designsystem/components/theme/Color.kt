@@ -7,7 +7,7 @@ val FzPrimary = Color(0xFF665E40)
 val FzSecondary = Color(0xFF6D5E0F)
 val FzTertiary = Color(0xFFA89B67)
 val FzErrorLight = Color(0xFFBA1A1A)
-val FzOnPrimary = Color(0xFFFFFFFF)
+val FzOnPrimary = Color(0xFFFF8400)
 val FzOnSecondary = Color(0xFFFFFFFF)
 val FzOnTertiary = Color(0xFFFFFFFF)
 

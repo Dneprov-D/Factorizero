@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.hfad.designsystem.components.theme.LightColorScheme
 import com.hfad.main.R
 import com.hfad.navigation.BottomBarMaster
+import com.hfad.ui.profile.SelectedEmployeeCard
 
 @Preview(showBackground = true)
 @Composable
@@ -67,6 +68,9 @@ fun CreateNewTasks() {
                 fontFamily = FontFamily.Default,
                 color = Color.LightGray
             )
+            SelectedEmployeeCard()
+            SelectedEmployeeCard()
+            SelectedEmployeeCard()
         }
     }
 }

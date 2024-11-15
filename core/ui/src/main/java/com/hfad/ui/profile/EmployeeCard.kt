@@ -28,6 +28,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import com.hfad.designsystem.components.theme.LightColorScheme
 
 @Preview(showBackground = true)
 @Composable
@@ -75,7 +76,7 @@ fun SelectedEmployeeCard() {
             .padding(8.dp)
             .border(
                 width = if (isSelected) 2.dp else 0.dp,
-                color = if (isSelected) Color.Yellow else Color.Transparent,
+                color = if (isSelected) LightColorScheme.onPrimary else Color.Transparent,
                 shape = RoundedCornerShape(8.dp)
             )
             .clickable {

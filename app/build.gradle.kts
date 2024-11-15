@@ -56,6 +56,7 @@ android {
 dependencies {
 
     implementation(project(":feature:master:main"))
+    implementation(project(":feature:master:tasks"))
     implementation(project(":feature:employee:main"))
     implementation(project(":feature:authorization"))
     implementation(project(":core:designsystem"))
