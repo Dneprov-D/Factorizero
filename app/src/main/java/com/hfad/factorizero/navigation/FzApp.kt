@@ -25,14 +25,6 @@ fun FzApp() {
                     1 -> navController.navigate(Screen.TasksTab)
                 }
             })
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { },
-                containerColor = LightColorScheme.tertiary
-            ) {
-                Icon(FzIcons.Add, contentDescription = null)
-            }
         }
     ) { innerPadding ->
         AppNavGraph(

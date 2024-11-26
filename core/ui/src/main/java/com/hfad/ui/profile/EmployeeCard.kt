@@ -28,12 +28,18 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.navigation.NavHostController
 import com.hfad.designsystem.components.theme.LightColorScheme
+import com.hfad.navigation.Screen
 
-@Preview(showBackground = true)
 @Composable
-fun EmployeeCard() {
-    Card {
+fun EmployeeCard(navController: NavHostController) {
+    Card(
+        modifier = Modifier
+            .clickable {
+                navController.navigate(route = Screen.DetailsOfEmployee)
+            }
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -67,9 +73,7 @@ fun EmployeeCard() {
 
 @Composable
 fun SelectedEmployeeCard() {
-
     var isSelected by remember { mutableStateOf(false) }
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -120,10 +124,10 @@ fun PreviewSelectedEmployeeCard() {
     SelectedEmployeeCard()
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun PreviewDark() {
-    FactorizeroTheme(darkTheme = true) {
-        EmployeeCard()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun PreviewDark() {
+//    FactorizeroTheme(darkTheme = true) {
+//        EmployeeCard()
+//    }
+//}

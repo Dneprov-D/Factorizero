@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.rounded.Key
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -31,7 +32,7 @@ import com.hfad.navigation.Screen
 import com.hfad.ui.profile.EmployeeCard
 
 @Composable
-fun MasterMainScreen() {
+fun MasterMainScreen(navController: NavHostController) {
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
     Column(
@@ -49,6 +50,6 @@ fun MasterMainScreen() {
             color = textColor
         )
         Spacer(modifier = Modifier.height(15.dp))
-        EmployeeCard()
+        EmployeeCard(navController)
     }
 }

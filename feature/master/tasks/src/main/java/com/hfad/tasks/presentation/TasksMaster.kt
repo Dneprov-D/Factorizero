@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.hfad.designsystem.components.theme.LightColorScheme
 import com.hfad.navigation.BottomBarMaster
 import com.hfad.navigation.Screen
@@ -29,28 +30,86 @@ import com.hfad.ui.profile.TaskCard
 import com.hfad.ui.R
 
 @Composable
-fun TasksMaster() {
+fun TasksMaster(navController: NavHostController) {
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
-    Column(
+    Scaffold(
         modifier = Modifier
-            .fillMaxSize()
-            .background(color = backgroundColor)
-            .padding(15.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text(
-            text = stringResource(com.hfad.main.R.string.TasksInWorkText),
-            fontSize = 25.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Default,
-            color = textColor
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        TaskCard()
-        Spacer(modifier = Modifier.height(15.dp))
-        TaskCard()
-        Spacer(modifier = Modifier.height(15.dp))
-        TaskCard()
+            .background(color = backgroundColor),
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate(route = Screen.CreateNewTask)
+                },
+                containerColor = LightColorScheme.tertiary
+            ) {
+                Icon(FzIcons.Add, contentDescription = null)
+            }
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = backgroundColor)
+                .padding(innerPadding)
+                .padding(15.dp),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = stringResource(com.hfad.main.R.string.TasksInWorkText),
+                fontSize = 25.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Default,
+                color = textColor
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+            TaskCard()
+            Spacer(modifier = Modifier.height(15.dp))
+            TaskCard()
+            Spacer(modifier = Modifier.height(15.dp))
+            TaskCard()
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TasksWrapper() {
+    val backgroundColor = MaterialTheme.colorScheme.background
+    val textColor = MaterialTheme.colorScheme.onBackground
+    Scaffold(
+        modifier = Modifier
+            .background(color = backgroundColor),
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { },
+                containerColor = LightColorScheme.tertiary
+            ) {
+                Icon(FzIcons.Add, contentDescription = null)
+            }
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = backgroundColor)
+                .padding(innerPadding)
+                .padding(15.dp),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = stringResource(com.hfad.main.R.string.TasksInWorkText),
+                fontSize = 25.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Default,
+                color = textColor
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+            TaskCard()
+            Spacer(modifier = Modifier.height(15.dp))
+            TaskCard()
+            Spacer(modifier = Modifier.height(15.dp))
+            TaskCard()
+        }
     }
 }

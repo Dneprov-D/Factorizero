@@ -11,5 +11,10 @@ sealed class Screen {
     @Serializable
     data object TasksTab : Screen()
 
+    @Serializable
+    data object CreateNewTask : Screen()
+
+    @Serializable
+    data object DetailsOfEmployee : Screen()
 
 }

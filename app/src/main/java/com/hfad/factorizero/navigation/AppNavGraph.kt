@@ -2,14 +2,14 @@ package com.hfad.factorizero.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.hfad.main.presentation.DetailsOFEmployee
 import com.hfad.main.presentation.MasterMainScreen
 import com.hfad.navigation.Screen
+import com.hfad.tasks.presentation.CreateNewTask
 import com.hfad.tasks.presentation.TasksMaster
-import com.hfad.ui.profile.TaskCard
 
 @Composable
 fun AppNavGraph(
@@ -20,14 +20,23 @@ fun AppNavGraph(
     NavHost(
         navController = navController,
         startDestination = startDestination,
+        modifier = modifier
     ) {
 
         composable<Screen.MainMasterScreen> {
-            MasterMainScreen()
+            MasterMainScreen(navController)
         }
 
         composable<Screen.TasksTab> {
-            TasksMaster()
+            TasksMaster(navController)
+        }
+
+        composable<Screen.CreateNewTask> {
+            CreateNewTask()
+        }
+
+        composable<Screen.DetailsOfEmployee> {
+            DetailsOFEmployee()
         }
     }
 }

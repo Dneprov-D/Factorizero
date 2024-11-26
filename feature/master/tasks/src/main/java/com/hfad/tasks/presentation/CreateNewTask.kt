@@ -23,54 +23,49 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.hfad.designsystem.components.theme.LightColorScheme
 import com.hfad.main.R
 import com.hfad.navigation.BottomBarMaster
+import com.hfad.navigation.Screen
 import com.hfad.ui.profile.SelectedEmployeeCard
 
-@Preview(showBackground = true)
 @Composable
-fun CreateNewTasks() {
+fun CreateNewTask() {
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
-    Scaffold(
+    Column(
         modifier = Modifier
-            .background(color = backgroundColor),
-        bottomBar = { BottomBarMaster(onItemSelected = { }) }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = backgroundColor)
-                .padding(innerPadding)
-                .padding(15.dp),
-            horizontalAlignment = Alignment.Start
-        ) {
-            Text(
-                text = stringResource(R.string.NewTaskText),
-                fontSize = 25.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Default,
-                color = textColor
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = stringResource(R.string.AddPhoto),
-                fontSize = 18.sp,
-                fontFamily = FontFamily.Default,
-                color = Color.LightGray
-            )
-            TitleTaskInputField()
-            TaskQuantityInputField()
-            Text(
-                text = stringResource(R.string.SelectAnEmployee),
-                fontSize = 18.sp,
-                fontFamily = FontFamily.Default,
-                color = Color.LightGray
-            )
-            SelectedEmployeeCard()
-            SelectedEmployeeCard()
-            SelectedEmployeeCard()
-        }
+            .fillMaxSize()
+            .background(color = backgroundColor)
+            .padding(15.dp),
+        horizontalAlignment = Alignment.Start
+    ) {
+        Text(
+            text = stringResource(R.string.NewTaskText),
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Default,
+            color = textColor
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        Text(
+            text = stringResource(R.string.AddPhoto),
+            fontSize = 18.sp,
+            fontFamily = FontFamily.Default,
+            color = Color.LightGray
+        )
+        TitleTaskInputField()
+        TaskQuantityInputField()
+        Text(
+            text = stringResource(R.string.SelectAnEmployee),
+            fontSize = 18.sp,
+            fontFamily = FontFamily.Default,
+            color = Color.LightGray
+        )
+        SelectedEmployeeCard()
+        SelectedEmployeeCard()
+        SelectedEmployeeCard()
     }
 }
+
