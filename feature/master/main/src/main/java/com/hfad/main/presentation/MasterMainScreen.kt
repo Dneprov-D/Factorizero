@@ -21,20 +21,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.rounded.Key
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.hfad.designsystem.components.theme.LightColorScheme
 import com.hfad.main.R
 import com.hfad.navigation.BottomBarMaster
+import com.hfad.navigation.Screen
 import com.hfad.ui.profile.EmployeeCard
 
-@Preview(showBackground = true)
 @Composable
-fun MasterMainScreen() {
+fun MasterMainScreen(navController: NavHostController) {
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
     Scaffold(
-        bottomBar = { BottomBarMaster(onItemSelected = {  }) },
+        bottomBar = {
+            BottomBarMaster(onItemSelected = { index ->
+        when (index) {
+            0 -> navController.navigate(Screen.MainMasterScreen)
+            1 -> navController.navigate(Screen.TasksTab)
+        }
+    }) },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {  },
