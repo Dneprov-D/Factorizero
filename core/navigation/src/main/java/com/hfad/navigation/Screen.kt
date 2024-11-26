@@ -4,9 +4,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class Screen {
+
     @Serializable
     data object MainMasterScreen : Screen()
 
     @Serializable
     data object TasksTab : Screen()
+
+
 }

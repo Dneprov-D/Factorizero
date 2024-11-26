@@ -43,70 +43,62 @@ import com.hfad.ui.profile.TaskCard
 @Preview(showBackground = true)
 @Composable
 fun DetailsOFEmployee() {
-    val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
-    Scaffold(
+    Row(
         modifier = Modifier
-            .background(color = backgroundColor),
-        bottomBar = { BottomBarMaster(onItemSelected = { }) }
-    ) { innerPadding ->
-        Row(
+            .fillMaxSize()
+            .padding(15.dp)
+    ) {
+        Image(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(15.dp)
-        ) {
-            Image(
-                modifier = Modifier
-                    .size(120.dp)
-                    .clip(RoundedCornerShape(8.dp)),
-                painter = painterResource(id = R.drawable.employeeorc),
-                contentDescription = null,
-                contentScale = ContentScale.Crop
+                .size(120.dp)
+                .clip(RoundedCornerShape(8.dp)),
+            painter = painterResource(id = R.drawable.employeeorc),
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
+        Spacer(modifier = Modifier.width(15.dp))
+        Column {
+            Text(
+                text = "Имя Фамилия",
+                fontSize = 25.sp,
             )
-            Spacer(modifier = Modifier.width(15.dp))
-            Column {
-                Text(
-                    text = "Имя Фамилия",
-                    fontSize = 25.sp,
-                )
-                Spacer(modifier = Modifier.width(5.dp))
-                Text(
-                    text = "Должность",
-                    fontSize = 20.sp
+            Spacer(modifier = Modifier.width(5.dp))
+            Text(
+                text = "Должность",
+                fontSize = 20.sp
+            )
+        }
+    }
+    Column(
+        modifier = Modifier
+            .padding(15.dp)
+            .padding(top = 135.dp)
+    ) {
+        Text(
+            text = stringResource(com.hfad.main.R.string.TasksInWorkText),
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Default,
+            color = textColor
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        TaskCard()
+        Spacer(modifier = Modifier.height(15.dp))
+        TaskCard()
+        Spacer(modifier = Modifier.height(15.dp))
+        TaskCard()
+        FzOutlinedButton(
+            modifier = Modifier
+                .fillMaxWidth(),
+            onClick = { /*TODO*/ },
+            text = { Text(stringResource(com.hfad.main.R.string.EditTasksText)) },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Rounded.EditNote,
+                    contentDescription = null
                 )
             }
-        }
-        Column(
-            modifier = Modifier
-                .padding(15.dp)
-                .padding(top = 135.dp)
-        ) {
-            Text(
-                text = stringResource(com.hfad.main.R.string.TasksInWorkText),
-                fontSize = 25.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Default,
-                color = textColor
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            TaskCard()
-            Spacer(modifier = Modifier.height(15.dp))
-            TaskCard()
-            Spacer(modifier = Modifier.height(15.dp))
-            TaskCard()
-            FzOutlinedButton(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                onClick = { /*TODO*/ },
-                text = {Text(stringResource(com.hfad.main.R.string.EditTasksText))},
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Rounded.EditNote,
-                        contentDescription = null
-                    )
-                }
-            )
-        }
+        )
     }
 }

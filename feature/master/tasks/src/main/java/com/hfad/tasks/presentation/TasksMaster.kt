@@ -29,49 +29,28 @@ import com.hfad.ui.profile.TaskCard
 import com.hfad.ui.R
 
 @Composable
-fun TasksMaster(navController: NavHostController) {
+fun TasksMaster() {
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
-    Scaffold(
+    Column(
         modifier = Modifier
-            .background(color = backgroundColor),
-        bottomBar = {
-            BottomBarMaster(onItemSelected = { index ->
-                when (index) {
-                    0 -> navController.navigate(Screen.MainMasterScreen)
-                    1 -> navController.navigate(Screen.TasksTab)
-                }
-            }) },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {  },
-                containerColor = LightColorScheme.tertiary
-            ) {
-                Icon(FzIcons.Add, contentDescription = null)
-            }
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = backgroundColor)
-                .padding(innerPadding)
-                .padding(15.dp),
-            horizontalAlignment = Alignment.Start
-        ) {
-            Text(
-                text = stringResource(com.hfad.main.R.string.TasksInWorkText),
-                fontSize = 25.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Default,
-                color = textColor
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            TaskCard()
-            Spacer(modifier = Modifier.height(15.dp))
-            TaskCard()
-            Spacer(modifier = Modifier.height(15.dp))
-            TaskCard()
-        }
+            .fillMaxSize()
+            .background(color = backgroundColor)
+            .padding(15.dp),
+        horizontalAlignment = Alignment.Start
+    ) {
+        Text(
+            text = stringResource(com.hfad.main.R.string.TasksInWorkText),
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Default,
+            color = textColor
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        TaskCard()
+        Spacer(modifier = Modifier.height(15.dp))
+        TaskCard()
+        Spacer(modifier = Modifier.height(15.dp))
+        TaskCard()
     }
 }

@@ -31,44 +31,24 @@ import com.hfad.navigation.Screen
 import com.hfad.ui.profile.EmployeeCard
 
 @Composable
-fun MasterMainScreen(navController: NavHostController) {
+fun MasterMainScreen() {
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
-    Scaffold(
-        bottomBar = {
-            BottomBarMaster(onItemSelected = { index ->
-        when (index) {
-            0 -> navController.navigate(Screen.MainMasterScreen)
-            1 -> navController.navigate(Screen.TasksTab)
-        }
-    }) },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {  },
-                containerColor = LightColorScheme.tertiary
-            ) {
-                Icon(Icons.FzIcons.Add, contentDescription = null)
-            }
-        }
-
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = backgroundColor)
-                .padding(innerPadding)
-                .padding(15.dp),
-            horizontalAlignment = Alignment.Start
-        ) {
-            Text(
-                text = stringResource(R.string.EmployeeText),
-                fontSize = 25.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Default,
-                color = textColor
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            EmployeeCard()
-        }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = backgroundColor)
+            .padding(15.dp),
+        horizontalAlignment = Alignment.Start
+    ) {
+        Text(
+            text = stringResource(R.string.EmployeeText),
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Default,
+            color = textColor
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        EmployeeCard()
     }
 }

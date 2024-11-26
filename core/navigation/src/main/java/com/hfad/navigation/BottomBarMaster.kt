@@ -38,7 +38,7 @@ fun BottomBarMaster(onItemSelected: (Int) -> Unit) {
                     Text(text = stringResource(id = item.titleResId))
                 },
                 selectedContentColor = Color.Black,
-                unselectedContentColor = Color.DarkGray
+                unselectedContentColor = LightColorScheme.onTertiary
             )
         }
     }
