@@ -34,6 +34,7 @@ import com.hfad.ui.profile.TaskCardWrapper
 fun TasksMaster(navController: NavHostController) {
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
+    //kek
     Scaffold(
         modifier = Modifier
             .background(color = backgroundColor),
