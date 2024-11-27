@@ -22,4 +22,5 @@ sealed class Screen {
 
     @Serializable
     data object DetailsOfTask : Screen()
+
 }
