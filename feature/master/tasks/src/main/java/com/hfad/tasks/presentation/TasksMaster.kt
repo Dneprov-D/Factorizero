@@ -28,6 +28,7 @@ import com.hfad.navigation.BottomBarMaster
 import com.hfad.navigation.Screen
 import com.hfad.ui.profile.TaskCard
 import com.hfad.ui.R
+import com.hfad.ui.profile.TaskCardWrapper
 
 @Composable
 fun TasksMaster(navController: NavHostController) {
@@ -63,11 +64,11 @@ fun TasksMaster(navController: NavHostController) {
                 color = textColor
             )
             Spacer(modifier = Modifier.height(15.dp))
-            TaskCard()
+            TaskCard(navController)
             Spacer(modifier = Modifier.height(15.dp))
-            TaskCard()
+            TaskCard(navController)
             Spacer(modifier = Modifier.height(15.dp))
-            TaskCard()
+            TaskCard(navController)
         }
     }
 }
@@ -105,11 +106,11 @@ fun TasksWrapper() {
                 color = textColor
             )
             Spacer(modifier = Modifier.height(15.dp))
-            TaskCard()
+            TaskCardWrapper()
             Spacer(modifier = Modifier.height(15.dp))
-            TaskCard()
+            TaskCardWrapper()
             Spacer(modifier = Modifier.height(15.dp))
-            TaskCard()
+            TaskCardWrapper()
         }
     }
 }

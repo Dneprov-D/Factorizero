@@ -124,6 +124,46 @@ fun PreviewSelectedEmployeeCard() {
     SelectedEmployeeCard()
 }
 
+@Preview(showBackground = true)
+@Composable
+fun EmployeeCardWrapper() {
+    Card(
+        modifier = Modifier
+            .clickable {
+
+            }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                modifier = Modifier
+                    .size(50.dp)
+                    .clip(CircleShape),
+                painter = painterResource(id = R.drawable.employeeorc),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
+            Spacer(modifier = Modifier.width(25.dp))
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = "Имя Фамилия",
+                    fontSize = 20.sp
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "Должность",
+                )
+            }
+        }
+    }
+}
+
 //@Preview(showBackground = true)
 //@Composable
 //private fun PreviewDark() {

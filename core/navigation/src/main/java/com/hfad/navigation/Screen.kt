@@ -17,4 +17,9 @@ sealed class Screen {
     @Serializable
     data object DetailsOfEmployee : Screen()
 
+    @Serializable
+    data object CreateNewEmployee : Screen()
+
+    @Serializable
+    data object DetailsOfTask : Screen()
 }
