@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.daggerHilt)
     alias(libs.plugins.parcelize)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.gms)
     kotlin("kapt")
 }
 
@@ -68,7 +69,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:common"))
 
-    implementation(platform(libs.androidx.compose.bom))
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.foundation.layout)
@@ -83,6 +84,11 @@ dependencies {
     implementation(libs.compose.ui.preview)
     implementation(libs.kotlinx.serialization.json)
 
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.firestore.core)
+    implementation(libs.firebase.common.ktx)
 
     // Dagger Hilt
     implementation(libs.hilt.android)

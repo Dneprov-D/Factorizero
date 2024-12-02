@@ -22,7 +22,9 @@ appcompat = "1.7.0"
 material = "1.12.0"
 composeMaterial = "1.7.4"
 serialization = "1.6.3"
-animatedBar = "1.0.0"
+gmsVersion = "4.4.2"
+bomVersion = "33.6.0"
+firebaseCommonKtx = "21.0.0"
 
 [libraries]
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
@@ -42,7 +44,7 @@ logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-intercep
 retrofit-gsonConverter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gsonConverter"}
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
-animated-bar = { group = "com.exyte", name = "animated-navigation-bar", version.ref = "animatedBar" }
+firebase-firestore-core = { group = "com.google.firebase", name = "firebase-firestore" }
 
 
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -60,7 +62,9 @@ compose-material = { group = "androidx.compose.material", name = "material", ver
 compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "composeMaterial" }
 compose-ui-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "composeMaterial" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
-
+firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx", version.ref = "firebaseCommonKtx" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "bomVersion" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "bomVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -70,3 +74,4 @@ parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parce
 jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
+gms = { id = "com.google.gms.google-services", version.ref = "gmsVersion"}

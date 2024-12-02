@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "577936486735",
+    "project_id": "factorizero",
+    "storage_bucket": "factorizero.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577936486735:android:599775eefd45a64ed1553a",
+        "android_client_info": {
+          "package_name": "com.hfad.factorizero"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-CbU_2EljRcgrdVXllhEB_mfIMuWpLFM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
