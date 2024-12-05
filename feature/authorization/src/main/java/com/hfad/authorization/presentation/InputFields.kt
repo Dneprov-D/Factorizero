@@ -29,8 +29,7 @@ import com.hfad.authorization.R
 
 
 @Composable
-fun InputFieldLogin() {
-    var text by remember { mutableStateOf("") }
+fun InputFieldLogin(emailInput: String, onEmailInputChanged: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -47,8 +46,8 @@ fun InputFieldLogin() {
                     )
                 }
             },
-            value = text,
-            onValueChange = { newText -> text = newText },
+            value = emailInput,
+            onValueChange = { onEmailInputChanged(it) },
             label = { Text(stringResource(R.string.LoginText)) },
             shape = MaterialTheme.shapes.small,
             singleLine = true,
@@ -62,8 +61,7 @@ fun InputFieldLogin() {
 }
 
 @Composable
-fun InputFieldPassword() {
-    var text by remember { mutableStateOf("") }
+fun InputFieldPassword(passwordInput: String, onPasswordInputChanged: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -80,8 +78,8 @@ fun InputFieldPassword() {
                     )
                 }
             },
-            value = text,
-            onValueChange = { newText -> text = newText },
+            value = passwordInput,
+            onValueChange = { onPasswordInputChanged(it) },
             label = { Text(stringResource(R.string.PasswordText)) },
             shape = MaterialTheme.shapes.small,
             singleLine = true,
@@ -95,14 +93,14 @@ fun InputFieldPassword() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun LoginPreview() {
-    InputFieldLogin()
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PasswordPreview() {
-    InputFieldPassword()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun LoginPreviewWrapper() {
+//    InputFieldLogin()
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun PasswordPreview() {
+//    InputFieldPassword()
+//}

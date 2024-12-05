@@ -25,6 +25,7 @@ serialization = "1.6.3"
 gmsVersion = "4.4.2"
 bomVersion = "33.6.0"
 firebaseCommonKtx = "21.0.0"
+hiltViewModel = "1.2.0"
 
 [libraries]
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
@@ -38,13 +39,13 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 glide-compose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide" }
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
+hilt-viewModel = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltViewModel" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
 okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp3" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
 retrofit-gsonConverter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gsonConverter"}
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
-firebase-firestore-core = { group = "com.google.firebase", name = "firebase-firestore" }
 
 
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -65,6 +66,9 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx", version.ref = "firebaseCommonKtx" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "bomVersion" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "bomVersion" }
+firebase-firestore-core = { group = "com.google.firebase", name = "firebase-firestore" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage-ktx" }
+firebase-auth = { module = "com.google.firebase:firebase-auth" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
