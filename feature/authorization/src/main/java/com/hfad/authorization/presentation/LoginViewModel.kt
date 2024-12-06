@@ -20,6 +20,14 @@ class LoginViewModel @Inject constructor(
             loginState.passwordInput
         )
     }
+
+    fun onSignUpClick() {
+        repository.signIn(
+            loginState.emailInput,
+            loginState.passwordInput
+        )
+    }
+
     fun onEmailInputChanged(newInput: String) {
         loginState = loginState.copy(emailInput = newInput)
     }

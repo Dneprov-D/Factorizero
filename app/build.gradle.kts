@@ -69,7 +69,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:common"))
 
-
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.foundation.layout)
@@ -90,7 +90,6 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.firebase.firestore.core)
     implementation(libs.firebase.common.ktx)
-
 
     // Dagger Hilt
     implementation(libs.hilt.android)

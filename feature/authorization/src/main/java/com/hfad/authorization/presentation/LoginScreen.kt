@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -75,7 +76,7 @@ fun MainLoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
         Row {
             FzButton(
                 onClick = {
-
+                    viewModel.onSignUpClick()
                 },
                 text = { Text(text = stringResource(R.string.LogIn)) }
             )
@@ -84,6 +85,64 @@ fun MainLoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
                 onClick = {
                     viewModel.onCreateAccountClick()
                 },
+                text = { Text(text = stringResource(R.string.CreateAnAccount)) }
+            )
+        }
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun MainLoginScreenWrapper() {
+
+    val backgroundColor = MaterialTheme.colorScheme.background
+    val textColor = MaterialTheme.colorScheme.onBackground
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = backgroundColor)
+            .padding(top = 50.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(R.string.factorizerText),
+            fontSize = 32.sp,
+            fontFamily = FontFamily.Serif,
+            color = textColor
+        )
+        Spacer(modifier = Modifier.height(50.dp))
+        Image(
+            modifier = Modifier
+                .size(230.dp),
+            painter = painterResource(id = R.drawable.torbj),
+            contentDescription = null
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            text = stringResource(R.string.EnterToProfileText),
+            fontSize = 17.sp,
+            color = textColor
+        )
+
+        InputFieldLogin(
+            emailInput = "",
+            onEmailInputChanged = {}
+        )
+
+        InputFieldPassword(
+            passwordInput = "",
+            onPasswordInputChanged = {}
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+        Row {
+            FzButton(
+                onClick = { },
+                text = { Text(text = stringResource(R.string.LogIn)) }
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            FzButton(
+                onClick = { },
                 text = { Text(text = stringResource(R.string.CreateAnAccount)) }
             )
         }
