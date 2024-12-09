@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.googleServices)
     alias(libs.plugins.daggerHilt)
     kotlin("kapt")
 }
@@ -55,12 +56,9 @@ dependencies {
     implementation(project(":core:navigation"))
 
     // Firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.storage)
-    implementation(libs.firebase.firestore.core)
-    implementation(libs.firebase.common.ktx)
-    implementation(libs.firebase.auth)
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-auth")
 
     // Dagger Hilt
     implementation(libs.hilt.android)

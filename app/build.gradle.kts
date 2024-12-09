@@ -4,13 +4,13 @@ plugins {
     alias(libs.plugins.daggerHilt)
     alias(libs.plugins.parcelize)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.gms)
+    alias(libs.plugins.googleServices)
     kotlin("kapt")
 }
 
 android {
     namespace = "com.hfad.factorizero"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.hfad.factorizero"
@@ -85,11 +85,9 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     // Firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.storage)
-    implementation(libs.firebase.firestore.core)
-    implementation(libs.firebase.common.ktx)
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-auth")
 
     // Dagger Hilt
     implementation(libs.hilt.android)
