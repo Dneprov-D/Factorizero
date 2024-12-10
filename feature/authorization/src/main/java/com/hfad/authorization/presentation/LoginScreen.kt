@@ -23,13 +23,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.hfad.authorization.R
-
+import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
-fun MainLoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
+fun MainLoginScreen(
+    viewModel: LoginViewModel = hiltViewModel()
+) {
 
     val uiState = viewModel.loginState
     val backgroundColor = MaterialTheme.colorScheme.background

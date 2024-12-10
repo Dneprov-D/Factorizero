@@ -85,12 +85,13 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
-    implementation("com.google.firebase:firebase-firestore")
-    implementation("com.google.firebase:firebase-auth")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth)
 
     // Dagger Hilt
     implementation(libs.hilt.android)
+    implementation(libs.hilt.viewModel)
     kapt(libs.hilt.android.compiler)
 
     // Room
