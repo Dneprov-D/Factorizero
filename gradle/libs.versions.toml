@@ -2,7 +2,6 @@
 agp = "8.3.2"
 firebaseBom = "33.7.0"
 hiltAndroid = "2.51.1"
-hiltAndroidCompiler = "2.48"
 kotlin = "1.9.21"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -38,7 +37,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 glide-compose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide" }
-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltAndroid" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
 hilt-viewModel = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltViewModel" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}

@@ -7,6 +7,7 @@ import com.hfad.navigation.Screen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Singleton
+@Singleton
 class LoginRepository @Inject constructor(
     private val auth: FirebaseAuth
 ) {
