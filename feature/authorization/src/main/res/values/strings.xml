@@ -8,4 +8,6 @@
     <string name="LoginText">Логин</string>
     <string name="PasswordText">Пароль</string>
     <string name="CreateAnAccount">Создать аккаунт</string>
+    <string name="SignOut">Выйти из профиля</string>
+    <string name="DeleteAnAccount">Удалить профиль</string>
 </resources>

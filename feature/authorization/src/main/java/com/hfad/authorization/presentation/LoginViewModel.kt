@@ -21,8 +21,19 @@ class LoginViewModel @Inject constructor(
         )
     }
 
-    fun onSignUpClick() {
+    fun onSignInClick() {
         repository.signIn(
+            loginState.emailInput,
+            loginState.passwordInput
+        )
+    }
+
+    fun onSignOutClick() {
+        repository.signOut()
+    }
+
+    fun onDeleteAccountClicked() {
+        repository.deleteAccount(
             loginState.emailInput,
             loginState.passwordInput
         )

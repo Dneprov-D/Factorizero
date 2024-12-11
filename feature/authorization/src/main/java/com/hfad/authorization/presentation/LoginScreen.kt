@@ -1,5 +1,6 @@
 package com.hfad.authorization.presentation
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -23,14 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
+import com.google.firebase.auth.FirebaseAuth
 import com.hfad.authorization.R
+import com.hfad.data.repository.LoginRepository
 import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
 fun MainLoginScreen(
-    viewModel: LoginViewModel = hiltViewModel()
+    viewModel: LoginViewModel = hiltViewModel(),
 ) {
-
     val uiState = viewModel.loginState
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
@@ -73,10 +75,10 @@ fun MainLoginScreen(
         )
 
         Spacer(modifier = Modifier.height(10.dp))
-        Row {
+        Column {
             FzButton(
                 onClick = {
-                    viewModel.onSignUpClick()
+                    viewModel.onSignInClick()
                 },
                 text = { Text(text = stringResource(R.string.LogIn)) }
             )
@@ -90,6 +92,7 @@ fun MainLoginScreen(
         }
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 fun MainLoginScreenWrapper() {
