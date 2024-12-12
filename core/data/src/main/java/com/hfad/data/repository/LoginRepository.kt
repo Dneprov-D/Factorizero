@@ -14,27 +14,39 @@ class LoginRepository @Inject constructor(
     private val auth: FirebaseAuth
 ) {
 
-    fun createAnAccount(email: String, password: String) {
+    fun createAnAccount(
+        email: String,
+        password: String,
+        onSignUpSuccess: () -> Unit,
+        onSignUpFailure: (String) -> Unit
+    ) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Log.e("LogLogin", "CreateAnAccount - Successful!")
-                } else {
-                    Log.e("LogLogin", "CreateAnAccount - Failed!")
-                }
+                if (it.isSuccessful) onSignUpSuccess()
+            }
+            .addOnFailureListener {
+                onSignUpFailure(it.message ?: "Произошла ошибка регистрации")
             }
     }
 
-    fun signIn(email: String, password: String) {
+    fun signIn(
+        email: String,
+        password: String,
+        onSignInSuccess: () -> Unit,
+        onSignInFailure: (String) -> Unit
+    ) {
+        if (email.isBlank() || password.isBlank()) {
+            onSignInFailure("Логин и пароль не можут быть пустыми")
+            return
+        }
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Log.e("LogLogin", "Sign In - Successful!")
-                } else {
-                    Log.e("LogLogin", "Sign In - Failed!")
-                }
+                if (it.isSuccessful) onSignInSuccess()
+            }.addOnFailureListener {
+                onSignInFailure(it.message ?: "Произошла ошибка при входе")
             }
     }
+
 
     fun signOut() {
         auth.signOut()
@@ -44,9 +56,9 @@ class LoginRepository @Inject constructor(
     fun deleteAccount(email: String, password: String) {
         val credential = EmailAuthProvider.getCredential(email, password)
         auth.currentUser?.reauthenticate(credential)?.addOnCompleteListener {
-            if(it.isSuccessful) {
+            if (it.isSuccessful) {
                 auth.currentUser?.delete()?.addOnCompleteListener {
-                    if(it.isSuccessful) {
+                    if (it.isSuccessful) {
                         Log.e("LogLogin", "Account was deleted!")
                     } else {
                         Log.e("LogLogin", "Failure delete account!")

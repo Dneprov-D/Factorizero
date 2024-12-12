@@ -1,7 +1,10 @@
 package com.hfad.authorization.presentation
 
+import android.util.Log
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.hfad.data.repository.LoginRepository
@@ -14,19 +17,45 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
     var loginState by mutableStateOf(LoginScreenState())
         private set
+
     fun onCreateAccountClick() {
+        if (loginState.emailInput.isBlank() || loginState.passwordInput.isBlank()) {
+            loginState = loginState.copy(errorState = "Логин и пароль не могут быть пустыми")
+            return
+        }
+
         repository.createAnAccount(
-            loginState.emailInput,
-            loginState.passwordInput
+            email = loginState.emailInput,
+            password = loginState.passwordInput,
+            onSignUpSuccess = {
+                // Здесь обработка успешного создания аккаунта.
+                loginState = loginState.copy(errorState = "") // Очистка ошибки, если нужно.
+            },
+            onSignUpFailure = { error ->
+                loginState = loginState.copy(errorState = error)
+            }
         )
     }
 
     fun onSignInClick() {
+        if (loginState.emailInput.isBlank() || loginState.passwordInput.isBlank()) {
+            loginState = loginState.copy(errorState = "Логин и пароль не могут быть пустыми")
+            return
+        }
+
         repository.signIn(
-            loginState.emailInput,
-            loginState.passwordInput
+            email = loginState.emailInput,
+            password = loginState.passwordInput,
+            onSignInSuccess = {
+                // Здесь обработка успешного создания аккаунта.
+                loginState = loginState.copy(errorState = "") // Очистка ошибки, если нужно.
+            },
+            onSignInFailure = { error ->
+                loginState = loginState.copy(errorState = error)
+            }
         )
     }
+
 
     fun onSignOutClick() {
         repository.signOut()
@@ -50,5 +79,6 @@ class LoginViewModel @Inject constructor(
 
 data class LoginScreenState(
     val emailInput: String = "",
-    val passwordInput: String = ""
+    val passwordInput: String = "",
+    val errorState: String = ""
 )
