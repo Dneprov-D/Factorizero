@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -21,6 +22,14 @@ fun <T> ObserveAsEvents(
             withContext(Dispatchers.Main.immediate) {
                 flow.collect(onEvent)
             }
+        }
+    }
+}
+
+fun NavController.navigateToNewRoot(route: Any) {
+    navigate(route) {
+        popUpTo(graph.id) {
+            inclusive = true
         }
     }
 }
