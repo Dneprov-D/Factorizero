@@ -29,7 +29,7 @@ fun FzApp() {
     ) { innerPadding ->
         AppNavGraph(
             navController = navController,
-            startDestination = Screen.MainMasterScreen,
+            startDestination = Screen.LoginScreen,
             modifier = Modifier.padding(innerPadding)
         )
     }

@@ -15,20 +15,36 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
 import com.hfad.authorization.R
+import com.hfad.common.compose.ObserveAsEvents
+import com.hfad.navigation.Screen
 
 @Composable
-fun MainLoginScreen(
+fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
+    onNavigateToMainScreen: (Screen.MainScreenDataObject) -> Unit
 ) {
 
     val uiState = viewModel.loginState
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
+
+    ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
+        when(event) {
+           is NavigationEvent.OnSignedIn -> {
+                onNavigateToMainScreen(event.data)
+            }
+
+            is NavigationEvent.OnRegistered -> {
+                onNavigateToMainScreen(event.data)
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -64,12 +80,14 @@ fun MainLoginScreen(
         if (uiState.errorState.isNotBlank()) {
             Text(
                 text = uiState.errorState,
-                color = Color.Red
+                color = Color.Red,
+                textAlign = TextAlign.Center
             )
         }
         FzButton(
             onClick = {
                 viewModel.onSignInClick()
+
             },
             text = { Text(text = stringResource(R.string.LogIn)) }
         )

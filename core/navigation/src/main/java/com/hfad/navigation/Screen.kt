@@ -3,7 +3,9 @@ package com.hfad.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class Screen {
+sealed class Screen() {
+    @Serializable
+    data object LoginScreen : Screen()
 
     @Serializable
     data object MainMasterScreen : Screen()
@@ -23,4 +25,9 @@ sealed class Screen {
     @Serializable
     data object DetailsOfTask : Screen()
 
+    @Serializable
+    data class MainScreenDataObject(
+        val uid: String = "",
+        val email: String = ""
+    )
 }

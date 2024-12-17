@@ -17,12 +17,23 @@ class LoginRepository @Inject constructor(
     fun createAnAccount(
         email: String,
         password: String,
-        onSignUpSuccess: () -> Unit,
+        onSignUpSuccess: (Screen.MainScreenDataObject) -> Unit,
         onSignUpFailure: (String) -> Unit
     ) {
+        if (email.isBlank() || password.isBlank()) {
+            onSignUpFailure("Login and Password cannot be empty")
+            return
+        }
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
-                if (it.isSuccessful) onSignUpSuccess()
+                if (it.isSuccessful) {
+                    onSignUpSuccess(
+                        Screen.MainScreenDataObject(
+                            it.result.user?.uid!!,
+                            it.result.user?.email!!
+                        )
+                    )
+                }
             }
             .addOnFailureListener {
                 onSignUpFailure(it.message ?: "Произошла ошибка регистрации")
@@ -32,16 +43,23 @@ class LoginRepository @Inject constructor(
     fun signIn(
         email: String,
         password: String,
-        onSignInSuccess: () -> Unit,
+        onSignInSuccess: (Screen.MainScreenDataObject) -> Unit,
         onSignInFailure: (String) -> Unit
     ) {
         if (email.isBlank() || password.isBlank()) {
-            onSignInFailure("Логин и пароль не можут быть пустыми")
+            onSignInFailure("Login and Password cannot be empty")
             return
         }
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
-                if (it.isSuccessful) onSignInSuccess()
+                if (it.isSuccessful) {
+                    onSignInSuccess(
+                        Screen.MainScreenDataObject(
+                            it.result.user?.uid!!,
+                            it.result.user?.email!!
+                        )
+                    )
+                }
             }.addOnFailureListener {
                 onSignInFailure(it.message ?: "Произошла ошибка при входе")
             }

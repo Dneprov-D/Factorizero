@@ -5,6 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navOptions
+import androidx.navigation.toRoute
+import com.hfad.authorization.presentation.LoginScreen
 import com.hfad.main.presentation.CreateNewEmployee
 import com.hfad.main.presentation.DetailsOFEmployee
 import com.hfad.main.presentation.MasterMainScreen
@@ -16,7 +19,7 @@ import com.hfad.tasks.presentation.TasksMaster
 @Composable
 fun AppNavGraph(
     navController: NavHostController,
-    startDestination: Screen = Screen.MainMasterScreen,
+    startDestination: Screen = Screen.LoginScreen,
     modifier: Modifier
 ) {
     NavHost(
@@ -25,7 +28,16 @@ fun AppNavGraph(
         modifier = modifier
     ) {
 
-        composable<Screen.MainMasterScreen> {
+        composable<Screen.LoginScreen> {
+            LoginScreen {
+                navController.navigate(
+                    route = Screen.MainMasterScreen
+                )
+            }
+        }
+
+        composable<Screen.MainMasterScreen> { navEntry ->
+            val navData = navEntry.toRoute<Screen.MainScreenDataObject>()
             MasterMainScreen(navController)
         }
 

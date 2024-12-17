@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.googleServices)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.daggerHilt)
     kotlin("kapt")
 }
@@ -77,6 +78,7 @@ dependencies {
     implementation(libs.compose.material)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.preview)
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
 
