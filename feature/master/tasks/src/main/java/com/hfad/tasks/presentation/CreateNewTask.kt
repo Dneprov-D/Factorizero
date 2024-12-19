@@ -31,7 +31,7 @@ import com.hfad.navigation.Screen
 import com.hfad.ui.profile.SelectedEmployeeCard
 
 @Composable
-fun CreateNewTask() {
+fun CreateNewTaskScreen() {
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
     Column(

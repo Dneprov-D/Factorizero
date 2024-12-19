@@ -22,7 +22,7 @@ fun FzApp() {
             BottomBarMaster(onItemSelected = { index ->
                 when (index) {
                     0 -> navController.navigate(Screen.MainMasterScreen)
-                    1 -> navController.navigate(Screen.TasksTab)
+                    1 -> navController.navigate(Screen.TasksMasterScreen)
                 }
             })
         }

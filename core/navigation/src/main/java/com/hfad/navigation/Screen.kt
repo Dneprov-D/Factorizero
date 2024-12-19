@@ -11,19 +11,19 @@ sealed class Screen() {
     data object MainMasterScreen : Screen()
 
     @Serializable
-    data object TasksTab : Screen()
+    data object TasksMasterScreen : Screen()
 
     @Serializable
-    data object CreateNewTask : Screen()
+    data object CreateNewTaskScreen : Screen()
 
     @Serializable
-    data object DetailsOfEmployee : Screen()
+    data object EmployeeDetails : Screen()
 
     @Serializable
-    data object CreateNewEmployee : Screen()
+    data object CreateNewEmployeeScreen : Screen()
 
     @Serializable
-    data object DetailsOfTask : Screen()
+    data object TaskDetails : Screen()
 
     @Serializable
     data class MainScreenDataObject(

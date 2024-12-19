@@ -32,7 +32,7 @@ fun TaskCard(navController: NavHostController) {
     Card(
         modifier = Modifier
             .clickable {
-                navController.navigate(route = Screen.DetailsOfTask)
+                navController.navigate(route = Screen.TaskDetails)
             }
     )  {
         Row(

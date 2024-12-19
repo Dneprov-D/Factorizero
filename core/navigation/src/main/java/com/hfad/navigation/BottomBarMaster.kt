@@ -18,6 +18,7 @@ fun BottomBarMaster(onItemSelected: (Int) -> Unit) {
     BottomNavigation(
         backgroundColor = LightColorScheme.tertiary
     ) {
+
         val selectedItemPosition = remember { mutableStateOf(0) }
         val items = listOf(
             BottomNavItem.EmployeeTab,

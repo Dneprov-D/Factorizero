@@ -22,16 +22,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.hfad.designsystem.components.theme.LightColorScheme
-import com.hfad.navigation.BottomBarMaster
 import com.hfad.navigation.Screen
 import com.hfad.ui.profile.TaskCard
-import com.hfad.ui.R
 import com.hfad.ui.profile.TaskCardWrapper
 
 @Composable
-fun TasksMaster(navController: NavHostController) {
+fun TasksMasterScreen(navController: NavHostController) {
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
     Scaffold(
@@ -40,7 +37,7 @@ fun TasksMaster(navController: NavHostController) {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navController.navigate(route = Screen.CreateNewTask)
+                    navController.navigate(route = Screen.CreateNewTaskScreen)
                 },
                 containerColor = LightColorScheme.tertiary
             ) {

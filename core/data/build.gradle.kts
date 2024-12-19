@@ -63,6 +63,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.hilt.android)
+    implementation(project(":core:common"))
     kapt(libs.hilt.android.compiler)
 
     implementation(libs.androidx.compose.foundation)

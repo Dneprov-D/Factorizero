@@ -1,20 +1,22 @@
 package com.hfad.factorizero.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.hfad.authorization.presentation.LoginScreen
 import com.hfad.common.compose.navigateToNewRoot
 import com.hfad.main.presentation.CreateNewEmployee
-import com.hfad.main.presentation.DetailsOFEmployee
+import com.hfad.main.presentation.EmployeeDetails
 import com.hfad.main.presentation.MasterMainScreen
 import com.hfad.navigation.Screen
-import com.hfad.tasks.presentation.CreateNewTask
-import com.hfad.tasks.presentation.DetailsOFTask
-import com.hfad.tasks.presentation.TasksMaster
+import com.hfad.tasks.presentation.CreateNewTaskScreen
+import com.hfad.tasks.presentation.TaskDetailsScreen
+import com.hfad.tasks.presentation.TasksMasterScreen
 
 @Composable
 fun AppNavGraph(
@@ -22,6 +24,16 @@ fun AppNavGraph(
     startDestination: Screen = Screen.LoginScreen,
     modifier: Modifier
 ) {
+    LaunchedEffect(Unit) {
+        Firebase.auth.addAuthStateListener {
+            if (it.currentUser != null) {
+                navController.navigateToNewRoot(Screen.MainMasterScreen)
+            } else {
+                navController.navigateToNewRoot(Screen.LoginScreen)
+            }
+        }
+    }
+
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -38,24 +50,24 @@ fun AppNavGraph(
             MasterMainScreen(navController)
         }
 
-        composable<Screen.TasksTab> {
-            TasksMaster(navController)
+        composable<Screen.TasksMasterScreen> {
+            TasksMasterScreen(navController)
         }
 
-        composable<Screen.CreateNewTask> {
-            CreateNewTask()
+        composable<Screen.CreateNewTaskScreen> {
+            CreateNewTaskScreen()
         }
 
-        composable<Screen.DetailsOfTask> {
-            DetailsOFTask()
+        composable<Screen.TaskDetails> {
+            TaskDetailsScreen()
         }
 
-        composable<Screen.CreateNewEmployee> {
+        composable<Screen.CreateNewEmployeeScreen> {
             CreateNewEmployee()
         }
 
-        composable<Screen.DetailsOfEmployee> {
-            DetailsOFEmployee(navController)
+        composable<Screen.EmployeeDetails> {
+            EmployeeDetails(navController)
         }
     }
 }

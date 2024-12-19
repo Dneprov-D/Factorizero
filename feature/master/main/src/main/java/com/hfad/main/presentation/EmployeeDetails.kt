@@ -2,7 +2,6 @@ package com.hfad.main.presentation
 
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.content.MediaType.Companion.Text
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,7 +35,7 @@ import com.hfad.ui.profile.TaskCard
 import com.hfad.ui.profile.TaskCardWrapper
 
 @Composable
-fun DetailsOFEmployee(navController: NavHostController) {
+fun EmployeeDetails(navController: NavHostController) {
     val textColor = MaterialTheme.colorScheme.onBackground
     Row(
         modifier = Modifier

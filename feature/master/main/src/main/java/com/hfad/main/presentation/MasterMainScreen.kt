@@ -43,7 +43,7 @@ fun MasterMainScreen(navController: NavHostController) {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navController.navigate(route = Screen.CreateNewEmployee)
+                    navController.navigate(route = Screen.CreateNewEmployeeScreen)
                 },
                 containerColor = LightColorScheme.tertiary
             ) {
