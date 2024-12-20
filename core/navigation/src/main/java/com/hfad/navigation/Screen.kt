@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class Screen() {
+
     @Serializable
     data object LoginScreen : Screen()
 
@@ -17,13 +18,13 @@ sealed class Screen() {
     data object CreateNewTaskScreen : Screen()
 
     @Serializable
-    data object EmployeeDetails : Screen()
+    data object EmployeeDetailsScreen : Screen()
 
     @Serializable
     data object CreateNewEmployeeScreen : Screen()
 
     @Serializable
-    data object TaskDetails : Screen()
+    data object TaskDetailsScreen : Screen()
 
     @Serializable
     data class MainScreenDataObject(

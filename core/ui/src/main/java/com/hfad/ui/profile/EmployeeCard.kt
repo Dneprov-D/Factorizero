@@ -37,7 +37,7 @@ fun EmployeeCard(navController: NavHostController) {
     Card(
         modifier = Modifier
             .clickable {
-                navController.navigate(route = Screen.EmployeeDetails)
+                navController.navigate(route = Screen.EmployeeDetailsScreen)
             }
     ) {
         Row(

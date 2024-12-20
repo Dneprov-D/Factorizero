@@ -58,7 +58,7 @@ fun AppNavGraph(
             CreateNewTaskScreen()
         }
 
-        composable<Screen.TaskDetails> {
+        composable<Screen.TaskDetailsScreen> {
             TaskDetailsScreen()
         }
 
@@ -66,7 +66,7 @@ fun AppNavGraph(
             CreateNewEmployee()
         }
 
-        composable<Screen.EmployeeDetails> {
+        composable<Screen.EmployeeDetailsScreen> {
             EmployeeDetails(navController)
         }
     }
