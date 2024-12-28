@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.hfad.designsystem.components.theme.LightColorScheme
 import com.hfad.main.R
-import com.hfad.navigation.BottomBarMaster
 import com.hfad.navigation.Screen
 import com.hfad.ui.profile.SelectedEmployeeCard
 

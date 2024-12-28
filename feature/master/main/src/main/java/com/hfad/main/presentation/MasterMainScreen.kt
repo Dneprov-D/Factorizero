@@ -28,7 +28,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.hfad.designsystem.components.theme.LightColorScheme
 import com.hfad.main.R
-import com.hfad.navigation.BottomBarMaster
 import com.hfad.navigation.Screen
 import com.hfad.ui.profile.EmployeeCard
 import com.hfad.ui.profile.EmployeeCardWrapper

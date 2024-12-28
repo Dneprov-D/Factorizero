@@ -1,16 +1,15 @@
 package com.hfad.factorizero.navigation
 
 import androidx.navigation.NavDestination.Companion.hasRoute
-import android.annotation.SuppressLint
-import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 import androidx.navigation.navigation
 import com.hfad.main.presentation.CreateNewEmployee
 import com.hfad.main.presentation.EmployeeDetails
@@ -63,9 +62,30 @@ fun NavDestination?.isRouteInHierarchy(route: KClass<*>) =
         it.hasRoute(route)
     } ?: false
 
+fun NavController.navigateToBottomNavigationDestination(bottomNavigationDestination: BottomNavigationDestination) {
+    val bottomNavigationNavOptions = navOptions {
+        popUpTo(graph.findStartDestination().id) {
+            saveState = true
+        }
+        launchSingleTop = true
+        restoreState = true
+    }
+    when (bottomNavigationDestination) {
+        BottomNavigationDestination.EMPLOYEE_TAB -> navigateToEmployeeTab(bottomNavigationNavOptions)
+        BottomNavigationDestination.TASKS_TAB -> navigateToTasksTab(bottomNavigationNavOptions)
+    }
+}
+
 fun shouldShowBottomBar(currentDestination: NavDestination?) =
     currentDestination?.let { destination ->
         TopLevelScreens.entries.none { screen ->
             destination.hasRoute(screen.route)
         }
     } == true
+
+fun NavController.navigateToEmployeeTab(navOptions: NavOptions) =
+    navigate(route = Screen.EmployeeTabScreen, navOptions)
+
+fun NavController.navigateToTasksTab(navOptions: NavOptions) =
+    navigate(route = Screen.TasksTabScreen, navOptions)
+
