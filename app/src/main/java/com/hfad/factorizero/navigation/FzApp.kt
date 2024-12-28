@@ -18,19 +18,9 @@ fun FzApp() {
 
     Scaffold(
         bottomBar = {
-            if (
-                currentDestination?.let { destination ->
-                    TopLevelScreens.entries.none { screen ->
-                        destination.hasRoute(screen.route)
-                    }
-                } == true
-            )
-            BottomBarMaster(onItemSelected = { index ->
-                when (index) {
-                    0 -> navController.navigate(Screen.EmployeeTabScreen)
-                    1 -> navController.navigate(Screen.TasksTabScreen)
-                }
-            })
+            if (shouldShowBottomBar(currentDestination)) {
+                BottomBarMaster()
+            }
         }
     ) { innerPadding ->
         AppNavGraph(
