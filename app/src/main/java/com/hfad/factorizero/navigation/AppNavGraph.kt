@@ -45,29 +45,7 @@ fun AppNavGraph(
                 navController.navigateToNewRoot(Screen.MainMasterScreen)
             }
         }
-
-        composable<Screen.MainMasterScreen> {
-            MasterMainScreen(navController)
-        }
-
-        composable<Screen.TasksMasterScreen> {
-            TasksMasterScreen(navController)
-        }
-
-        composable<Screen.CreateNewTaskScreen> {
-            CreateNewTaskScreen()
-        }
-
-        composable<Screen.TaskDetailsScreen> {
-            TaskDetailsScreen()
-        }
-
-        composable<Screen.CreateNewEmployeeScreen> {
-            CreateNewEmployee()
-        }
-
-        composable<Screen.EmployeeDetailsScreen> {
-            EmployeeDetails(navController)
-        }
+        employeeTabNavGraph(navController)
+        tasksTabNavGraph(navController)
     }
 }
