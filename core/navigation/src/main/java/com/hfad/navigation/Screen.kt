@@ -33,6 +33,9 @@ sealed class Screen() {
     data object TasksTabScreen : Screen()
 
     @Serializable
+    data object ProfileTabScreen : Screen()
+
+    @Serializable
     data class MainScreenDataObject(
         val uid: String = "",
         val email: String = ""

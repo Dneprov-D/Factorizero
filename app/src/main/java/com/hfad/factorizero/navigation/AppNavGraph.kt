@@ -47,5 +47,6 @@ fun AppNavGraph(
         }
         employeeTabNavGraph(navController)
         tasksTabNavGraph(navController)
+        profileTabNavGraph(navController)
     }
 }

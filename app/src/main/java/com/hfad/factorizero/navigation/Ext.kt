@@ -14,12 +14,21 @@ import androidx.navigation.navigation
 import com.hfad.main.presentation.CreateNewEmployee
 import com.hfad.main.presentation.EmployeeDetails
 import com.hfad.main.presentation.MasterMainScreen
+import com.hfad.main.presentation.MasterProfileScreen
 import com.hfad.navigation.Screen
 import com.hfad.navigation.TopLevelScreens
 import com.hfad.tasks.presentation.CreateNewTaskScreen
 import com.hfad.tasks.presentation.TaskDetailsScreen
 import com.hfad.tasks.presentation.TasksMasterScreen
 import kotlin.reflect.KClass
+
+fun NavGraphBuilder.profileTabNavGraph(
+    navController: NavHostController
+) {
+    composable<Screen.ProfileTabScreen> {
+        MasterProfileScreen()
+    }
+}
 
 fun NavGraphBuilder.employeeTabNavGraph(
     navController: NavHostController
@@ -33,6 +42,7 @@ fun NavGraphBuilder.employeeTabNavGraph(
         composable<Screen.EmployeeDetailsScreen> {
             EmployeeDetails(navController)
         }
+
         composable<Screen.CreateNewEmployeeScreen> {
             CreateNewEmployee()
         }
@@ -73,6 +83,7 @@ fun NavController.navigateToBottomNavigationDestination(bottomNavigationDestinat
     when (bottomNavigationDestination) {
         BottomNavigationDestination.EMPLOYEE_TAB -> navigateToEmployeeTab(bottomNavigationNavOptions)
         BottomNavigationDestination.TASKS_TAB -> navigateToTasksTab(bottomNavigationNavOptions)
+        BottomNavigationDestination.PROFILE_TAB -> navigateToProfileTab(bottomNavigationNavOptions)
     }
 }
 
@@ -89,3 +100,5 @@ fun NavController.navigateToEmployeeTab(navOptions: NavOptions) =
 fun NavController.navigateToTasksTab(navOptions: NavOptions) =
     navigate(route = Screen.TasksTabScreen, navOptions)
 
+fun NavController.navigateToProfileTab(navOptions: NavOptions) =
+    navigate(route = Screen.ProfileTabScreen, navOptions)
