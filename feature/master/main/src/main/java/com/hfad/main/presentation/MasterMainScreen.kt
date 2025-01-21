@@ -104,7 +104,6 @@ fun MasterMainScreenWrapper() {
                 color = textColor
             )
             Spacer(modifier = Modifier.height(15.dp))
-            EmployeeCardWrapper()
         }
     }
 }

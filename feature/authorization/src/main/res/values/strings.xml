@@ -6,6 +6,8 @@
     <string name="factorizerText">Factorizer</string>
     <string name="LogIn">Войти</string>
     <string name="LoginText">Логин</string>
+    <string name="NameText">Имя</string>
+    <string name="SurnameText">Фамилия</string>
     <string name="PasswordText">Пароль</string>
     <string name="CreateAnAccount">Создать аккаунт</string>
     <string name="SignOut">Выйти из профиля</string>

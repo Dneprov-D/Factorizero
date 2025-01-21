@@ -7,4 +7,5 @@
     <string name="NewTaskText">Новая задача</string>
     <string name="AddPhoto">Добавьте фото</string>
     <string name="SelectAnEmployee">Выберите сотрудника</string>
+    <string name="Register">Зарегистрировать</string>
 </resources>

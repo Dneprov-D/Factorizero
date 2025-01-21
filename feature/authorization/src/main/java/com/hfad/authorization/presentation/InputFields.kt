@@ -14,8 +14,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ContentPaste
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Key
+import androidx.compose.material.icons.rounded.Password
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -74,7 +76,7 @@ fun InputFieldPassword(passwordInput: String, onPasswordInputChanged: (String) -
             leadingIcon = {
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(
-                        imageVector = Icons.Rounded.Key,
+                        imageVector = Icons.Rounded.Password,
                         contentDescription = null
                     )
                 }
@@ -89,6 +91,70 @@ fun InputFieldPassword(passwordInput: String, onPasswordInputChanged: (String) -
                 imeAction = ImeAction.Done
             ),
             visualTransformation = PasswordVisualTransformation(),
+            keyboardActions = KeyboardActions()
+        )
+    }
+}
+
+@Composable
+fun InputFieldName(nameInput: String, onNameInputChanged: (String) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        OutlinedTextField(
+            leadingIcon = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Rounded.ContentPaste,
+                        contentDescription = null
+                    )
+                }
+            },
+            value = nameInput,
+            onValueChange = { onNameInputChanged(it) },
+            label = { Text(stringResource(R.string.NameText)) },
+            shape = MaterialTheme.shapes.small,
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions()
+        )
+    }
+}
+
+@Composable
+fun InputFieldSurname(surnameInput: String, onSurnameInputChanged: (String) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        OutlinedTextField(
+            leadingIcon = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Rounded.ContentPaste,
+                        contentDescription = null
+                    )
+                }
+            },
+            value = surnameInput,
+            onValueChange = { onSurnameInputChanged(it) },
+            label = { Text(stringResource(R.string.SurnameText)) },
+            shape = MaterialTheme.shapes.small,
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Done
+            ),
             keyboardActions = KeyboardActions()
         )
     }

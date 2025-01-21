@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hfad.common.compose.navigateToNewRoot
 import com.hfad.navigation.Screen
@@ -43,6 +44,44 @@ class LoginRepository @Inject constructor(
             }
     }
 
+    fun createAnEmployee(
+        email: String,
+        password: String,
+        name: String,
+        surname: String,
+        onSignUpSuccess: (Screen.MainScreenDataObject) -> Unit,
+        onSignUpFailure: (String) -> Unit
+    ) {
+        val fs = Firebase.firestore
+
+        if (email.isBlank() || password.isBlank()) {
+            onSignUpFailure("Логин и пароль не могут быть пустыми.")
+            return
+        }
+
+        if (name.isBlank() || surname.isBlank()) {
+            onSignUpFailure("Имя и фамилия не могут быть пустыми.")
+            return
+        }
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    onSignUpSuccess(
+                        Screen.MainScreenDataObject(
+                            it.result.user?.uid!!,
+                            it.result.user?.email!!
+                        )
+                    )
+                    fs.collection("staff")
+                        .document("employee").set(" ")
+                }
+            }
+            .addOnFailureListener {
+                onSignUpFailure(it.message ?: "Произошла ошибка регистрации")
+            }
+    }
+
     fun signIn(
         email: String,
         password: String,
@@ -67,7 +106,6 @@ class LoginRepository @Inject constructor(
                 onSignInFailure(it.message ?: "Произошла ошибка при входе")
             }
     }
-
 
     fun signOut() {
         auth.signOut()

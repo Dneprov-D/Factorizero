@@ -163,11 +163,3 @@ fun EmployeeCardWrapper() {
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//private fun PreviewDark() {
-//    FactorizeroTheme(darkTheme = true) {
-//        EmployeeCard()
-//    }
-//}

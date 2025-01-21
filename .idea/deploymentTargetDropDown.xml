@@ -11,6 +11,9 @@
       <entry key="feature.authorization">
         <State />
       </entry>
+      <entry key="feature.master.main">
+        <State />
+      </entry>
     </value>
   </component>
 </project>

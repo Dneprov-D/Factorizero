@@ -9,7 +9,6 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import kotlin.reflect.KClass
 
 @Composable
 fun <T> ObserveAsEvents(
