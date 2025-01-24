@@ -1,4 +1,4 @@
-package com.hfad.main.presentation
+package com.hfad.profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

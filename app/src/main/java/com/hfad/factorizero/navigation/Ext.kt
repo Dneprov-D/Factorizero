@@ -11,10 +11,10 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import androidx.navigation.navigation
-import com.hfad.main.presentation.CreateNewEmployee
+import com.hfad.main.presentation.CreateNewEmployeeScreen
 import com.hfad.main.presentation.EmployeeDetails
 import com.hfad.main.presentation.MasterMainScreen
-import com.hfad.main.presentation.MasterProfileScreen
+import com.hfad.profile.MasterProfileScreen
 import com.hfad.navigation.Screen
 import com.hfad.navigation.TopLevelScreens
 import com.hfad.tasks.presentation.CreateNewTaskScreen
@@ -26,7 +26,7 @@ fun NavGraphBuilder.profileTabNavGraph(
     navController: NavHostController
 ) {
     composable<Screen.ProfileTabScreen> {
-        MasterProfileScreen()
+       MasterProfileScreen()
     }
 }
 
@@ -44,7 +44,7 @@ fun NavGraphBuilder.employeeTabNavGraph(
         }
 
         composable<Screen.CreateNewEmployeeScreen> {
-            CreateNewEmployee()
+            CreateNewEmployeeScreen()
         }
     }
 }

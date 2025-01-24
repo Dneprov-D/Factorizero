@@ -1,7 +1,11 @@
 package com.hfad.main.presentation
 
+import android.net.Uri
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,6 +22,7 @@ class CreateEmployeeViewModel @Inject constructor(
 ) : ViewModel() {
     var loginState by mutableStateOf(RegisterScreenState())
         private set
+
     private val navigationChannel = Channel<NavigationEvent>()
 
     fun onCreateEmployeeClick() {
@@ -42,6 +47,7 @@ class CreateEmployeeViewModel @Inject constructor(
         )
     }
 
+
     fun onEmailInputChanged(newInput: String) {
         loginState = loginState.copy(emailInput = newInput)
     }
@@ -57,12 +63,17 @@ class CreateEmployeeViewModel @Inject constructor(
     fun onSurnameInputChanged(newInput: String) {
         loginState = loginState.copy(surnameInput = newInput)
     }
-}
 
-data class RegisterScreenState(
-    val emailInput: String = "",
-    val passwordInput: String = "",
-    val errorState: String = "",
-    val nameInput: String = "",
-    val surnameInput: String = ""
-)
+    @Composable
+    fun SelectedUri() {
+
+    }
+
+    data class RegisterScreenState(
+        val emailInput: String = "",
+        val passwordInput: String = "",
+        val errorState: String = "",
+        val nameInput: String = "",
+        val surnameInput: String = ""
+    )
+}
