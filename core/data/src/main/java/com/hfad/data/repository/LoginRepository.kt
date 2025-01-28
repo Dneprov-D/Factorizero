@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.hfad.common.compose.Employee
 import com.hfad.common.compose.navigateToNewRoot
 import com.hfad.navigation.Screen
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,36 +50,44 @@ class LoginRepository @Inject constructor(
         password: String,
         name: String,
         surname: String,
-        onSignUpSuccess: (Screen.MainScreenDataObject) -> Unit,
-        onSignUpFailure: (String) -> Unit
+        jobTitle: String,
+        onRegisterSuccess: (Screen.MainScreenDataObject) -> Unit,
+        onRegisterFailure: (String) -> Unit
     ) {
-        val fs = Firebase.firestore
+        val fireStore = Firebase.firestore
+        val db = fireStore.collection("stuff")
+        val key = db.document().id
 
         if (email.isBlank() || password.isBlank()) {
-            onSignUpFailure("Логин и пароль не могут быть пустыми.")
+            onRegisterFailure("Логин и пароль не могут быть пустыми.")
             return
         }
 
         if (name.isBlank() || surname.isBlank()) {
-            onSignUpFailure("Имя и фамилия не могут быть пустыми.")
+            onRegisterFailure("Имя и фамилия не могут быть пустыми.")
             return
         }
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    onSignUpSuccess(
-                        Screen.MainScreenDataObject(
-                            it.result.user?.uid!!,
-                            it.result.user?.email!!
+                onRegisterSuccess(
+                    Screen.MainScreenDataObject(
+                        it.result.user?.uid!!,
+                        it.result.user?.email!!
+                    )
+                )
+                fireStore.collection("stuff")
+                    .document("employee").set(
+                        Employee(
+                            key = key,
+                            name = name,
+                            surname = surname,
+                            jobTitle = jobTitle
                         )
                     )
-                    fs.collection("staff")
-                        .document("employee").set(" ")
-                }
             }
             .addOnFailureListener {
-                onSignUpFailure(it.message ?: "Произошла ошибка регистрации")
+                onRegisterFailure(it.message ?: "Произошла ошибка регистрации")
             }
     }
 

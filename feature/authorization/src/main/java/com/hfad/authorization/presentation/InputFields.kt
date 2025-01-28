@@ -16,6 +16,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ContentPaste
 import androidx.compose.material.icons.rounded.Email
+import androidx.compose.material.icons.rounded.FormatItalic
 import androidx.compose.material.icons.rounded.Key
 import androidx.compose.material.icons.rounded.Password
 import androidx.compose.material3.MaterialTheme
@@ -88,7 +89,7 @@ fun InputFieldPassword(passwordInput: String, onPasswordInputChanged: (String) -
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Next
             ),
             visualTransformation = PasswordVisualTransformation(),
             keyboardActions = KeyboardActions()
@@ -120,7 +121,7 @@ fun InputFieldName(nameInput: String, onNameInputChanged: (String) -> Unit) {
             shape = MaterialTheme.shapes.small,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email,
+                keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Next
             ),
             keyboardActions = KeyboardActions()
@@ -152,7 +153,39 @@ fun InputFieldSurname(surnameInput: String, onSurnameInputChanged: (String) -> U
             shape = MaterialTheme.shapes.small,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email,
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions()
+        )
+    }
+}
+
+@Composable
+fun InputFieldJobTitle(jobTitleInput: String, onJobTitleInputChanged: (String) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        OutlinedTextField(
+            leadingIcon = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Rounded.FormatItalic,
+                        contentDescription = null
+                    )
+                }
+            },
+            value = jobTitleInput,
+            onValueChange = { onJobTitleInputChanged(it) },
+            label = { Text(stringResource(R.string.JobTitle)) },
+            shape = MaterialTheme.shapes.small,
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions()

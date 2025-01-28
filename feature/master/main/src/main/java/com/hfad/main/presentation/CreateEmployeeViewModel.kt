@@ -15,7 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-//TODO разнести по пакетам и сделать модуль для 3й табы
+
 @HiltViewModel
 class CreateEmployeeViewModel @Inject constructor(
     private val repository: LoginRepository
@@ -35,13 +35,14 @@ class CreateEmployeeViewModel @Inject constructor(
             password = loginState.passwordInput,
             name = loginState.nameInput,
             surname = loginState.surnameInput,
-            onSignUpSuccess = { navData ->
+            jobTitle = loginState.jobTitleInput,
+            onRegisterSuccess = { navData ->
                 viewModelScope.launch {
                     navigationChannel.send(NavigationEvent.OnRegistered(navData))
                 }
                 loginState = loginState.copy(errorState = "")
             },
-            onSignUpFailure = { error ->
+            onRegisterFailure = { error ->
                 loginState = loginState.copy(errorState = error)
             }
         )
@@ -64,6 +65,10 @@ class CreateEmployeeViewModel @Inject constructor(
         loginState = loginState.copy(surnameInput = newInput)
     }
 
+    fun onJobTitleInputChanged(newInput: String) {
+        loginState = loginState.copy(jobTitleInput = newInput)
+    }
+
     @Composable
     fun SelectedUri() {
 
@@ -74,6 +79,7 @@ class CreateEmployeeViewModel @Inject constructor(
         val passwordInput: String = "",
         val errorState: String = "",
         val nameInput: String = "",
-        val surnameInput: String = ""
+        val surnameInput: String = "",
+        val jobTitleInput: String = ""
     )
 }

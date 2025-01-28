@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
 import coil3.compose.rememberAsyncImagePainter
+import com.hfad.authorization.presentation.InputFieldJobTitle
 import com.hfad.authorization.presentation.InputFieldLogin
 import com.hfad.authorization.presentation.InputFieldName
 import com.hfad.authorization.presentation.InputFieldPassword
@@ -59,6 +62,7 @@ fun CreateNewEmployeeScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(color = backgroundColor)
+            .verticalScroll(rememberScrollState())
             .padding(top = 50.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -95,6 +99,11 @@ fun CreateNewEmployeeScreen(
         InputFieldSurname(
             surnameInput = uiState.surnameInput,
             onSurnameInputChanged = viewModel::onSurnameInputChanged
+        )
+
+        InputFieldJobTitle(
+            jobTitleInput = uiState.jobTitleInput,
+            onJobTitleInputChanged = viewModel::onJobTitleInputChanged
         )
 
         Spacer(modifier = Modifier.height(10.dp))
