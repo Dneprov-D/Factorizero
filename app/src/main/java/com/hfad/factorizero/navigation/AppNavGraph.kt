@@ -10,13 +10,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.hfad.authorization.presentation.LoginScreen
 import com.hfad.common.compose.navigateToNewRoot
-import com.hfad.main.presentation.CreateNewEmployeeScreen
-import com.hfad.main.presentation.EmployeeDetails
-import com.hfad.main.presentation.MasterMainScreen
 import com.hfad.navigation.Screen
-import com.hfad.tasks.presentation.CreateNewTaskScreen
-import com.hfad.tasks.presentation.TaskDetailsScreen
-import com.hfad.tasks.presentation.TasksMasterScreen
 
 @Composable
 fun AppNavGraph(

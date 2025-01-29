@@ -54,6 +54,7 @@ android {
 dependencies {
     
     implementation(project(":core:navigation"))
+    implementation(project(":core:model"))
 
     // Firebase
     implementation(platform(libs.firebase.bom))

@@ -1,16 +1,12 @@
 package com.hfad.data.repository
 
 import android.util.Log
-import androidx.navigation.NavHostController
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.hfad.common.compose.Employee
-import com.hfad.common.compose.navigateToNewRoot
+import com.hfad.model.Employee
 import com.hfad.navigation.Screen
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Singleton
 

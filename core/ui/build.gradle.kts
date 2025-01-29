@@ -54,6 +54,7 @@ dependencies {
 
     implementation(project(":core:designsystem"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:model"))
 
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.foundation.layout)

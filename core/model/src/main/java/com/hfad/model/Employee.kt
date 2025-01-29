@@ -1,4 +1,4 @@
-package com.hfad.common.compose
+package com.hfad.model
 
 data class Employee(
     val key: String = "",

@@ -28,16 +28,21 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavHostController
 import com.hfad.designsystem.components.theme.LightColorScheme
 import com.hfad.navigation.Screen
+import com.hfad.ui.profile.uimodel.EmployeeUiModel
 
 @Composable
-fun EmployeeCard(navController: NavHostController) {
+fun EmployeeCard(
+    employee: EmployeeUiModel,
+    onCardClicked: (EmployeeUiModel) -> Unit
+) {
     Card(
         modifier = Modifier
             .clickable {
-                navController.navigate(route = Screen.EmployeeDetailsScreen)
+                onCardClicked(employee)
             }
     ) {
         Row(
@@ -59,12 +64,12 @@ fun EmployeeCard(navController: NavHostController) {
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = "Имя Фамилия",
+                    text = "${employee.name} ${employee.surname}",
                     fontSize = 20.sp
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = "Должность",
+                    text = employee.jobTitle,
                 )
             }
         }
@@ -73,7 +78,7 @@ fun EmployeeCard(navController: NavHostController) {
 
 @Composable
 fun SelectedEmployeeCard() {
-    var isSelected by remember { mutableStateOf(false) }
+    var isSelected by rememberSaveable { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -126,40 +131,14 @@ fun PreviewSelectedEmployeeCard() {
 
 @Preview(showBackground = true)
 @Composable
-fun EmployeeCardWrapper() {
-    Card(
-        modifier = Modifier
-            .clickable {
-
-            }
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                modifier = Modifier
-                    .size(50.dp)
-                    .clip(CircleShape),
-                painter = painterResource(id = R.drawable.employeeorc),
-                contentDescription = null,
-                contentScale = ContentScale.Crop
-            )
-            Spacer(modifier = Modifier.width(25.dp))
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(
-                    text = "Имя Фамилия",
-                    fontSize = 20.sp
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = "Должность",
-                )
-            }
-        }
-    }
+fun PreviewEmployeeCard() {
+    EmployeeCard(
+        employee = EmployeeUiModel(
+            key = " ",
+            name = "Геральт",
+            surname = "Из Ривии",
+            jobTitle = "Ведьмак"
+        ),
+        onCardClicked = { }
+    )
 }

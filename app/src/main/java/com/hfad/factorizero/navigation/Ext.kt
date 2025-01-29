@@ -11,9 +11,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import androidx.navigation.navigation
-import com.hfad.main.presentation.CreateNewEmployeeScreen
-import com.hfad.main.presentation.EmployeeDetails
-import com.hfad.main.presentation.MasterMainScreen
+import com.hfad.main.presentation.employeepack.CreateNewEmployeeScreen
+import com.hfad.main.presentation.employeepack.EmployeeDetails
+import com.hfad.main.presentation.masterpack.MasterMainScreen
 import com.hfad.profile.MasterProfileScreen
 import com.hfad.navigation.Screen
 import com.hfad.navigation.TopLevelScreens

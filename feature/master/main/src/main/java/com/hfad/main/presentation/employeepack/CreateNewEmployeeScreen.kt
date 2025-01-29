@@ -1,4 +1,4 @@
-package com.hfad.main.presentation
+package com.hfad.main.presentation.employeepack
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -28,7 +28,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
@@ -63,7 +62,7 @@ fun CreateNewEmployeeScreen(
             .fillMaxSize()
             .background(color = backgroundColor)
             .verticalScroll(rememberScrollState())
-            .padding(top = 50.dp),
+            .padding(top = 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
@@ -120,5 +119,8 @@ fun CreateNewEmployeeScreen(
             },
             text = { Text(text = stringResource(R.string.Register)) }
         )
+        Spacer(modifier = Modifier.height(10.dp))
     }
 }
+
+
