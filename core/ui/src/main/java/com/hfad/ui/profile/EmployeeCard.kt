@@ -41,6 +41,7 @@ fun EmployeeCard(
 ) {
     Card(
         modifier = Modifier
+            .padding(10.dp)
             .clickable {
                 onCardClicked(employee)
             }

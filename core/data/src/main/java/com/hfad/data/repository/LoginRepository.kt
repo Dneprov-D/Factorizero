@@ -1,10 +1,13 @@
 package com.hfad.data.repository
 
 import android.util.Log
+import androidx.navigation.NavHostController
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.hfad.common.compose.navigateToNewRoot
 import com.hfad.model.Employee
 import com.hfad.navigation.Screen
 import javax.inject.Inject
@@ -52,7 +55,6 @@ class LoginRepository @Inject constructor(
     ) {
         val fireStore = Firebase.firestore
         val db = fireStore.collection("stuff")
-        val key = db.document().id
 
         if (email.isBlank() || password.isBlank()) {
             onRegisterFailure("Логин и пароль не могут быть пустыми.")
@@ -65,22 +67,23 @@ class LoginRepository @Inject constructor(
         }
 
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                onRegisterSuccess(
-                    Screen.MainScreenDataObject(
-                        it.result.user?.uid!!,
-                        it.result.user?.email!!
-                    )
-                )
-                fireStore.collection("stuff")
-                    .document("employee").set(
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val userId = task.result.user?.uid ?: return@addOnCompleteListener
+                    db.add(
                         Employee(
-                            key = key,
+                            key = userId,
                             name = name,
                             surname = surname,
                             jobTitle = jobTitle
                         )
                     )
+                        .addOnFailureListener { e ->
+                        onRegisterFailure(e.message ?: "Ошибка при добавлении сотрудника")
+                    }
+                } else {
+                    onRegisterFailure(task.exception?.message ?: "Произошла ошибка регистрации")
+                }
             }
             .addOnFailureListener {
                 onRegisterFailure(it.message ?: "Произошла ошибка регистрации")
