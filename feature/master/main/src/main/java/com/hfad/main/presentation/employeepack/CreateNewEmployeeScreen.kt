@@ -54,7 +54,7 @@ fun CreateNewEmployeeScreen(
         selectedImageUri.value = uri
     }
     val placeholderImage = painterResource(
-        id = R.drawable.placeholder_image_person_jpg
+        id = com.hfad.ui.R.drawable.employeeorc
     )
 
     Column(
@@ -122,5 +122,3 @@ fun CreateNewEmployeeScreen(
         Spacer(modifier = Modifier.height(10.dp))
     }
 }
-
-

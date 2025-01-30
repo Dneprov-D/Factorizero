@@ -14,6 +14,7 @@ import androidx.navigation.navigation
 import com.hfad.main.presentation.employeepack.CreateNewEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetails
 import com.hfad.main.presentation.masterpack.MasterMainScreen
+import com.hfad.main.presentation.masterpack.MasterMainViewModel
 import com.hfad.profile.MasterProfileScreen
 import com.hfad.navigation.Screen
 import com.hfad.navigation.TopLevelScreens
@@ -26,7 +27,7 @@ fun NavGraphBuilder.profileTabNavGraph(
     navController: NavHostController
 ) {
     composable<Screen.ProfileTabScreen> {
-       MasterProfileScreen()
+        MasterProfileScreen()
     }
 }
 
@@ -37,7 +38,7 @@ fun NavGraphBuilder.employeeTabNavGraph(
         startDestination = Screen.MainMasterScreen
     ) {
         composable<Screen.MainMasterScreen> {
-            MasterMainScreen(navController)
+            MasterMainScreen(navController, viewModel = MasterMainViewModel())
         }
         composable<Screen.EmployeeDetailsScreen> {
             EmployeeDetails(navController)

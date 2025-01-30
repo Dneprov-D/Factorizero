@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":feature:authorization"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:model"))
     implementation(project(":core:data"))
     implementation(project(":core:ui"))
 
