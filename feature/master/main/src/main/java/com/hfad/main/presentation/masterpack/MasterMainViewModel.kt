@@ -22,7 +22,7 @@ class MasterMainViewModel @Inject constructor() : ViewModel() {
 
     init {
         val db = Firebase.firestore
-        getAllStuff(db)
+        getAllStaff(db)
     }
 
     data class MasterMainScreenState(
@@ -30,15 +30,15 @@ class MasterMainViewModel @Inject constructor() : ViewModel() {
     )
 
 
-    private fun getAllStuff(
+    private fun getAllStaff(
         db: FirebaseFirestore,
     ) {
         db.collection("stuff")
             .get()
             .addOnSuccessListener { task ->
-                val stuffList = task.toObjects(Employee::class.java)
+                val staffList = task.toObjects(Employee::class.java)
                 state = state.copy(
-                    employeeList = stuffList.map {
+                    employeeList = staffList.map {
                         it.toUiModel()
                     }
                 )
