@@ -1,6 +1,7 @@
 package com.hfad.main.presentation.masterpack
 
 import Icons.FzIcons
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -18,13 +19,16 @@ import androidx.navigation.NavHostController
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hfad.designsystem.components.theme.LightColorScheme
+import com.hfad.model.Employee
 import com.hfad.navigation.Screen
 import com.hfad.ui.profile.EmployeeCard
+import com.hfad.ui.profile.uimodel.EmployeeUiModel
 
 @Composable
 fun MasterMainScreen(
     navController: NavHostController,
-    viewModel: MasterMainViewModel
+    viewModel: MasterMainViewModel,
+    onEmployeeClick: (Employee) -> Unit
 ) {
     val state = viewModel.state
     val backgroundColor = MaterialTheme.colorScheme.background
@@ -52,7 +56,8 @@ fun MasterMainScreen(
                 EmployeeCard(
                     employee = employee,
                     onCardClicked = {
-                        navController.navigate(Screen.EmployeeDetailsScreen) //TODO navController.navigate(Screen.EmployeeDetailsScreen(it.key))
+                        onEmployeeClick(Employee(it.key))
+                        Log.e("Clicked", "Employee Key = ${employee.key}")
                     }
                 )
             }

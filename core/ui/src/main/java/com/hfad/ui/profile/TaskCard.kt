@@ -26,9 +26,13 @@ import androidx.navigation.NavHostController
 import com.hfad.designsystem.components.theme.FactorizeroTheme
 import com.hfad.navigation.Screen
 import com.hfad.ui.R
+import com.hfad.ui.profile.uimodel.EmployeeUiModel
 
 @Composable
-fun TaskCard(navController: NavHostController) {
+fun TaskCard(
+    navController: NavHostController,
+//    onCardClicked: (EmployeeUiModel) -> Unit
+) {
     Card(
         modifier = Modifier
             .clickable {

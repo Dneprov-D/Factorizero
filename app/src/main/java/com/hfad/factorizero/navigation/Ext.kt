@@ -1,5 +1,6 @@
 package com.hfad.factorizero.navigation
 
+import android.util.Log
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -12,9 +13,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import androidx.navigation.navigation
 import com.hfad.main.presentation.employeepack.CreateNewEmployeeScreen
-import com.hfad.main.presentation.employeepack.EmployeeDetails
+import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
 import com.hfad.main.presentation.masterpack.MasterMainScreen
 import com.hfad.main.presentation.masterpack.MasterMainViewModel
+import com.hfad.model.Employee
 import com.hfad.profile.MasterProfileScreen
 import com.hfad.navigation.Screen
 import com.hfad.navigation.TopLevelScreens
@@ -37,11 +39,19 @@ fun NavGraphBuilder.employeeTabNavGraph(
     navigation<Screen.EmployeeTabScreen>(
         startDestination = Screen.MainMasterScreen
     ) {
+
         composable<Screen.MainMasterScreen> {
-            MasterMainScreen(navController, viewModel = MasterMainViewModel())
+            MasterMainScreen(
+                navController,
+                viewModel = MasterMainViewModel(),
+                onEmployeeClick = { employee ->
+                    navController.navigate(Screen.EmployeeDetailsScreen)
+                }
+            )
         }
+
         composable<Screen.EmployeeDetailsScreen> {
-            EmployeeDetails(navController)
+            EmployeeDetailsScreen(employee = Employee())
         }
 
         composable<Screen.CreateNewEmployeeScreen> {
