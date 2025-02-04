@@ -56,8 +56,14 @@ fun MasterMainScreen(
                 EmployeeCard(
                     employee = employee,
                     onCardClicked = {
-                        onEmployeeClick(Employee(it.key))
-                        Log.e("Clicked", "Employee Key = ${employee.key}")
+                        onEmployeeClick(
+                            Employee(
+                                key = it.key,
+                                name = it.name,
+                                surname = it.surname,
+                                jobTitle = it.jobTitle
+                            )
+                        )
                     }
                 )
             }

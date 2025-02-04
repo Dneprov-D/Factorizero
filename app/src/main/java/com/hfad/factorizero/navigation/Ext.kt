@@ -12,6 +12,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import androidx.navigation.navigation
+import androidx.navigation.toRoute
 import com.hfad.main.presentation.employeepack.CreateNewEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
 import com.hfad.main.presentation.masterpack.MasterMainScreen
@@ -26,7 +27,6 @@ import com.hfad.tasks.presentation.TasksMasterScreen
 import kotlin.reflect.KClass
 
 fun NavGraphBuilder.profileTabNavGraph(
-    navController: NavHostController
 ) {
     composable<Screen.ProfileTabScreen> {
         MasterProfileScreen()
@@ -44,14 +44,38 @@ fun NavGraphBuilder.employeeTabNavGraph(
             MasterMainScreen(
                 navController,
                 viewModel = MasterMainViewModel(),
-                onEmployeeClick = { employee ->
-                    navController.navigate(Screen.EmployeeDetailsScreen)
+                onEmployeeClick = {
+                    navController.navigate(
+                        Screen.EmployeeDetailsScreen(
+                            key = it.key,
+                            name = it.name,
+                            surname = it.surname,
+                            jobTitle = it.jobTitle
+                        )
+                    )
                 }
             )
         }
 
+//        @HiltViewModel
+//        class CodeInputViewModel @Inject constructor(
+//            private val requestTokenUseCase: RequestTokenUseCase,
+//            private val setTokenUseCase: SetTokenUseCase,
+//            stateHandle: SavedStateHandle
+//        ) : BaseViewModel<CodeInputEvent>() {
+//
+//            private val email: String = stateHandle.toRoute<CodeInputScreenRoute>().email
+
         composable<Screen.EmployeeDetailsScreen> {
-            EmployeeDetailsScreen(employee = Employee())
+            val args = it.toRoute<Screen.EmployeeDetailsScreen>()
+            EmployeeDetailsScreen(
+                employee = Employee(
+                    key = args.key,
+                    name = args.name,
+                    surname = args.surname,
+                    jobTitle = args.jobTitle
+                )
+            )
         }
 
         composable<Screen.CreateNewEmployeeScreen> {

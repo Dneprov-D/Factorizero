@@ -64,7 +64,7 @@ fun EmployeeDetailsScreen(
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     Text(
-                        text = "Должность",
+                        text = employee.jobTitle,
                         fontSize = 20.sp
                     )
                 }
@@ -72,7 +72,6 @@ fun EmployeeDetailsScreen(
             Column(
                 modifier = Modifier
                     .padding(15.dp)
-                    .padding(top = 135.dp)
             ) {
                 Text(
                     text = stringResource(com.hfad.main.R.string.TasksInWorkText),
