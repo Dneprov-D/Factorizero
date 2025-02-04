@@ -15,6 +15,7 @@ import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.hfad.main.presentation.employeepack.CreateNewEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
+import com.hfad.main.presentation.employeepack.EmployeeDetailsViewModel
 import com.hfad.main.presentation.masterpack.MasterMainScreen
 import com.hfad.main.presentation.masterpack.MasterMainViewModel
 import com.hfad.model.Employee
@@ -43,7 +44,6 @@ fun NavGraphBuilder.employeeTabNavGraph(
         composable<Screen.MainMasterScreen> {
             MasterMainScreen(
                 navController,
-                viewModel = MasterMainViewModel(),
                 onEmployeeClick = {
                     navController.navigate(
                         Screen.EmployeeDetailsScreen(
@@ -57,25 +57,8 @@ fun NavGraphBuilder.employeeTabNavGraph(
             )
         }
 
-//        @HiltViewModel
-//        class CodeInputViewModel @Inject constructor(
-//            private val requestTokenUseCase: RequestTokenUseCase,
-//            private val setTokenUseCase: SetTokenUseCase,
-//            stateHandle: SavedStateHandle
-//        ) : BaseViewModel<CodeInputEvent>() {
-//
-//            private val email: String = stateHandle.toRoute<CodeInputScreenRoute>().email
-
         composable<Screen.EmployeeDetailsScreen> {
-            val args = it.toRoute<Screen.EmployeeDetailsScreen>()
-            EmployeeDetailsScreen(
-                employee = Employee(
-                    key = args.key,
-                    name = args.name,
-                    surname = args.surname,
-                    jobTitle = args.jobTitle
-                )
-            )
+            EmployeeDetailsScreen()
         }
 
         composable<Screen.CreateNewEmployeeScreen> {

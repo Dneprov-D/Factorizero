@@ -27,14 +27,17 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzOutlinedButton
 import com.hfad.model.Employee
 import com.hfad.ui.R
 
 @Composable
 fun EmployeeDetailsScreen(
-    employee: Employee
+    viewModel: EmployeeDetailsViewModel = hiltViewModel()
 ) {
+
+    val state = viewModel.state
     val textColor = MaterialTheme.colorScheme.onBackground
 
     LazyColumn(
@@ -59,12 +62,12 @@ fun EmployeeDetailsScreen(
                 Spacer(modifier = Modifier.width(15.dp))
                 Column {
                     Text(
-                        text = "${employee.name} ${employee.surname}",
+                        text = "${state.employee.name} ${state.employee.surname}",
                         fontSize = 25.sp,
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     Text(
-                        text = employee.jobTitle,
+                        text = state.employee.jobTitle,
                         fontSize = 20.sp
                     )
                 }

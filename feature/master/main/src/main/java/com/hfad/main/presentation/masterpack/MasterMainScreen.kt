@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -27,7 +28,7 @@ import com.hfad.ui.profile.uimodel.EmployeeUiModel
 @Composable
 fun MasterMainScreen(
     navController: NavHostController,
-    viewModel: MasterMainViewModel,
+    viewModel: MasterMainViewModel = hiltViewModel(),
     onEmployeeClick: (Employee) -> Unit
 ) {
     val state = viewModel.state
