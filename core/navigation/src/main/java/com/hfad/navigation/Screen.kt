@@ -26,6 +26,14 @@ sealed class Screen() {
     ) : Screen()
 
     @Serializable
+    data class EditEmployeeScreen(
+        val key: String,
+        val name: String,
+        val surname: String,
+        val jobTitle: String
+    ) : Screen()
+
+    @Serializable
     data object CreateNewEmployeeScreen : Screen()
 
     @Serializable

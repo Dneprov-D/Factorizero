@@ -28,24 +28,23 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
 import coil3.compose.rememberAsyncImagePainter
-import com.hfad.authorization.presentation.InputFieldJobTitle
-import com.hfad.authorization.presentation.InputFieldLogin
-import com.hfad.authorization.presentation.InputFieldName
-import com.hfad.authorization.presentation.InputFieldPassword
-import com.hfad.authorization.presentation.InputFieldSurname
-import com.hfad.main.R
+import com.hfad.common.compose.ObserveAsEvents
+import com.hfad.navigation.Screen
+import com.hfad.ui.R
 
 @Composable
-fun CreateNewEmployeeScreen(
-    viewModel: CreateEmployeeViewModel = hiltViewModel()
+fun EditEmployeeScreen(
+    viewModel: EditEmployeeViewModel = hiltViewModel(),
+    onEdited: (Screen.EmployeeDetailsScreen) -> Unit
 ) {
-    val uiState = viewModel.state
+    val state = viewModel.state
     val backgroundColor = MaterialTheme.colorScheme.background
     val selectedImageUri = rememberSaveable {
         mutableStateOf<Uri?>(null)
@@ -56,8 +55,14 @@ fun CreateNewEmployeeScreen(
         selectedImageUri.value = uri
     }
     val placeholderImage = painterResource(
-        id = com.hfad.ui.R.drawable.employeeorc
+        id = R.drawable.employeeorc
     )
+
+    ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
+        when(event) {
+            is EditEmployeeViewModel.NavigationEvent.OnEdited -> onEdited(event.data)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -67,9 +72,17 @@ fun CreateNewEmployeeScreen(
             .padding(top = 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+        text = stringResource(com.hfad.main.R.string.EditProfile),
+        fontSize = 25.sp,
+        fontWeight = FontWeight.Bold,
+        fontFamily = FontFamily.Default,
+        color = Color.LightGray
+    )
+        Spacer(modifier = Modifier.height(15.dp))
         Spacer(modifier = Modifier.height(5.dp))
         Text(
-            text = stringResource(R.string.AddPhoto),
+            text = stringResource(com.hfad.main.R.string.AddPhoto),
             fontSize = 18.sp,
             fontFamily = FontFamily.Default,
             color = Color.LightGray
@@ -90,44 +103,34 @@ fun CreateNewEmployeeScreen(
                 placeholderImage
             }
         )
-        InputFieldLogin(
-            emailInput = uiState.emailInput,
-            onEmailInputChanged = viewModel::onEmailInputChanged
-        )
-
-        InputFieldPassword(
-            passwordInput = uiState.passwordInput,
-            onPasswordInputChanged = viewModel::onPasswordInputChanged
-        )
-
         InputFieldName(
-            nameInput = uiState.nameInput,
+            nameInput = state.nameInput,
             onNameInputChanged = viewModel::onNameInputChanged
         )
 
         InputFieldSurname(
-            surnameInput = uiState.surnameInput,
+            surnameInput = state.surnameInput,
             onSurnameInputChanged = viewModel::onSurnameInputChanged
         )
 
         InputFieldJobTitle(
-            jobTitleInput = uiState.jobTitleInput,
+            jobTitleInput = state.jobTitleInput,
             onJobTitleInputChanged = viewModel::onJobTitleInputChanged
         )
 
         Spacer(modifier = Modifier.height(10.dp))
-        if (uiState.errorState.isNotBlank()) {
+        if (state.errorState.isNotBlank()) {
             Text(
-                text = uiState.errorState,
+                text = state.errorState,
                 color = Color.Red,
                 textAlign = TextAlign.Center
             )
         }
         FzButton(
             onClick = {
-                viewModel.onCreateEmployeeClick()
+                viewModel.onEditEmployeeClick()
             },
-            text = { Text(text = stringResource(R.string.Register)) }
+            text = { Text(text = stringResource(com.hfad.main.R.string.ApplyEdit)) }
         )
         Spacer(modifier = Modifier.height(10.dp))
     }

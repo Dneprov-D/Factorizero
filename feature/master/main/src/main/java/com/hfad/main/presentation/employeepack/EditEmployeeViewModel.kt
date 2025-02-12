@@ -1,57 +1,57 @@
-
 package com.hfad.main.presentation.employeepack
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hfad.authorization.presentation.NavigationEvent
+import androidx.navigation.toRoute
 import com.hfad.data.repository.LoginRepository
+import com.hfad.navigation.Screen
+import com.hfad.ui.profile.uimodel.EmployeeUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateEmployeeViewModel @Inject constructor(
-    private val repository: LoginRepository
+class EditEmployeeViewModel @Inject constructor(
+    private val repository: LoginRepository,
+    stateHandle: SavedStateHandle
 ) : ViewModel() {
-    var state by mutableStateOf(RegisterScreenState())
+    private val args = stateHandle.toRoute<Screen.EditEmployeeScreen>()
+    private val navigationChannel = Channel<NavigationEvent>()
+    val navigationEventsChannelFlow = navigationChannel.receiveAsFlow()
+
+    var state by mutableStateOf(
+        EditScreenState(
+            employee = EmployeeUiModel(
+                key = args.key,
+                name = args.name,
+                surname = args.surname,
+                jobTitle = args.jobTitle,
+            )
+        )
+    )
         private set
 
-    private val navigationChannel = Channel<NavigationEvent>()
-
-    fun onCreateEmployeeClick() {
-        if (state.emailInput.isBlank() || state.passwordInput.isBlank()) {
-            state = state.copy(errorState = "Логин и пароль не могут быть пустыми")
-            return
-        }
-        repository.createAnEmployee(
-            email = state.emailInput,
-            password = state.passwordInput,
+    fun onEditEmployeeClick() {
+        repository.editAnEmployee(
             name = state.nameInput,
             surname = state.surnameInput,
             jobTitle = state.jobTitleInput,
-            onRegisterSuccess = { navData ->
+            onEditSuccess = { navData ->
                 viewModelScope.launch {
-                    navigationChannel.send(NavigationEvent.OnRegistered(navData))
+                    navigationChannel.send(NavigationEvent.OnEdited(navData))
                 }
                 state = state.copy(errorState = "")
             },
-            onRegisterFailure = { error ->
+            onEditFailure = { error ->
                 state = state.copy(errorState = error)
             }
         )
-    }
-
-    fun onEmailInputChanged(newInput: String) {
-        state = state.copy(emailInput = newInput)
-    }
-
-    fun onPasswordInputChanged(newInput: String) {
-        state = state.copy(passwordInput = newInput)
     }
 
     fun onNameInputChanged(newInput: String) {
@@ -66,14 +66,12 @@ class CreateEmployeeViewModel @Inject constructor(
         state = state.copy(jobTitleInput = newInput)
     }
 
-    @Composable
-    fun SelectedUri() {
-
+    sealed interface NavigationEvent {
+        data class OnEdited(val data: Screen.EmployeeDetailsScreen) : NavigationEvent
     }
 
-    data class RegisterScreenState(
-        val emailInput: String = "",
-        val passwordInput: String = "",
+    data class EditScreenState(
+        val employee: EmployeeUiModel,
         val errorState: String = "",
         val nameInput: String = "",
         val surnameInput: String = "",

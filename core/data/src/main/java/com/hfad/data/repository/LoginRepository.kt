@@ -79,8 +79,8 @@ class LoginRepository @Inject constructor(
                         )
                     )
                         .addOnFailureListener { e ->
-                        onRegisterFailure(e.message ?: "Ошибка при добавлении сотрудника")
-                    }
+                            onRegisterFailure(e.message ?: "Ошибка при добавлении сотрудника")
+                        }
                 } else {
                     onRegisterFailure(task.exception?.message ?: "Произошла ошибка регистрации")
                 }
@@ -88,6 +88,22 @@ class LoginRepository @Inject constructor(
             .addOnFailureListener {
                 onRegisterFailure(it.message ?: "Произошла ошибка регистрации")
             }
+    }
+
+    fun editAnEmployee(
+        name: String,
+        surname: String,
+        jobTitle: String,
+        onEditSuccess: (Screen.EmployeeDetailsScreen) -> Unit,
+        onEditFailure: (String) -> Unit
+    ) {
+        val fireStore = Firebase.firestore
+        val db = fireStore.collection("stuff")
+
+        if (name.isBlank() || surname.isBlank()) {
+            onEditFailure("Имя и фамилия не могут быть пустыми.")
+            return
+        }
     }
 
     fun signIn(

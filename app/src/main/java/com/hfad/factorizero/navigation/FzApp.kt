@@ -1,5 +1,6 @@
 package com.hfad.factorizero.navigation
 
+import android.util.Log
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
@@ -11,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -38,9 +38,8 @@ fun FzApp() {
                         BottomNavigationItem(
                             selected = selected,
                             onClick = {
-                                navController.navigateToBottomNavigationDestination(
-                                    destination
-                                )
+                                navController.navigateToBottomNavigationDestination(destination)
+                                Log.e("destination", "destination = $destination")  // TODO посмотреть логи
                             },
                             icon = {
                                 Icon(destination.icon, contentDescription = null)

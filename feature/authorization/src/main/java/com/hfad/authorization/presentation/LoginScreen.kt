@@ -31,7 +31,6 @@ fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
     onNavigateToMainScreen: (Screen.MainScreenDataObject) -> Unit
 ) {
-
     val uiState = viewModel.loginState
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground

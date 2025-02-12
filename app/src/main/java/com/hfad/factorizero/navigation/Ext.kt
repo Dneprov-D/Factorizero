@@ -1,6 +1,5 @@
 package com.hfad.factorizero.navigation
 
-import android.util.Log
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -12,12 +11,10 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import androidx.navigation.navigation
-import androidx.navigation.toRoute
 import com.hfad.main.presentation.employeepack.CreateNewEmployeeScreen
+import com.hfad.main.presentation.employeepack.EditEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
-import com.hfad.main.presentation.employeepack.EmployeeDetailsViewModel
 import com.hfad.main.presentation.masterpack.MasterMainScreen
-import com.hfad.main.presentation.masterpack.MasterMainViewModel
 import com.hfad.model.Employee
 import com.hfad.profile.MasterProfileScreen
 import com.hfad.navigation.Screen
@@ -58,11 +55,30 @@ fun NavGraphBuilder.employeeTabNavGraph(
         }
 
         composable<Screen.EmployeeDetailsScreen> {
-            EmployeeDetailsScreen()
+            EmployeeDetailsScreen(
+                onEditClick = {
+                    navController.navigate(
+                        Screen.EditEmployeeScreen(
+                            key = it.key,
+                            name = it.name,
+                            surname = it.surname,
+                            jobTitle = it.jobTitle
+                        )
+                    )
+                }
+            )
         }
 
         composable<Screen.CreateNewEmployeeScreen> {
             CreateNewEmployeeScreen()
+        }
+
+        composable<Screen.EditEmployeeScreen> {
+            EditEmployeeScreen(
+                onEdited = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }
@@ -98,10 +114,19 @@ fun NavController.navigateToBottomNavigationDestination(bottomNavigationDestinat
         launchSingleTop = true
         restoreState = true
     }
+
     when (bottomNavigationDestination) {
         BottomNavigationDestination.EMPLOYEE_TAB -> navigateToEmployeeTab(bottomNavigationNavOptions)
         BottomNavigationDestination.TASKS_TAB -> navigateToTasksTab(bottomNavigationNavOptions)
         BottomNavigationDestination.PROFILE_TAB -> navigateToProfileTab(bottomNavigationNavOptions)
+    }
+}
+
+fun NavController.navigateToNewRoot(route: Any) {
+    navigate(route) {
+        popUpTo(graph.id) {
+            inclusive = true
+        }
     }
 }
 
