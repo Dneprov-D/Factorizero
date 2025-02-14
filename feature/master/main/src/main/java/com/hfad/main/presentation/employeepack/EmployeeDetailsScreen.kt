@@ -75,26 +75,26 @@ fun EmployeeDetailsScreen(
                         text = state.employee.jobTitle,
                         fontSize = 20.sp
                     )
-                }
-                IconButton(
-                    onClick = {
-                        onEditClick(
-                        Employee(
-                            key = state.employee.key,
-                            name = state.employee.name,
-                            surname = state.employee.surname,
-                            jobTitle = state.employee.jobTitle
+                    IconButton(
+                        onClick = {
+                            onEditClick(
+                                Employee(
+                                    key = state.employee.key,
+                                    name = state.employee.name,
+                                    surname = state.employee.surname,
+                                    jobTitle = state.employee.jobTitle
+                                )
+                            )
+                        },
+                    ) {
+                        Icon(
+                            Icons.Default.Edit,
+                            contentDescription = null
                         )
-                    ) },
-                    modifier = Modifier
-                        .padding(15.dp)
-                ) {
-                    Icon(
-                        Icons.Default.Edit,
-                        contentDescription = null
-                    )
+                    }
                 }
             }
+
             Column(
                 modifier = Modifier
                     .padding(15.dp)

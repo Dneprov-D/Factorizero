@@ -1,4 +1,3 @@
-
 package com.hfad.main.presentation.employeepack
 
 import androidx.compose.runtime.Composable
@@ -7,10 +6,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hfad.authorization.presentation.NavigationEvent
 import com.hfad.data.repository.LoginRepository
+import com.hfad.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +22,7 @@ class CreateEmployeeViewModel @Inject constructor(
         private set
 
     private val navigationChannel = Channel<NavigationEvent>()
+    val navigationEventsChannelFlow = navigationChannel.receiveAsFlow()
 
     fun onCreateEmployeeClick() {
         if (state.emailInput.isBlank() || state.passwordInput.isBlank()) {
@@ -34,9 +35,9 @@ class CreateEmployeeViewModel @Inject constructor(
             name = state.nameInput,
             surname = state.surnameInput,
             jobTitle = state.jobTitleInput,
-            onRegisterSuccess = { navData ->
+            onRegisterSuccess = {
                 viewModelScope.launch {
-                    navigationChannel.send(NavigationEvent.OnRegistered(navData))
+                    navigationChannel.send(NavigationEvent.OnRegistered)
                 }
                 state = state.copy(errorState = "")
             },
@@ -66,9 +67,8 @@ class CreateEmployeeViewModel @Inject constructor(
         state = state.copy(jobTitleInput = newInput)
     }
 
-    @Composable
-    fun SelectedUri() {
-
+    sealed interface NavigationEvent {
+        data object OnRegistered : NavigationEvent
     }
 
     data class RegisterScreenState(

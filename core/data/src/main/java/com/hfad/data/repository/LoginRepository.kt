@@ -50,11 +50,12 @@ class LoginRepository @Inject constructor(
         name: String,
         surname: String,
         jobTitle: String,
-        onRegisterSuccess: (Screen.MainScreenDataObject) -> Unit,
+        onRegisterSuccess: () -> Unit,
         onRegisterFailure: (String) -> Unit
     ) {
         val fireStore = Firebase.firestore
         val db = fireStore.collection("stuff")
+        val key = db.document().id
 
         if (email.isBlank() || password.isBlank()) {
             onRegisterFailure("Логин и пароль не могут быть пустыми.")
@@ -69,10 +70,9 @@ class LoginRepository @Inject constructor(
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val userId = task.result.user?.uid ?: return@addOnCompleteListener
                     db.add(
                         Employee(
-                            key = userId,
+                            key = key,
                             name = name,
                             surname = surname,
                             jobTitle = jobTitle
@@ -81,29 +81,44 @@ class LoginRepository @Inject constructor(
                         .addOnFailureListener { e ->
                             onRegisterFailure(e.message ?: "Ошибка при добавлении сотрудника")
                         }
-                } else {
-                    onRegisterFailure(task.exception?.message ?: "Произошла ошибка регистрации")
+                        .addOnSuccessListener {
+                            onRegisterSuccess()
+                        }
                 }
-            }
-            .addOnFailureListener {
-                onRegisterFailure(it.message ?: "Произошла ошибка регистрации")
             }
     }
 
-    fun editAnEmployee(
+    fun editAnEmployee(  // TODO различия ключа и id документа
         name: String,
         surname: String,
         jobTitle: String,
-        onEditSuccess: (Screen.EmployeeDetailsScreen) -> Unit,
+        onEditSuccess: () -> Unit,
         onEditFailure: (String) -> Unit
     ) {
         val fireStore = Firebase.firestore
         val db = fireStore.collection("stuff")
+        val key = db.document().id
 
         if (name.isBlank() || surname.isBlank()) {
             onEditFailure("Имя и фамилия не могут быть пустыми.")
             return
         }
+
+        db.document(key)
+            .set(
+                Employee(
+                    key = key,
+                    name = name,
+                    surname = surname,
+                    jobTitle = jobTitle
+                )
+            )
+            .addOnFailureListener { e ->
+                onEditFailure(e.message ?: "Ошибка при обновлении сотрудника")
+            }
+            .addOnSuccessListener {
+                onEditSuccess()
+            }
     }
 
     fun signIn(

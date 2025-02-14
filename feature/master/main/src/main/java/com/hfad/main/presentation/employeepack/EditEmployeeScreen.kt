@@ -35,6 +35,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
 import coil3.compose.rememberAsyncImagePainter
+import com.hfad.common.compose.InputFieldJobTitle
+import com.hfad.common.compose.InputFieldSurname
+import com.hfad.common.compose.InputFieldName
 import com.hfad.common.compose.ObserveAsEvents
 import com.hfad.navigation.Screen
 import com.hfad.ui.R
@@ -42,7 +45,7 @@ import com.hfad.ui.R
 @Composable
 fun EditEmployeeScreen(
     viewModel: EditEmployeeViewModel = hiltViewModel(),
-    onEdited: (Screen.EmployeeDetailsScreen) -> Unit
+    onEdited: () -> Unit
 ) {
     val state = viewModel.state
     val backgroundColor = MaterialTheme.colorScheme.background
@@ -60,7 +63,7 @@ fun EditEmployeeScreen(
 
     ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
         when(event) {
-            is EditEmployeeViewModel.NavigationEvent.OnEdited -> onEdited(event.data)
+            is EditEmployeeViewModel.NavigationEvent.OnEdited -> onEdited()
         }
     }
 
@@ -77,7 +80,7 @@ fun EditEmployeeScreen(
         fontSize = 25.sp,
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Default,
-        color = Color.LightGray
+        color = Color.Black
     )
         Spacer(modifier = Modifier.height(15.dp))
         Spacer(modifier = Modifier.height(5.dp))

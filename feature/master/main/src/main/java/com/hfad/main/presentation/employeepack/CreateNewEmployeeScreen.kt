@@ -34,16 +34,19 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
 import coil3.compose.rememberAsyncImagePainter
-import com.hfad.authorization.presentation.InputFieldJobTitle
-import com.hfad.authorization.presentation.InputFieldLogin
-import com.hfad.authorization.presentation.InputFieldName
-import com.hfad.authorization.presentation.InputFieldPassword
-import com.hfad.authorization.presentation.InputFieldSurname
+import com.hfad.common.compose.InputFieldJobTitle
+import com.hfad.common.compose.InputFieldLogin
+import com.hfad.common.compose.InputFieldName
+import com.hfad.common.compose.InputFieldPassword
+import com.hfad.common.compose.InputFieldSurname
+import com.hfad.common.compose.ObserveAsEvents
 import com.hfad.main.R
+import com.hfad.navigation.Screen
 
 @Composable
 fun CreateNewEmployeeScreen(
-    viewModel: CreateEmployeeViewModel = hiltViewModel()
+    viewModel: CreateEmployeeViewModel = hiltViewModel(),
+    onRegistered: () -> Unit
 ) {
     val uiState = viewModel.state
     val backgroundColor = MaterialTheme.colorScheme.background
@@ -58,6 +61,12 @@ fun CreateNewEmployeeScreen(
     val placeholderImage = painterResource(
         id = com.hfad.ui.R.drawable.employeeorc
     )
+
+    ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
+        when(event) {
+            is CreateEmployeeViewModel.NavigationEvent.OnRegistered -> onRegistered()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -95,6 +104,14 @@ fun CreateNewEmployeeScreen(
             onEmailInputChanged = viewModel::onEmailInputChanged
         )
 
+        if (uiState.errorState.isNotBlank()) {
+            Text(
+                text = uiState.errorState,
+                color = Color.Red,
+                textAlign = TextAlign.Center
+            )
+        }
+
         InputFieldPassword(
             passwordInput = uiState.passwordInput,
             onPasswordInputChanged = viewModel::onPasswordInputChanged
@@ -115,14 +132,6 @@ fun CreateNewEmployeeScreen(
             onJobTitleInputChanged = viewModel::onJobTitleInputChanged
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
-        if (uiState.errorState.isNotBlank()) {
-            Text(
-                text = uiState.errorState,
-                color = Color.Red,
-                textAlign = TextAlign.Center
-            )
-        }
         FzButton(
             onClick = {
                 viewModel.onCreateEmployeeClick()

@@ -42,9 +42,9 @@ class EditEmployeeViewModel @Inject constructor(
             name = state.nameInput,
             surname = state.surnameInput,
             jobTitle = state.jobTitleInput,
-            onEditSuccess = { navData ->
+            onEditSuccess = {
                 viewModelScope.launch {
-                    navigationChannel.send(NavigationEvent.OnEdited(navData))
+                    navigationChannel.send(NavigationEvent.OnEdited)
                 }
                 state = state.copy(errorState = "")
             },
@@ -67,7 +67,7 @@ class EditEmployeeViewModel @Inject constructor(
     }
 
     sealed interface NavigationEvent {
-        data class OnEdited(val data: Screen.EmployeeDetailsScreen) : NavigationEvent
+        data object OnEdited : NavigationEvent
     }
 
     data class EditScreenState(

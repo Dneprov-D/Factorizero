@@ -70,7 +70,11 @@ fun NavGraphBuilder.employeeTabNavGraph(
         }
 
         composable<Screen.CreateNewEmployeeScreen> {
-            CreateNewEmployeeScreen()
+            CreateNewEmployeeScreen(
+                onRegistered = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable<Screen.EditEmployeeScreen> {

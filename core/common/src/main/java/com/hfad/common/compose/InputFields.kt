@@ -1,4 +1,4 @@
-package com.hfad.authorization.presentation
+package com.hfad.common.compose
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -6,10 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.material3.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,19 +13,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ContentPaste
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.FormatItalic
-import androidx.compose.material.icons.rounded.Key
 import androidx.compose.material.icons.rounded.Password
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
-import com.hfad.authorization.R
 
 
 @Composable
@@ -52,7 +44,7 @@ fun InputFieldLogin(emailInput: String, onEmailInputChanged: (String) -> Unit) {
             },
             value = emailInput,
             onValueChange = { onEmailInputChanged(it) },
-            label = { Text(stringResource(R.string.LoginText)) },
+            label = { Text(stringResource(com.hfad.common.R.string.LoginText)) },
             shape = MaterialTheme.shapes.small,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
@@ -84,7 +76,7 @@ fun InputFieldPassword(passwordInput: String, onPasswordInputChanged: (String) -
             },
             value = passwordInput,
             onValueChange = { onPasswordInputChanged(it) },
-            label = { Text(stringResource(R.string.PasswordText)) },
+            label = { Text(stringResource(com.hfad.common.R.string.PasswordText)) },
             shape = MaterialTheme.shapes.small,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
@@ -117,7 +109,7 @@ fun InputFieldName(nameInput: String, onNameInputChanged: (String) -> Unit) {
             },
             value = nameInput,
             onValueChange = { onNameInputChanged(it) },
-            label = { Text(stringResource(R.string.NameText)) },
+            label = { Text(stringResource(com.hfad.common.R.string.NameText)) },
             shape = MaterialTheme.shapes.small,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
@@ -149,7 +141,7 @@ fun InputFieldSurname(surnameInput: String, onSurnameInputChanged: (String) -> U
             },
             value = surnameInput,
             onValueChange = { onSurnameInputChanged(it) },
-            label = { Text(stringResource(R.string.SurnameText)) },
+            label = { Text(stringResource(com.hfad.common.R.string.SurnameText)) },
             shape = MaterialTheme.shapes.small,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
@@ -181,7 +173,7 @@ fun InputFieldJobTitle(jobTitleInput: String, onJobTitleInputChanged: (String) -
             },
             value = jobTitleInput,
             onValueChange = { onJobTitleInputChanged(it) },
-            label = { Text(stringResource(R.string.JobTitle)) },
+            label = { Text(stringResource(com.hfad.common.R.string.JobTitle)) },
             shape = MaterialTheme.shapes.small,
             singleLine = true,
             keyboardOptions = KeyboardOptions(

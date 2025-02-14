@@ -9,5 +9,5 @@
     <string name="SelectAnEmployee">Выберите сотрудника</string>
     <string name="Register">Зарегистрировать</string>
     <string name="EditProfile">Редактирование профиля</string>
-    <string name="ApplyEdit">Сохранить изминения</string>
+    <string name="ApplyEdit">Сохранить изменения</string>
 </resources>
