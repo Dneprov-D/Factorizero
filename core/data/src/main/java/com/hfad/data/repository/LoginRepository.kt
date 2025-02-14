@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hfad.common.compose.navigateToNewRoot
@@ -45,6 +46,7 @@ class LoginRepository @Inject constructor(
     }
 
     fun createAnEmployee(
+        employee: Employee,
         email: String,
         password: String,
         name: String,
@@ -70,14 +72,15 @@ class LoginRepository @Inject constructor(
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    db.add(
-                        Employee(
-                            key = key,
-                            name = name,
-                            surname = surname,
-                            jobTitle = jobTitle
+                    db.document(key)
+                        .set(
+                            employee.copy(
+                                key = key,
+                                name = name,
+                                surname = surname,
+                                jobTitle = jobTitle
+                            )
                         )
-                    )
                         .addOnFailureListener { e ->
                             onRegisterFailure(e.message ?: "Ошибка при добавлении сотрудника")
                         }
@@ -88,7 +91,8 @@ class LoginRepository @Inject constructor(
             }
     }
 
-    fun editAnEmployee(  // TODO различия ключа и id документа
+    fun editAnEmployee(
+        key: String,
         name: String,
         surname: String,
         jobTitle: String,
@@ -97,21 +101,22 @@ class LoginRepository @Inject constructor(
     ) {
         val fireStore = Firebase.firestore
         val db = fireStore.collection("stuff")
-        val key = db.document().id
 
         if (name.isBlank() || surname.isBlank()) {
             onEditFailure("Имя и фамилия не могут быть пустыми.")
             return
         }
 
+
         db.document(key)
             .set(
                 Employee(
-                    key = key,
+                    key = key, // Используйте переданный ID
                     name = name,
                     surname = surname,
                     jobTitle = jobTitle
-                )
+                ),
+                SetOptions.merge() // Это позволит обновить только указанные поля
             )
             .addOnFailureListener { e ->
                 onEditFailure(e.message ?: "Ошибка при обновлении сотрудника")

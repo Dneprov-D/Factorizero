@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hfad.data.repository.LoginRepository
+import com.hfad.model.Employee
 import com.hfad.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -30,6 +31,7 @@ class CreateEmployeeViewModel @Inject constructor(
             return
         }
         repository.createAnEmployee(
+            employee = Employee(),
             email = state.emailInput,
             password = state.passwordInput,
             name = state.nameInput,

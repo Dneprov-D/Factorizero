@@ -39,6 +39,7 @@ class EditEmployeeViewModel @Inject constructor(
 
     fun onEditEmployeeClick() {
         repository.editAnEmployee(
+            key = state.employee.key,
             name = state.nameInput,
             surname = state.surnameInput,
             jobTitle = state.jobTitleInput,
