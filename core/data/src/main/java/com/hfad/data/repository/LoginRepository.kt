@@ -102,21 +102,20 @@ class LoginRepository @Inject constructor(
         val fireStore = Firebase.firestore
         val db = fireStore.collection("stuff")
 
-        if (name.isBlank() || surname.isBlank()) {
-            onEditFailure("Имя и фамилия не могут быть пустыми.")
+        if (name.isBlank() || surname.isBlank() || (jobTitle.isBlank())) {
+            onEditFailure("Заполните все поля.")
             return
         }
-
 
         db.document(key)
             .set(
                 Employee(
-                    key = key, // Используйте переданный ID
+                    key = key,
                     name = name,
                     surname = surname,
                     jobTitle = jobTitle
                 ),
-                SetOptions.merge() // Это позволит обновить только указанные поля
+                SetOptions.merge()
             )
             .addOnFailureListener { e ->
                 onEditFailure(e.message ?: "Ошибка при обновлении сотрудника")

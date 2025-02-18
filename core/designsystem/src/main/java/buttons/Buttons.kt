@@ -130,6 +130,44 @@ fun FzButton(
     }
 }
 
+@Composable
+fun FzRedOutlinedButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    text: @Composable () -> Unit,
+    leadingIcon: @Composable (() -> Unit)? = null,
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        shape = RoundedCornerShape(10.dp),
+        contentPadding = if (leadingIcon != null) {
+            ButtonDefaults.ButtonWithIconContentPadding
+        } else {
+            ButtonDefaults.ContentPadding
+        },
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = Color.Red,
+        ),
+        border = BorderStroke(
+            width = FzButtonDefaults.OutlinedButtonBorderWidth,
+            color = if (enabled) {
+                Color.Red
+            } else {
+                MaterialTheme.colorScheme.onSurface.copy(
+                    alpha = FzButtonDefaults.DISABLED_OUTLINED_BUTTON_BORDER_ALPHA,
+                )
+            }
+        )
+    ) {
+        FzButtonContent(
+            text = text,
+            leadingIcon = leadingIcon,
+        )
+    }
+}
 
 @Composable
 fun FzOutlinedButton(
@@ -202,6 +240,16 @@ fun FzButtonContent(
 }
 
 //Preview's
+
+@Preview(showBackground = true)
+@Composable
+fun FzRedOutlinedButtonPreview() {
+    FactorizeroTheme {
+        FzBackground(modifier = Modifier.size(150.dp, 50.dp)) {
+            FzRedOutlinedButton(onClick = {}, text = { Text("Test button") })
+        }
+    }
+}
 
 @Preview(showBackground = true)
 @Composable

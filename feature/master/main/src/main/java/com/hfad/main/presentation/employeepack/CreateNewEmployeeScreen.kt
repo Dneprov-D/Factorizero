@@ -43,101 +43,103 @@ import com.hfad.common.compose.ObserveAsEvents
 import com.hfad.main.R
 import com.hfad.navigation.Screen
 
-@Composable
-fun CreateNewEmployeeScreen(
-    viewModel: CreateEmployeeViewModel = hiltViewModel(),
-    onRegistered: () -> Unit
-) {
-    val uiState = viewModel.state
-    val backgroundColor = MaterialTheme.colorScheme.background
-    val selectedImageUri = rememberSaveable {
-        mutableStateOf<Uri?>(null)
-    }
-    val imageLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
-    ) { uri ->
-        selectedImageUri.value = uri
-    }
-    val placeholderImage = painterResource(
-        id = com.hfad.ui.R.drawable.employeeorc
-    )
-
-    ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
-        when(event) {
-            is CreateEmployeeViewModel.NavigationEvent.OnRegistered -> onRegistered()
-        }
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = backgroundColor)
-            .verticalScroll(rememberScrollState())
-            .padding(top = 25.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+    @Composable
+    fun CreateNewEmployeeScreen(
+        viewModel: CreateEmployeeViewModel = hiltViewModel(),
+        onRegistered: () -> Unit
     ) {
-        Spacer(modifier = Modifier.height(5.dp))
-        Text(
-            text = stringResource(R.string.AddPhoto),
-            fontSize = 18.sp,
-            fontFamily = FontFamily.Default,
-            color = Color.LightGray
-        )
-        Spacer(modifier = Modifier.height(5.dp))
-        Image(
-            modifier = Modifier
-                .size(170.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .clickable {
-                    imageLauncher.launch("image/*")
-                },
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            painter = if (selectedImageUri.value != null) {
-                rememberAsyncImagePainter(model = selectedImageUri.value)
-            } else {
-                placeholderImage
-            }
-        )
-        InputFieldLogin(
-            emailInput = uiState.emailInput,
-            onEmailInputChanged = viewModel::onEmailInputChanged
+        val uiState = viewModel.state
+        val backgroundColor = MaterialTheme.colorScheme.background
+        val selectedImageUri = rememberSaveable {
+            mutableStateOf<Uri?>(null)
+        }
+        val imageLauncher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.GetContent()
+        ) { uri ->
+            selectedImageUri.value = uri
+        }
+        val placeholderImage = painterResource(
+            id = com.hfad.ui.R.drawable.employeeorc
         )
 
-        if (uiState.errorState.isNotBlank()) {
-            Text(
-                text = uiState.errorState,
-                color = Color.Red,
-                textAlign = TextAlign.Center
-            )
+        ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
+            when(event) {
+                is CreateEmployeeViewModel.NavigationEvent.OnRegistered -> onRegistered()
+            }
         }
 
-        InputFieldPassword(
-            passwordInput = uiState.passwordInput,
-            onPasswordInputChanged = viewModel::onPasswordInputChanged
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = backgroundColor)
+                .verticalScroll(rememberScrollState())
+                .padding(top = 25.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(
+                text = stringResource(R.string.AddPhoto),
+                fontSize = 18.sp,
+                fontFamily = FontFamily.Default,
+                color = Color.LightGray
+            )
+            Spacer(modifier = Modifier.height(5.dp))
+            Image(
+                modifier = Modifier
+                    .size(170.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable {
+                        imageLauncher.launch("image/*")
+                    },
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                painter = if (selectedImageUri.value != null) {
+                    rememberAsyncImagePainter(model = selectedImageUri.value)
+                } else {
+                    placeholderImage
+                }
+            )
+            InputFieldLogin(
+                emailInput = uiState.emailInput,
+                onEmailInputChanged = viewModel::onEmailInputChanged
+            )
 
-        InputFieldName(
-            nameInput = uiState.nameInput,
-            onNameInputChanged = viewModel::onNameInputChanged
-        )
+            InputFieldPassword(
+                passwordInput = uiState.passwordInput,
+                onPasswordInputChanged = viewModel::onPasswordInputChanged
+            )
 
-        InputFieldSurname(
-            surnameInput = uiState.surnameInput,
-            onSurnameInputChanged = viewModel::onSurnameInputChanged
-        )
+            InputFieldName(
+                nameInput = uiState.nameInput,
+                onNameInputChanged = viewModel::onNameInputChanged
+            )
 
-        InputFieldJobTitle(
-            jobTitleInput = uiState.jobTitleInput,
-            onJobTitleInputChanged = viewModel::onJobTitleInputChanged
-        )
+            InputFieldSurname(
+                surnameInput = uiState.surnameInput,
+                onSurnameInputChanged = viewModel::onSurnameInputChanged
+            )
 
-        FzButton(
-            onClick = {
-                viewModel.onCreateEmployeeClick()
-            },
-            text = { Text(text = stringResource(R.string.Register)) }
-        )
-        Spacer(modifier = Modifier.height(10.dp))
+            InputFieldJobTitle(
+                jobTitleInput = uiState.jobTitleInput,
+                onJobTitleInputChanged = viewModel::onJobTitleInputChanged
+            )
+
+            FzButton(
+                onClick = {
+                    viewModel.onCreateEmployeeClick()
+                },
+                text = { Text(text = stringResource(R.string.Register)) },
+                enabled = uiState.isButtonEnabled
+            )
+
+            if (uiState.errorState.isNotBlank()) {
+                Text(
+                    text = uiState.errorState,
+                    color = Color.Red,
+                    textAlign = TextAlign.Center
+                )
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+        }
     }
-}

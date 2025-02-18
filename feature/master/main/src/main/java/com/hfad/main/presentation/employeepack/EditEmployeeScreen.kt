@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
+import buttons.FzRedOutlinedButton
 import coil3.compose.rememberAsyncImagePainter
 import com.hfad.common.compose.InputFieldJobTitle
 import com.hfad.common.compose.InputFieldSurname
@@ -62,7 +63,7 @@ fun EditEmployeeScreen(
     )
 
     ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
-        when(event) {
+        when (event) {
             is EditEmployeeViewModel.NavigationEvent.OnEdited -> onEdited()
         }
     }
@@ -76,12 +77,12 @@ fun EditEmployeeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-        text = stringResource(com.hfad.main.R.string.EditProfile),
-        fontSize = 25.sp,
-        fontWeight = FontWeight.Bold,
-        fontFamily = FontFamily.Default,
-        color = Color.Black
-    )
+            text = stringResource(com.hfad.main.R.string.EditProfile),
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Default,
+            color = Color.Black
+        )
         Spacer(modifier = Modifier.height(15.dp))
         Spacer(modifier = Modifier.height(5.dp))
         Text(
@@ -129,12 +130,20 @@ fun EditEmployeeScreen(
                 textAlign = TextAlign.Center
             )
         }
+
         FzButton(
             onClick = {
                 viewModel.onEditEmployeeClick()
             },
             text = { Text(text = stringResource(com.hfad.main.R.string.ApplyEdit)) }
         )
+
         Spacer(modifier = Modifier.height(10.dp))
+        FzRedOutlinedButton(
+            onClick = {
+
+            },
+            text = { Text(text = stringResource(com.hfad.main.R.string.DeleteAccount)) }
+        )
     }
 }

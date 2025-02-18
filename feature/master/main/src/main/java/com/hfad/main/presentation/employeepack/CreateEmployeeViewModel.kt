@@ -48,25 +48,39 @@ class CreateEmployeeViewModel @Inject constructor(
             }
         )
     }
+    private fun updateButtonState() {
+        state = state.copy(isButtonEnabled =
+        state.emailInput.isNotBlank() &&
+                state.passwordInput.isNotBlank() &&
+                state.nameInput.isNotBlank() &&
+                state.surnameInput.isNotBlank() &&
+                state.jobTitleInput.isNotBlank()
+        )
+    }
 
     fun onEmailInputChanged(newInput: String) {
         state = state.copy(emailInput = newInput)
+        updateButtonState()
     }
 
     fun onPasswordInputChanged(newInput: String) {
         state = state.copy(passwordInput = newInput)
+        updateButtonState()
     }
 
     fun onNameInputChanged(newInput: String) {
         state = state.copy(nameInput = newInput)
+        updateButtonState()
     }
 
     fun onSurnameInputChanged(newInput: String) {
         state = state.copy(surnameInput = newInput)
+        updateButtonState()
     }
 
     fun onJobTitleInputChanged(newInput: String) {
         state = state.copy(jobTitleInput = newInput)
+        updateButtonState()
     }
 
     sealed interface NavigationEvent {
@@ -79,6 +93,7 @@ class CreateEmployeeViewModel @Inject constructor(
         val errorState: String = "",
         val nameInput: String = "",
         val surnameInput: String = "",
-        val jobTitleInput: String = ""
+        val jobTitleInput: String = "",
+        val isButtonEnabled: Boolean = false
     )
 }
