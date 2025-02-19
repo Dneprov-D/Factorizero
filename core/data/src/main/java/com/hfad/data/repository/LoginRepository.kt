@@ -151,34 +151,21 @@ class LoginRepository @Inject constructor(
     }
 
     fun deleteAccount(
+        key: String,
         email: String,
         password: String,
         onDeleteSuccess: () -> Unit,
         onDeleteFailure: (String) -> Unit
     ) {
-        val credential = EmailAuthProvider.getCredential(email, password)
         val fireStore = Firebase.firestore
         val db = fireStore.collection("stuff")
-        val userId = auth.currentUser?.uid
 
-        auth.currentUser?.reauthenticate(credential)?.addOnCompleteListener { reauthTask ->
-            if (reauthTask.isSuccessful) {
-                userId?.let { uid ->
-                    db.document(uid).delete().addOnCompleteListener { deleteEmployee ->
-                        if (deleteEmployee.isSuccessful) {
-                            auth.currentUser?.delete()?.addOnCompleteListener { deleteAccount ->
-                                if (deleteAccount.isSuccessful) {
-                                    Log.e("LogLogin", "Account and database record were deleted!")
-                                } else {
-                                    Log.e("LogLogin", "Failure to delete account!")
-                                }
-                            }
-                        } else {
-                            Log.e("LogLogin", "Failure to delete account record from Firestore!")
-                        }
-                    }
-                }
+        db.document(key).delete()
+            .addOnSuccessListener {
+                onDeleteSuccess()
             }
-        }
+            .addOnFailureListener { e ->
+                onDeleteFailure(e.message ?: "Ошибка при удалении записи")
+            }
     }
 }

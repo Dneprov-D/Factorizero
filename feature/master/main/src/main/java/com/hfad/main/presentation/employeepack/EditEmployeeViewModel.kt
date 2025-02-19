@@ -57,6 +57,7 @@ class EditEmployeeViewModel @Inject constructor(
 
     fun onDeleteAccountClick() {
         repository.deleteAccount(
+            key = state.employee.key,
             email = state.emailInput,
             password = state.passwordInput,
             onDeleteSuccess = {
@@ -106,6 +107,7 @@ class EditEmployeeViewModel @Inject constructor(
 
     data class EditScreenState(
         val employee: EmployeeUiModel,
+        val key: String = "",
         val emailInput: String = "",
         val passwordInput: String = "",
         val errorState: String = "",
