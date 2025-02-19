@@ -55,27 +55,63 @@ class EditEmployeeViewModel @Inject constructor(
         )
     }
 
+    fun onDeleteAccountClick() {
+        repository.deleteAccount(
+            email = state.emailInput,
+            password = state.passwordInput,
+            onDeleteSuccess = {
+                viewModelScope.launch {
+                    navigationChannel.send(NavigationEvent.OnDeleted)
+                }
+                state = state.copy(errorState = "")
+            },
+            onDeleteFailure = {
+                    error ->
+                state = state.copy(errorState = error)
+            }
+        )
+    }
+
+    private fun shouldButtonEnabled() =
+      state.nameInput.isNotBlank()
+              && state.surnameInput.isNotBlank()
+              && state.jobTitleInput.isNotBlank()
+
+
     fun onNameInputChanged(newInput: String) {
-        state = state.copy(nameInput = newInput)
+        state = state.copy(
+            nameInput = newInput,
+            isButtonEnabled = shouldButtonEnabled()
+        )
     }
 
     fun onSurnameInputChanged(newInput: String) {
-        state = state.copy(surnameInput = newInput)
+        state = state.copy(
+            surnameInput = newInput,
+            isButtonEnabled = shouldButtonEnabled()
+        )
     }
 
     fun onJobTitleInputChanged(newInput: String) {
-        state = state.copy(jobTitleInput = newInput)
+        state = state.copy(
+            jobTitleInput = newInput,
+            isButtonEnabled = shouldButtonEnabled()
+        )
     }
 
     sealed interface NavigationEvent {
         data object OnEdited : NavigationEvent
+        data object OnDeleted : NavigationEvent
     }
 
     data class EditScreenState(
         val employee: EmployeeUiModel,
+        val emailInput: String = "",
+        val passwordInput: String = "",
         val errorState: String = "",
         val nameInput: String = "",
         val surnameInput: String = "",
-        val jobTitleInput: String = ""
+        val jobTitleInput: String = "",
+        val isButtonEnabled: Boolean = false
     )
 }

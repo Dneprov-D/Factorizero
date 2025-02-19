@@ -48,39 +48,44 @@ class CreateEmployeeViewModel @Inject constructor(
             }
         )
     }
-    private fun updateButtonState() {
-        state = state.copy(isButtonEnabled =
-        state.emailInput.isNotBlank() &&
-                state.passwordInput.isNotBlank() &&
-                state.nameInput.isNotBlank() &&
-                state.surnameInput.isNotBlank() &&
-                state.jobTitleInput.isNotBlank()
+    private fun shouldButtonEnabled() =
+        state.nameInput.isNotBlank()
+                && state.surnameInput.isNotBlank()
+                && state.jobTitleInput.isNotBlank()
+
+    fun onEmailInputChanged(newInput: String) {
+        state = state.copy(
+            emailInput = newInput,
+            isButtonEnabled = shouldButtonEnabled()
         )
     }
 
-    fun onEmailInputChanged(newInput: String) {
-        state = state.copy(emailInput = newInput)
-        updateButtonState()
-    }
-
     fun onPasswordInputChanged(newInput: String) {
-        state = state.copy(passwordInput = newInput)
-        updateButtonState()
+        state = state.copy(
+            passwordInput = newInput,
+            isButtonEnabled = shouldButtonEnabled()
+        )
     }
 
     fun onNameInputChanged(newInput: String) {
-        state = state.copy(nameInput = newInput)
-        updateButtonState()
+        state = state.copy(
+            nameInput = newInput,
+            isButtonEnabled = shouldButtonEnabled()
+        )
     }
 
     fun onSurnameInputChanged(newInput: String) {
-        state = state.copy(surnameInput = newInput)
-        updateButtonState()
+        state = state.copy(
+            surnameInput = newInput,
+            isButtonEnabled = shouldButtonEnabled()
+        )
     }
 
     fun onJobTitleInputChanged(newInput: String) {
-        state = state.copy(jobTitleInput = newInput)
-        updateButtonState()
+        state = state.copy(
+            jobTitleInput = newInput,
+            isButtonEnabled = shouldButtonEnabled()
+        )
     }
 
     sealed interface NavigationEvent {

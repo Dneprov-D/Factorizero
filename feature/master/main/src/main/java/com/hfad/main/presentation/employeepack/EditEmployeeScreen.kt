@@ -46,7 +46,8 @@ import com.hfad.ui.R
 @Composable
 fun EditEmployeeScreen(
     viewModel: EditEmployeeViewModel = hiltViewModel(),
-    onEdited: () -> Unit
+    onEdited: () -> Unit,
+    onDeleted: () -> Unit
 ) {
     val state = viewModel.state
     val backgroundColor = MaterialTheme.colorScheme.background
@@ -64,7 +65,8 @@ fun EditEmployeeScreen(
 
     ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
         when (event) {
-            is EditEmployeeViewModel.NavigationEvent.OnEdited -> onEdited()
+            EditEmployeeViewModel.NavigationEvent.OnDeleted -> onDeleted()
+            EditEmployeeViewModel.NavigationEvent.OnEdited -> onEdited()
         }
     }
 
@@ -135,13 +137,14 @@ fun EditEmployeeScreen(
             onClick = {
                 viewModel.onEditEmployeeClick()
             },
-            text = { Text(text = stringResource(com.hfad.main.R.string.ApplyEdit)) }
+            text = { Text(text = stringResource(com.hfad.main.R.string.ApplyEdit)) },
+            enabled = state.isButtonEnabled
         )
 
         Spacer(modifier = Modifier.height(10.dp))
         FzRedOutlinedButton(
             onClick = {
-
+                viewModel.onDeleteAccountClick()
             },
             text = { Text(text = stringResource(com.hfad.main.R.string.DeleteAccount)) }
         )

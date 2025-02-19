@@ -81,6 +81,9 @@ fun NavGraphBuilder.employeeTabNavGraph(
             EditEmployeeScreen(
                 onEdited = {
                     navController.popBackStack()
+                },
+                onDeleted = {
+                    navController.navigate(Screen.MainMasterScreen)
                 }
             )
         }

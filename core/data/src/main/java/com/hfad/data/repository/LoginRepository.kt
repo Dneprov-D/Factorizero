@@ -59,13 +59,8 @@ class LoginRepository @Inject constructor(
         val db = fireStore.collection("stuff")
         val key = db.document().id
 
-        if (email.isBlank() || password.isBlank()) {
-            onRegisterFailure("Логин и пароль не могут быть пустыми.")
-            return
-        }
-
-        if (name.isBlank() || surname.isBlank()) {
-            onRegisterFailure("Имя и фамилия не могут быть пустыми.")
+        if (email.isBlank() || password.isBlank() || name.isBlank() || surname.isBlank()) {
+            onRegisterFailure("Заполните все поля.")
             return
         }
 
@@ -155,21 +150,35 @@ class LoginRepository @Inject constructor(
         Log.e("LogLogin", "Sign Out")
     }
 
-    fun deleteAccount(email: String, password: String) {
+    fun deleteAccount(
+        email: String,
+        password: String,
+        onDeleteSuccess: () -> Unit,
+        onDeleteFailure: (String) -> Unit
+    ) {
         val credential = EmailAuthProvider.getCredential(email, password)
-        auth.currentUser?.reauthenticate(credential)?.addOnCompleteListener {
-            if (it.isSuccessful) {
-                auth.currentUser?.delete()?.addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Log.e("LogLogin", "Account was deleted!")
-                    } else {
-                        Log.e("LogLogin", "Failure delete account!")
+        val fireStore = Firebase.firestore
+        val db = fireStore.collection("stuff")
+        val userId = auth.currentUser?.uid
+
+        auth.currentUser?.reauthenticate(credential)?.addOnCompleteListener { reauthTask ->
+            if (reauthTask.isSuccessful) {
+                userId?.let { uid ->
+                    db.document(uid).delete().addOnCompleteListener { deleteEmployee ->
+                        if (deleteEmployee.isSuccessful) {
+                            auth.currentUser?.delete()?.addOnCompleteListener { deleteAccount ->
+                                if (deleteAccount.isSuccessful) {
+                                    Log.e("LogLogin", "Account and database record were deleted!")
+                                } else {
+                                    Log.e("LogLogin", "Failure to delete account!")
+                                }
+                            }
+                        } else {
+                            Log.e("LogLogin", "Failure to delete account record from Firestore!")
+                        }
                     }
                 }
-            } else {
-                Log.e("LogLogin", "Failure reauthenticate!")
             }
         }
-        Log.e("LogLogin", "Account already was deleted!")
     }
 }

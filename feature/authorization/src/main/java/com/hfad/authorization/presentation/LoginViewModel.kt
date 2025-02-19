@@ -68,13 +68,6 @@ class LoginViewModel @Inject constructor(
         repository.signOut()
     }
 
-    fun onDeleteAccountClicked() {
-        repository.deleteAccount(
-            loginState.emailInput,
-            loginState.passwordInput
-        )
-    }
-
     fun onEmailInputChanged(newInput: String) {
         loginState = loginState.copy(emailInput = newInput)
     }
