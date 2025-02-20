@@ -151,23 +151,28 @@ fun EditEmployeeScreen(
             text = { Text(text = stringResource(com.hfad.main.R.string.DeleteAccount)) }
         )
     }
-
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
             title = { Text(text = stringResource(com.hfad.main.R.string.ConfirmDelete)) },
             text = { Text(text = stringResource(com.hfad.main.R.string.SureDeleteAccount)) },
             confirmButton = {
-                Button(onClick = {
-                    viewModel.onDeleteAccountClick()
-                    showDeleteDialog = false
-                }) {
-                    Text(text = stringResource(com.hfad.main.R.string.Yes))
+                Button(
+                    onClick = {
+                        viewModel.onDeleteAccountClick()
+                        showDeleteDialog = false
+                    }) {
+                    Text(
+                        text = stringResource(com.hfad.main.R.string.Yes)
+                    )
                 }
             },
             dismissButton = {
-                Button(onClick = { showDeleteDialog = false }) {
-                    Text(text = stringResource(com.hfad.main.R.string.No))
+                Button(
+                    onClick = { showDeleteDialog = false }) {
+                    Text(
+                        text = stringResource(com.hfad.main.R.string.No)
+                    )
                 }
             }
         )

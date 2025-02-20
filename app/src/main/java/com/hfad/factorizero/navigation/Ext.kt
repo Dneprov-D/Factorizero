@@ -16,6 +16,7 @@ import com.hfad.main.presentation.employeepack.EditEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
 import com.hfad.main.presentation.masterpack.MasterMainScreen
 import com.hfad.model.Employee
+import com.hfad.navigation.MainScreen
 import com.hfad.profile.MasterProfileScreen
 import com.hfad.navigation.Screen
 import com.hfad.navigation.TopLevelScreens
@@ -140,6 +141,20 @@ fun NavController.navigateToNewRoot(route: Any) {
 fun shouldShowBottomBar(currentDestination: NavDestination?) =
     currentDestination?.let { destination ->
         TopLevelScreens.entries.none { screen ->
+            destination.hasRoute(screen.route)
+        }
+    } == true
+
+fun shouldShowTopBar(currentDestination: NavDestination?) =
+    currentDestination?.let { destination ->
+        TopLevelScreens.entries.none { screen ->
+            destination.hasRoute(screen.route)
+        }
+    } == true
+
+fun shouldShowArrowBack(currentDestination: NavDestination?) =
+    currentDestination?.let { destination ->
+        MainScreen.entries.none { screen ->
             destination.hasRoute(screen.route)
         }
     } == true
