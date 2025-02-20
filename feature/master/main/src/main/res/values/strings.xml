@@ -11,4 +11,8 @@
     <string name="EditProfile">Редактирование профиля</string>
     <string name="ApplyEdit">Сохранить изменения</string>
     <string name="DeleteAccount">Удалить аккаунт</string>
+    <string name="SureDeleteAccount">Вы уверены, что хотите удалить этот профиль?</string>
+    <string name="ConfirmDelete">Подтверждение удаления</string>
+    <string name="No">Нет</string>
+    <string name="Yes">Да</string>
 </resources>

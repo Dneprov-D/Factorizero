@@ -1,13 +1,19 @@
 package com.hfad.main.presentation.employeepack
 
+import androidx.compose.material.AlertDialog
+import androidx.compose.material.Button
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.hfad.data.repository.LoginRepository
+import com.hfad.main.R
 import com.hfad.navigation.Screen
 import com.hfad.ui.profile.uimodel.EmployeeUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -66,17 +72,16 @@ class EditEmployeeViewModel @Inject constructor(
                 }
                 state = state.copy(errorState = "")
             },
-            onDeleteFailure = {
-                    error ->
+            onDeleteFailure = { error ->
                 state = state.copy(errorState = error)
             }
         )
     }
 
     private fun shouldButtonEnabled() =
-      state.nameInput.isNotBlank()
-              && state.surnameInput.isNotBlank()
-              && state.jobTitleInput.isNotBlank()
+        state.nameInput.isNotBlank()
+                && state.surnameInput.isNotBlank()
+                && state.jobTitleInput.isNotBlank()
 
 
     fun onNameInputChanged(newInput: String) {
