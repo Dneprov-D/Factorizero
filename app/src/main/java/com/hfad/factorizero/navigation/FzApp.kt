@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material3.NavigationBar
@@ -44,7 +43,7 @@ fun FzApp() {
                             )
                         }
                 },
-                backgroundColor = MaterialTheme.colors.primary,
+                backgroundColor = LightColorScheme.tertiary,
                 contentColor = Color.White
             )
         },

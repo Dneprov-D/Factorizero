@@ -45,8 +45,10 @@ import com.hfad.common.compose.InputFieldJobTitle
 import com.hfad.common.compose.InputFieldSurname
 import com.hfad.common.compose.InputFieldName
 import com.hfad.common.compose.ObserveAsEvents
+import com.hfad.model.Employee
 import com.hfad.navigation.Screen
 import com.hfad.ui.R
+import com.hfad.ui.profile.uimodel.EmployeeUiModel
 
 @Composable
 fun EditEmployeeScreen(

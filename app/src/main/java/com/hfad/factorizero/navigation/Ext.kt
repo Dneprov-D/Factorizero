@@ -84,7 +84,9 @@ fun NavGraphBuilder.employeeTabNavGraph(
                     navController.popBackStack()
                 },
                 onDeleted = {
-                    navController.navigate(Screen.MainMasterScreen)
+                    navController.navigate(Screen.MainMasterScreen) {
+                        popUpTo(Screen.MainMasterScreen) { inclusive = true }
+                    }
                 }
             )
         }
