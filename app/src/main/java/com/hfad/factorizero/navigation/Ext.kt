@@ -41,7 +41,6 @@ fun NavGraphBuilder.employeeTabNavGraph(
 
         composable<Screen.MainMasterScreen> {
             MasterMainScreen(
-                navController,
                 onEmployeeClick = {
                     navController.navigate(
                         Screen.EmployeeDetailsScreen(
@@ -51,6 +50,9 @@ fun NavGraphBuilder.employeeTabNavGraph(
                             jobTitle = it.jobTitle
                         )
                     )
+                },
+                onFabClick = {
+                    navController.navigate(route = Screen.CreateNewEmployeeScreen)
                 }
             )
         }
@@ -73,7 +75,10 @@ fun NavGraphBuilder.employeeTabNavGraph(
         composable<Screen.CreateNewEmployeeScreen> {
             CreateNewEmployeeScreen(
                 onRegistered = {
-                    navController.popBackStack()
+                    navController.popBackStack(
+                        route = Screen.MainMasterScreen,
+                        inclusive = false
+                    )
                 }
             )
         }
@@ -84,9 +89,10 @@ fun NavGraphBuilder.employeeTabNavGraph(
                     navController.popBackStack()
                 },
                 onDeleted = {
-                    navController.navigate(Screen.MainMasterScreen) {
-                        popUpTo(Screen.MainMasterScreen) { inclusive = true }
-                    }
+                    navController.popBackStack(
+                        route = Screen.MainMasterScreen,
+                        inclusive = false
+                    )
                 }
             )
         }
@@ -118,7 +124,7 @@ fun NavDestination?.isRouteInHierarchy(route: KClass<*>) =
 
 fun NavController.navigateToBottomNavigationDestination(bottomNavigationDestination: BottomNavigationDestination) {
     val bottomNavigationNavOptions = navOptions {
-        popUpTo(graph.findStartDestination().id) {
+        popUpTo(0) {
             saveState = true
         }
         launchSingleTop = true

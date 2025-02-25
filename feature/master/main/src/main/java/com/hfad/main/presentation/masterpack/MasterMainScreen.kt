@@ -27,9 +27,9 @@ import com.hfad.ui.profile.uimodel.EmployeeUiModel
 
 @Composable
 fun MasterMainScreen(
-    navController: NavHostController,
     viewModel: MasterMainViewModel = hiltViewModel(),
-    onEmployeeClick: (Employee) -> Unit
+    onEmployeeClick: (Employee) -> Unit,
+    onFabClick: () -> Unit
 ) {
     val state = viewModel.state
     val backgroundColor = MaterialTheme.colorScheme.background
@@ -40,7 +40,7 @@ fun MasterMainScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navController.navigate(route = Screen.CreateNewEmployeeScreen)
+                    onFabClick()
                 },
                 containerColor = LightColorScheme.tertiary
             ) {

@@ -1,5 +1,6 @@
 package com.hfad.main.presentation.masterpack
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,6 +12,7 @@ import com.hfad.model.Employee
 import com.hfad.ui.profile.uimodel.EmployeeUiModel
 import com.hfad.ui.profile.uimodel.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +25,7 @@ class MasterMainViewModel @Inject constructor() : ViewModel() {
     init {
         val db = Firebase.firestore
         getAllStaff(db)
+        Log.e("pop","суперметка!")
     }
 
     data class MasterMainScreenState(
