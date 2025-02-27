@@ -1,7 +1,9 @@
 package com.hfad.factorizero.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -19,7 +21,11 @@ fun AppNavGraph(
     modifier: Modifier
 ) {
     LaunchedEffect(Unit) {
+        // TODO перевызывается AppNavGraph при вызове navigateUp() из рутового экрана а ожидается сворачивание приложения (не рекомпозиция а с нуля)
+        // TODO происходит при первом вызове navigateUp() далее игнорируется
+        Log.e("pop", "navGraph LaunchedEffect")
         Firebase.auth.addAuthStateListener {
+            Log.e("pop", "auth ${it.currentUser}")
             if (it.currentUser != null) {
                 navController.navigateToNewRoot(Screen.MainMasterScreen)
             } else {
