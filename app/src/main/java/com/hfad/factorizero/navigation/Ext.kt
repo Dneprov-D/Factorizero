@@ -4,7 +4,6 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -15,8 +14,7 @@ import com.hfad.main.presentation.employeepack.CreateNewEmployeeScreen
 import com.hfad.main.presentation.employeepack.EditEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
 import com.hfad.main.presentation.masterpack.MasterMainScreen
-import com.hfad.model.Employee
-import com.hfad.navigation.MainScreen
+import com.hfad.navigation.NoArrowBackScreens
 import com.hfad.profile.MasterProfileScreen
 import com.hfad.navigation.Screen
 import com.hfad.navigation.TopLevelScreens
@@ -138,14 +136,6 @@ fun NavController.navigateToBottomNavigationDestination(bottomNavigationDestinat
     }
 }
 
-fun NavController.navigateToNewRoot(route: Any) {
-    navigate(route) {
-        popUpTo(graph.id) {
-            inclusive = true
-        }
-    }
-}
-
 fun shouldShowBottomBar(currentDestination: NavDestination?) =
     currentDestination?.let { destination ->
         TopLevelScreens.entries.none { screen ->
@@ -162,7 +152,7 @@ fun shouldShowTopBar(currentDestination: NavDestination?) =
 
 fun shouldShowArrowBack(currentDestination: NavDestination?) =
     currentDestination?.let { destination ->
-        MainScreen.entries.none { screen ->
+        NoArrowBackScreens.entries.none { screen ->
             destination.hasRoute(screen.route)
         }
     } == true
