@@ -23,7 +23,7 @@ enum class BottomNavigationDestination(
     TASKS_TAB(
         icon = Icons.Outlined.LocalOffer,
         titleResId = R.string.navigation_item_tasks,
-        route = Screen.TasksTabScreen::class
+        route = Screen.TasksMasterScreen::class
     ),
 
     PROFILE_TAB(

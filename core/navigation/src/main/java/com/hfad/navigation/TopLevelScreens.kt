@@ -8,6 +8,6 @@ enum class TopLevelScreens(val route: KClass<*>) {
 
 enum class NoArrowBackScreens(val route: KClass<*>) {
     MAIN_SCREEN(route = Screen.MainMasterScreen::class),
-    TASK_SCREEN(route = Screen.TasksTabScreen::class),
+    TASKS_SCREEN(route = Screen.TasksMasterScreen::class),
     PROFILE_SCREEN(route = Screen.ProfileTabScreen::class)
 }
