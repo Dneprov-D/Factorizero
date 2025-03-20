@@ -73,10 +73,7 @@ fun NavGraphBuilder.employeeTabNavGraph(
         composable<Screen.CreateNewEmployeeScreen> {
             CreateNewEmployeeScreen(
                 onRegistered = {
-                    navController.popBackStack(
-                        route = Screen.MainMasterScreen,
-                        inclusive = false
-                    )
+                    navController.navigate(Screen.MainMasterScreen)
                 }
             )
         }
