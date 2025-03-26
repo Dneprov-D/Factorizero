@@ -26,15 +26,15 @@ class LoginViewModel @Inject constructor(
 
     fun onCreateAccountClick() {
         if (loginState.emailInput.isBlank() || loginState.passwordInput.isBlank()) {
-            loginState = loginState.copy(errorState = "Логин и пароль не могут быть пустыми")
+            loginState = loginState.copy(errorState = "Для регистрации мастера, введите логин и пароль.")
             return
         }
         repository.createAnAccount(
             email = loginState.emailInput,
             password = loginState.passwordInput,
-            onSignUpSuccess = { navData ->
+            onSignUpSuccess = {
                 viewModelScope.launch {
-                    navigationChannel.send(NavigationEvent.OnRegistered(navData))
+                    navigationChannel.send(NavigationEvent.OnRegistered)
                 }
                 loginState = loginState.copy(errorState = "")
             },
@@ -46,15 +46,15 @@ class LoginViewModel @Inject constructor(
 
     fun onSignInClick() {
         if (loginState.emailInput.isBlank() || loginState.passwordInput.isBlank()) {
-            loginState = loginState.copy(errorState = "Логин и пароль не могут быть пустыми")
+            loginState = loginState.copy(errorState = "Логин и пароль не могут быть пустыми.")
             return
         }
         repository.signIn(
             email = loginState.emailInput,
             password = loginState.passwordInput,
-            onSignInSuccess = { navData ->
+            onSignInSuccess = {
                 viewModelScope.launch {
-                    navigationChannel.send(NavigationEvent.OnSignedIn(navData))
+                    navigationChannel.send(NavigationEvent.OnSignedIn)
                 }
                 loginState = loginState.copy(errorState = "")
             },
@@ -67,6 +67,12 @@ class LoginViewModel @Inject constructor(
     fun onSignOutClick() {
         repository.signOut()
     }
+    
+    fun onCreateEmployeeAccountClick() {
+        viewModelScope.launch {
+            navigationChannel.send(NavigationEvent.OnRegisterEmployeeClicked)
+        }
+    }
 
     fun onEmailInputChanged(newInput: String) {
         loginState = loginState.copy(emailInput = newInput)
@@ -78,9 +84,11 @@ class LoginViewModel @Inject constructor(
 }
 
 sealed interface NavigationEvent {
-    data class OnSignedIn(val data: Screen.MainScreenDataObject) : NavigationEvent
+    data object OnSignedIn : NavigationEvent
 
-    data class OnRegistered(val data: Screen.MainScreenDataObject) : NavigationEvent
+    data object OnRegistered : NavigationEvent
+
+    data object OnRegisterEmployeeClicked : NavigationEvent
 }
 
 data class LoginScreenState(

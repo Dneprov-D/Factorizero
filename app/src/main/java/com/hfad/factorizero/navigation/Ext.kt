@@ -31,12 +31,11 @@ fun NavGraphBuilder.profileTabNavGraph(
 }
 
 fun NavGraphBuilder.employeeTabNavGraph(
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     navigation<Screen.EmployeeTabScreen>(
         startDestination = Screen.MainMasterScreen
     ) {
-
         composable<Screen.MainMasterScreen> {
             MasterMainScreen(
                 onEmployeeClick = {
@@ -48,9 +47,6 @@ fun NavGraphBuilder.employeeTabNavGraph(
                             jobTitle = it.jobTitle
                         )
                     )
-                },
-                onFabClick = {
-                    navController.navigate(route = Screen.CreateNewEmployeeScreen)
                 }
             )
         }
@@ -70,18 +66,13 @@ fun NavGraphBuilder.employeeTabNavGraph(
             )
         }
 
-        composable<Screen.CreateNewEmployeeScreen> {
-            CreateNewEmployeeScreen(
-                onRegistered = {
-                    navController.navigate(Screen.MainMasterScreen)
-                }
-            )
-        }
-
         composable<Screen.EditEmployeeScreen> {
             EditEmployeeScreen(
                 onEdited = {
-                    navController.popBackStack()
+                    navController.popBackStack(
+                        route = Screen.MainMasterScreen,
+                        inclusive = false
+                    )
                 },
                 onDeleted = {
                     navController.popBackStack(

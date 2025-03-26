@@ -9,7 +9,8 @@
     <string name="NameText">Имя</string>
     <string name="SurnameText">Фамилия</string>
     <string name="PasswordText">Пароль</string>
-    <string name="CreateAnAccount">Создать аккаунт</string>
+    <string name="RegisterMaster">Регестриация "Мастер"</string>
+    <string name="RegisterEmployee">Регестриация "Сотрудник"</string>
     <string name="SignOut">Выйти из профиля</string>
     <string name="DeleteAnAccount">Удалить профиль</string>
     <string name="CreateAnAccountFailure">Произошла ошибка регистрации</string>

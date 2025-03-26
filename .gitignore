@@ -45,3 +45,5 @@ crashlytics.properties
 /coverage/
 /.qodo/history.sqlite
 /.qodo/indexes.sqlite
+
+.qodo

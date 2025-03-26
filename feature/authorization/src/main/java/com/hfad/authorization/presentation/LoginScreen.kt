@@ -1,12 +1,12 @@
 package com.hfad.authorization.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,20 +29,25 @@ import com.hfad.navigation.Screen
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
-    onNavigateToMainScreen: (Screen.MainScreenDataObject) -> Unit
+    onNavigateToMainScreen: () -> Unit,
+    onRegisterEmployeeClick: () -> Unit
 ) {
     val uiState = viewModel.loginState
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
 
     ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
-        when(event) {
-           is NavigationEvent.OnSignedIn -> {
-                onNavigateToMainScreen(event.data)
+        when (event) {
+            is NavigationEvent.OnSignedIn -> {
+                onNavigateToMainScreen()
             }
 
             is NavigationEvent.OnRegistered -> {
-                onNavigateToMainScreen(event.data)
+                onNavigateToMainScreen()
+            }
+
+            is NavigationEvent.OnRegisterEmployeeClicked -> {
+                onRegisterEmployeeClick()
             }
         }
     }
@@ -51,8 +56,9 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(color = backgroundColor)
-            .padding(top = 50.dp), //TODO поменять верстку
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = stringResource(R.string.factorizerText),
@@ -92,12 +98,21 @@ fun LoginScreen(
             },
             text = { Text(text = stringResource(R.string.LogIn)) }
         )
-        Spacer(modifier = Modifier.width(10.dp))
+
+        Spacer(modifier = Modifier.height(10.dp))
         FzButton(
             onClick = {
                 viewModel.onCreateAccountClick()
             },
-            text = { Text(text = stringResource(R.string.CreateAnAccount)) }
+            text = { Text(text = stringResource(R.string.RegisterMaster)) }
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+        FzButton(
+            onClick = {
+                viewModel.onCreateEmployeeAccountClick()
+            },
+            text = { Text(text = stringResource(R.string.RegisterEmployee)) }
         )
     }
 }

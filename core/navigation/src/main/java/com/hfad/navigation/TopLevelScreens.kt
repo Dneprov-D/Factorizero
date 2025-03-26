@@ -3,7 +3,8 @@ package com.hfad.navigation
 import kotlin.reflect.KClass
 
 enum class TopLevelScreens(val route: KClass<*>) {
-    LOGIN_SCREEN(route = Screen.LoginScreen::class)
+    LOGIN_SCREEN(route = Screen.LoginScreen::class),
+    REGISTER_SCREEN(route = Screen.CreateNewEmployeeScreen::class)
 }
 
 enum class NoArrowBackScreens(val route: KClass<*>) {
