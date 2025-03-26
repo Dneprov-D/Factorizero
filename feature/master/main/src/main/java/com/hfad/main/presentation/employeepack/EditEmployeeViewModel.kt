@@ -38,7 +38,10 @@ class EditEmployeeViewModel @Inject constructor(
                 name = args.name,
                 surname = args.surname,
                 jobTitle = args.jobTitle,
-            )
+            ),
+            nameInput = args.name,
+            surnameInput = args.surname,
+            jobTitleInput = args.jobTitle
         )
     )
         private set
