@@ -69,16 +69,10 @@ fun NavGraphBuilder.employeeTabNavGraph(
         composable<Screen.EditEmployeeScreen> {
             EditEmployeeScreen(
                 onEdited = {
-                    navController.popBackStack(
-                        route = Screen.MainMasterScreen,
-                        inclusive = false
-                    )
+                    navController.navigateToNewRoot(Screen.MainMasterScreen)
                 },
                 onDeleted = {
-                    navController.popBackStack(
-                        route = Screen.MainMasterScreen,
-                        inclusive = false
-                    )
+                    navController.navigateToNewRoot(Screen.MainMasterScreen)
                 }
             )
         }
@@ -153,3 +147,18 @@ fun NavController.navigateToTasksTab(navOptions: NavOptions) =
 
 fun NavController.navigateToProfileTab(navOptions: NavOptions) =
     navigate(route = Screen.ProfileTabScreen, navOptions)
+
+fun NavController.navigateToNewRoot(destination: Any) {
+    val route = when (destination) {
+        is String -> destination
+        is Screen -> destination::class.qualifiedName ?: destination.toString()
+        else -> destination.toString()
+    }
+    
+    navigate(route) {
+        popUpTo(0) {
+            inclusive = true
+        }
+        launchSingleTop = true
+    }
+}
