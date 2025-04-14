@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.daggerHilt)
+    alias(libs.plugins.parcelize)
+    alias(libs.plugins.kotlin.serialization)
+    kotlin("kapt")
 }
 
 android {
@@ -49,6 +53,7 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
+    implementation(project(":core:data"))
     implementation(project(":feature:master:main"))
 
     implementation(libs.androidx.compose.foundation)
@@ -64,7 +69,11 @@ dependencies {
     implementation(libs.compose.material)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.preview)
-    implementation("com.exyte:animated-navigation-bar:1.0.0")
+
+    // Dagger Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.viewModel)
+    kapt(libs.hilt.android.compiler)
 
     testImplementation(libs.junit)
 

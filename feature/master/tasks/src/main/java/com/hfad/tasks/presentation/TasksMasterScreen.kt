@@ -50,7 +50,7 @@ fun TasksMasterScreen(navController: NavHostController) {
                 .fillMaxSize()
                 .background(color = backgroundColor)
                 .padding(innerPadding)
-                .padding(15.dp),
+                .padding(10.dp),
             horizontalAlignment = Alignment.Start
         ) {
             Text(

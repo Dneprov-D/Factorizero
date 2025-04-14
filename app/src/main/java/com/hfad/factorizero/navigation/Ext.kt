@@ -10,7 +10,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import androidx.navigation.navigation
-import com.hfad.main.presentation.employeepack.CreateNewEmployeeScreen
 import com.hfad.main.presentation.employeepack.EditEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
 import com.hfad.main.presentation.masterpack.MasterMainScreen
