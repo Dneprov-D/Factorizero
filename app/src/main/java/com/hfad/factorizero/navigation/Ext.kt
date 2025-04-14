@@ -85,7 +85,21 @@ fun NavGraphBuilder.tasksTabNavGraph(
         startDestination = Screen.TasksMasterScreen
     ) {
         composable<Screen.TasksMasterScreen> {
-            TasksMasterScreen(navController)
+            TasksMasterScreen(
+                onTaskClick = {
+                    navController.navigate(
+                        Screen.TaskDetailsScreen(
+                            key = it.key,
+                            title = it.title
+                        )
+                    )
+                },
+                onFabClick = {
+                    navController.navigate(
+                        Screen.CreateNewTaskScreen
+                    )
+                }
+            )
         }
         composable<Screen.CreateNewTaskScreen> {
             CreateNewTaskScreen()

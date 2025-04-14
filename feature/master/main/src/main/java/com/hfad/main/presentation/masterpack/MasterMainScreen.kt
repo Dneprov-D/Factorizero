@@ -53,7 +53,7 @@ fun MasterMainScreen(
             Text(
                 text = stringResource(R.string.EmployeeText),
                 modifier = Modifier
-                    .padding(10.dp)
+                    .padding(7.dp)
                     .fillMaxWidth(),
                 color = textColor,
                 fontSize = 25.sp,

@@ -25,12 +25,12 @@ class MasterMainViewModel @Inject constructor() : ViewModel() {
     init {
         val db = Firebase.firestore
         getAllStaff(db)
-        Log.e("pop","суперметка! $this")
+        Log.e("pop", "суперметка! $this")
     }
 
     override fun onCleared() {
         super.onCleared()
-        Log.e("pop","onCleared $this")
+        Log.e("pop", "onCleared $this")
     }
 
     data class MasterMainScreenState(

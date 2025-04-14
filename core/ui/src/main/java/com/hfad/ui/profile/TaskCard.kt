@@ -27,22 +27,24 @@ import com.hfad.designsystem.components.theme.FactorizeroTheme
 import com.hfad.navigation.Screen
 import com.hfad.ui.R
 import com.hfad.ui.profile.uimodel.EmployeeUiModel
+import com.hfad.ui.profile.uimodel.TaskUiModel
 
 @Composable
 fun TaskCard(
-    navController: NavHostController,
-//    onCardClicked: (EmployeeUiModel) -> Unit
+    task: TaskUiModel,
+    onCardClicked: (TaskUiModel) -> Unit
 ) {
     Card(
         modifier = Modifier
+            .padding(10.dp)
             .clickable {
-                navController.navigate(route = Screen.TaskDetailsScreen)
+                onCardClicked(task)
             }
-    )  {
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -56,40 +58,7 @@ fun TaskCard(
             Spacer(modifier = Modifier.width(25.dp))
             Column {
                 Text(
-                    text = "Название детали из заказа (кол-во. шт.)",
-                    fontSize = 20.sp
-                )
-            }
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TaskCardWrapper() {
-    Card(
-        modifier = Modifier
-            .clickable {
-            }
-    )  {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(RoundedCornerShape(8.dp)),
-                painter = painterResource(id = R.drawable.drawing),
-                contentDescription = null,
-                contentScale = ContentScale.Crop
-            )
-            Spacer(modifier = Modifier.width(25.dp))
-            Column {
-                Text(
-                    text = "Название детали из заказа (кол-во. шт.)",
+                    text = task.title,
                     fontSize = 20.sp
                 )
             }
