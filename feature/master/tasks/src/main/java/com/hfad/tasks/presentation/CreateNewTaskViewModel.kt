@@ -1,4 +1,4 @@
-package com.hfad.main.presentation.masterpack
+package com.hfad.tasks.presentation
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -12,13 +12,12 @@ import com.hfad.model.Employee
 import com.hfad.ui.profile.uimodel.EmployeeUiModel
 import com.hfad.ui.profile.uimodel.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
 @HiltViewModel
-class MasterMainViewModel @Inject constructor() : ViewModel() {
+class CreateNewTaskViewModel @Inject constructor() : ViewModel() {
 
-    var state by mutableStateOf(MasterMainScreenState(emptyList()))
+    var state by mutableStateOf(CreateNewTaskState(emptyList()))
         private set
 
     init {
@@ -27,12 +26,7 @@ class MasterMainViewModel @Inject constructor() : ViewModel() {
         Log.e("pop", "суперметка! $this")
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        Log.e("pop", "onCleared $this")
-    }
-
-    data class MasterMainScreenState(
+    data class CreateNewTaskState(
         val employeeList: List<EmployeeUiModel>
     )
 

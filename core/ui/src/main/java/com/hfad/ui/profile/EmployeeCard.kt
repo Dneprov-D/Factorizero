@@ -78,12 +78,14 @@ fun EmployeeCard(
 }
 
 @Composable
-fun SelectedEmployeeCard() {
+fun SelectedEmployeeCard(
+    employee: EmployeeUiModel,
+) {
     var isSelected by rememberSaveable { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(10.dp)
             .border(
                 width = if (isSelected) 2.dp else 0.dp,
                 color = if (isSelected) LightColorScheme.onPrimary else Color.Transparent,
@@ -112,22 +114,16 @@ fun SelectedEmployeeCard() {
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = "Имя Фамилия",
+                    text = "${employee.name} ${employee.surname}",
                     fontSize = 20.sp
                 )
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = "Должность",
+                    text = employee.jobTitle,
                 )
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewSelectedEmployeeCard() {
-    SelectedEmployeeCard()
 }
 
 @Preview(showBackground = true)

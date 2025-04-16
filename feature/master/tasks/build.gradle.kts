@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.compose.material)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.preview)
+    implementation(libs.coil.compose)
 
     // Firebase
     implementation(platform(libs.firebase.bom))

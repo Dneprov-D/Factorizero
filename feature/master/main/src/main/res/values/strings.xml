@@ -6,6 +6,7 @@
     <string name="EditTasksText">Изменить задачи</string>
     <string name="NewTaskText">Новая задача</string>
     <string name="AddPhoto">Добавьте фото</string>
+    <string name="AddDraw">Добавьте чертёж</string>
     <string name="SelectAnEmployee">Выберите сотрудника</string>
     <string name="Register">Зарегистрировать</string>
     <string name="EditProfile">Редактирование профиля</string>

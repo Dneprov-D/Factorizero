@@ -74,7 +74,7 @@ import com.hfad.navigation.Screen
                 .background(color = backgroundColor)
                 .verticalScroll(rememberScrollState())
                 .padding(top = 25.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.Start
         ) {
             Spacer(modifier = Modifier.height(5.dp))
             Text(
