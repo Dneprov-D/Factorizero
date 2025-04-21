@@ -29,12 +29,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hfad.tasks.R
 
-@Preview(showBackground = true)
 @Composable
-fun TitleTaskInputField() {
-    var text by remember { mutableStateOf("") }
+fun TitleTaskInputField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(3.dp),
         verticalArrangement = Arrangement.Center,
@@ -49,8 +51,8 @@ fun TitleTaskInputField() {
                     )
                 }
             },
-            value = text,
-            onValueChange = { newText -> text = newText },
+            value = value,
+            onValueChange = onValueChange,
             label = { Text(stringResource(R.string.TaskTitle)) },
             shape = MaterialTheme.shapes.small,
             singleLine = true,
@@ -63,12 +65,14 @@ fun TitleTaskInputField() {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun TaskQuantityInputField() {
-    var text by remember { mutableStateOf("") }
+fun TaskQuantityInputField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(3.dp),
         verticalArrangement = Arrangement.Center,
@@ -83,16 +87,31 @@ fun TaskQuantityInputField() {
                     )
                 }
             },
-            value = text,
-            onValueChange = { newText -> text = newText },
+            value = value,
+            onValueChange = onValueChange,
             label = { Text(stringResource(R.string.TaskQuantity)) },
             shape = MaterialTheme.shapes.small,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
+                keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
             ),
             keyboardActions = KeyboardActions()
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TaskInputFieldsPreview() {
+    Column {
+        TitleTaskInputField(
+            value = "Тестовая задача",
+            onValueChange = {}
+        )
+        TaskQuantityInputField(
+            value = "5",
+            onValueChange = {}
         )
     }
 }

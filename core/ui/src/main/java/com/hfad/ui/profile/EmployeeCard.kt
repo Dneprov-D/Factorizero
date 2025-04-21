@@ -25,12 +25,15 @@ import androidx.compose.ui.unit.sp
 import com.hfad.designsystem.components.theme.FactorizeroTheme
 import com.hfad.ui.R
 import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import com.hfad.designsystem.components.theme.LightColorScheme
+import com.hfad.model.Employee
 import com.hfad.navigation.Screen
 import com.hfad.ui.profile.uimodel.EmployeeUiModel
 
@@ -79,21 +82,24 @@ fun EmployeeCard(
 
 @Composable
 fun SelectedEmployeeCard(
-    employee: EmployeeUiModel,
+    employee: Employee,
+    isSelected: Boolean = false,
+    onClick: () -> Unit = {}
 ) {
-    var isSelected by rememberSaveable { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
-            .border(
-                width = if (isSelected) 2.dp else 0.dp,
-                color = if (isSelected) LightColorScheme.onPrimary else Color.Transparent,
-                shape = RoundedCornerShape(8.dp)
-            )
-            .clickable {
-                isSelected = !isSelected
-            }
+            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .clickable { onClick() },
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 2.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = if (isSelected)
+                MaterialTheme.colorScheme.primaryContainer
+            else
+                MaterialTheme.colorScheme.surface
+        )
     ) {
         Row(
             modifier = Modifier
@@ -101,41 +107,29 @@ fun SelectedEmployeeCard(
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
+            Box(
                 modifier = Modifier
                     .size(50.dp)
-                    .clip(CircleShape),
-                painter = painterResource(id = R.drawable.employeeorc),
-                contentDescription = null,
-                contentScale = ContentScale.Crop
-            )
-            Spacer(modifier = Modifier.width(25.dp))
-            Column(
-                modifier = Modifier.weight(1f)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                    .then(
+                        if (isSelected)
+                            Modifier.border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
+                        else
+                            Modifier
+                    ),
+                contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "${employee.name} ${employee.surname}",
-                    fontSize = 20.sp
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = employee.jobTitle,
-                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Column {
+                    Text(
+                        text = employee.name,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewEmployeeCard() {
-    EmployeeCard(
-        employee = EmployeeUiModel(
-            key = " ",
-            name = "Геральт",
-            surname = "Из Ривии",
-            jobTitle = "Ведьмак"
-        ),
-        onCardClicked = { }
-    )
 }
