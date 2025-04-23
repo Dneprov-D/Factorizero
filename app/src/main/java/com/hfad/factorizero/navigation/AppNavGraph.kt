@@ -44,7 +44,7 @@ fun AppNavGraph(
         composable<Screen.LoginScreen> {
             LoginScreen(
                 onNavigateToMainScreen = {
-                    navController.navigateToNewRoot(Screen.MainMasterScreen)
+//                    navController.navigateToNewRoot(Screen.MainMasterScreen) TODO не нужно
                 },
                 onRegisterEmployeeClick = {
                     navController.navigate(Screen.CreateNewEmployeeScreen)

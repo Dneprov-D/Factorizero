@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +31,7 @@ fun MasterProfileScreen(
     viewModel: MasterProfileViewModel = hiltViewModel()
 ) {
 
-    var showDeleteDialog by remember { mutableStateOf(false) }
+    var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
     val textColor = MaterialTheme.colorScheme.onBackground
 
     Column(
@@ -64,8 +65,8 @@ fun MasterProfileScreen(
             if (showDeleteDialog) {
                 AlertDialog(
                     onDismissRequest = { showDeleteDialog = false },
-                    title = { Text(text = stringResource(R.string.ConfirmSingOut)) },
-                    text = { Text(text = stringResource(R.string.SureSingOut)) },
+                    title = { Text(text = stringResource(R.string.ConfirmSignOut)) },
+                    text = { Text(text = stringResource(R.string.SureSignOut)) },
                     confirmButton = {
                         Button(
                             onClick = {

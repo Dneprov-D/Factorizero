@@ -89,12 +89,9 @@ fun CreateNewTaskScreen(
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Default,
             )
-
-            // Кнопка "Готово" в правом верхнем углу
             FzButton(
                 onClick = {
                     if (isFormValid) {
-                        // Здесь можно добавить логику сохранения задачи
                         onTaskCreated()
                     }
                 },

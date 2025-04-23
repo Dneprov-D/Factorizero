@@ -2,8 +2,8 @@
 <resources>
     <string name="ExitProfile">Выйти из профиля</string>
     <string name="textProfile">Профиль</string>
-    <string name="ConfirmSingOut">Подтвердите выход из профиля</string>
-    <string name="SureSingOut">Вы уверены, что хотите выйти из профиля?</string>
+    <string name="ConfirmSignOut">Подтвердите выход из профиля</string>
+    <string name="SureSignOut">Вы уверены, что хотите выйти из профиля?</string>
     <string name="No">Нет</string>
     <string name="Yes">Да</string>
 </resources>
