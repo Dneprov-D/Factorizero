@@ -38,36 +38,39 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
 import coil3.compose.rememberAsyncImagePainter
+import com.hfad.common.compose.ObserveAsEvents
 import com.hfad.main.R
+import com.hfad.main.presentation.employeepack.CreateEmployeeViewModel.NavigationEvent
 import com.hfad.model.Employee
 import com.hfad.ui.profile.EmployeeCard
+import com.hfad.ui.profile.SelectedEmployeeCard
 import com.hfad.ui.profile.uimodel.EmployeeUiModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 
 @Composable
 fun CreateNewTaskScreen(
     viewModel: CreateNewTaskViewModel = hiltViewModel(),
-    onTaskCreated: () -> Unit = {}
+    onTaskCreated: () -> Unit
 ) {
     val state = viewModel.state
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
     val placeholderImage = painterResource(id = com.hfad.ui.R.drawable.drawing)
-
     val selectedImageUri = rememberSaveable { mutableStateOf<Uri?>(null) }
+//    var selectedEmployee by rememberSaveable { mutableStateOf<EmployeeUiModel?>(null) }
+    val isFormValid = state.titleInput.isNotEmpty() &&
+            state.quantityInput.isNotEmpty()
+
     val imageLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri -> selectedImageUri.value = uri }
 
-    // Состояния для полей ввода
-    var titleText by remember { mutableStateOf("") }
-    var quantityText by remember { mutableStateOf("") }
-    var selectedEmployee by remember { mutableStateOf<EmployeeUiModel?>(null) }
-
-    // Проверка заполнены ли все поля
-    val isFormValid = titleText.isNotEmpty() &&
-            quantityText.isNotEmpty() &&
-            selectedImageUri.value != null &&
-            selectedEmployee != null
+    ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
+        when(event) {
+            is CreateNewTaskViewModel.NavigationEvent.OnTaskCreated -> onTaskCreated()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -92,7 +95,7 @@ fun CreateNewTaskScreen(
             FzButton(
                 onClick = {
                     if (isFormValid) {
-                        onTaskCreated()
+                        viewModel.onTaskCreateClick()
                     }
                 },
                 enabled = isFormValid,
@@ -135,15 +138,14 @@ fun CreateNewTaskScreen(
                     )
                 }
 
-                // Обновленные поля ввода с передачей состояния
                 TitleTaskInputField(
-                    value = titleText,
-                    onValueChange = { titleText = it }
-                )
+                    value = state.titleInput,
+                    onTitleInputChange = viewModel::onTitleInputChanged
+                    )
 
                 TaskQuantityInputField(
-                    value = quantityText,
-                    onValueChange = { quantityText = it }
+                    value = state.quantityInput,
+                    onQuantityInputChange = viewModel::onQuantityInputChanged
                 )
 
                 Text(
@@ -157,9 +159,8 @@ fun CreateNewTaskScreen(
             }
 
             items(state.employeeList) { employee ->
-                EmployeeCard(
-                    employee = employee,
-                    onCardClicked = { selectedEmployee = it }
+                SelectedEmployeeCard(
+                    employee = employee
                 )
             }
         }

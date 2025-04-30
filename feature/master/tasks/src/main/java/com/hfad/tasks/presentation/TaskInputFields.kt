@@ -32,7 +32,7 @@ import com.hfad.tasks.R
 @Composable
 fun TitleTaskInputField(
     value: String,
-    onValueChange: (String) -> Unit,
+    onTitleInputChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -52,7 +52,7 @@ fun TitleTaskInputField(
                 }
             },
             value = value,
-            onValueChange = onValueChange,
+            onValueChange = onTitleInputChange,
             label = { Text(stringResource(R.string.TaskTitle)) },
             shape = MaterialTheme.shapes.small,
             singleLine = true,
@@ -68,7 +68,7 @@ fun TitleTaskInputField(
 @Composable
 fun TaskQuantityInputField(
     value: String,
-    onValueChange: (String) -> Unit,
+    onQuantityInputChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -88,13 +88,13 @@ fun TaskQuantityInputField(
                 }
             },
             value = value,
-            onValueChange = onValueChange,
+            onValueChange = onQuantityInputChange,
             label = { Text(stringResource(R.string.TaskQuantity)) },
             shape = MaterialTheme.shapes.small,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Next
+                imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions()
         )
@@ -107,11 +107,11 @@ fun TaskInputFieldsPreview() {
     Column {
         TitleTaskInputField(
             value = "Тестовая задача",
-            onValueChange = {}
+            onTitleInputChange = {}
         )
         TaskQuantityInputField(
             value = "5",
-            onValueChange = {}
+            onQuantityInputChange = {}
         )
     }
 }

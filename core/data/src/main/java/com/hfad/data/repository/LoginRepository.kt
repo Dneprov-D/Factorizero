@@ -10,6 +10,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hfad.common.compose.navigateToNewRoot
 import com.hfad.model.Employee
+import com.hfad.model.WorkTask
 import com.hfad.navigation.Screen
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -117,6 +118,36 @@ class LoginRepository @Inject constructor(
             }
             .addOnSuccessListener {
                 onEditSuccess()
+            }
+    }
+
+    fun createNewTask(
+        title: String,
+        quantity: String,
+        onCreateSuccess: () -> Unit,
+        onCreateFailure: (String) -> Unit
+    ) {
+        val fireStore = Firebase.firestore
+        val db = fireStore.collection("tasks")
+        val key = db.document().id
+
+        if (title.isBlank() || quantity.isBlank()) {
+            onCreateFailure("Заполните все поля.")
+            return
+        }
+        db.document(key)
+            .set(
+                WorkTask(
+                    key = key,
+                    title = title,
+                    quantity = quantity
+                )
+            )
+            .addOnFailureListener { e ->
+                onCreateFailure(e.message ?: "Ошибка при добавлении задачи")
+            }
+            .addOnSuccessListener {
+                onCreateSuccess()
             }
     }
 

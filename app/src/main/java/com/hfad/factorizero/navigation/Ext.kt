@@ -102,7 +102,11 @@ fun NavGraphBuilder.tasksTabNavGraph(
             )
         }
         composable<Screen.CreateNewTaskScreen> {
-            CreateNewTaskScreen()
+            CreateNewTaskScreen(
+                onTaskCreated = {
+                    navController.navigateToNewRoot(Screen.TasksMasterScreen)
+                }
+            )
         }
         composable<Screen.TaskDetailsScreen> {
             TaskDetailsScreen()

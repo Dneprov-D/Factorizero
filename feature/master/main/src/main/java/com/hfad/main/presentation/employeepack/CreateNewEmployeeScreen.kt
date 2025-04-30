@@ -41,7 +41,6 @@ import com.hfad.common.compose.InputFieldPassword
 import com.hfad.common.compose.InputFieldSurname
 import com.hfad.common.compose.ObserveAsEvents
 import com.hfad.main.R
-import com.hfad.navigation.Screen
 
     @Composable
     fun CreateNewEmployeeScreen(

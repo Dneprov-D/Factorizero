@@ -5,18 +5,28 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.hfad.data.repository.LoginRepository
+import com.hfad.main.presentation.employeepack.CreateEmployeeViewModel.NavigationEvent
 import com.hfad.model.Employee
 import com.hfad.ui.profile.uimodel.EmployeeUiModel
 import com.hfad.ui.profile.uimodel.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateNewTaskViewModel @Inject constructor() : ViewModel() {
+class CreateNewTaskViewModel @Inject constructor(
+    private val repository: LoginRepository
+) : ViewModel() {
 
+    private val navigationChannel = Channel<NavigationEvent>()
+    val navigationEventsChannelFlow = navigationChannel.receiveAsFlow()
     var state by mutableStateOf(CreateNewTaskState(emptyList()))
         private set
 
@@ -26,9 +36,24 @@ class CreateNewTaskViewModel @Inject constructor() : ViewModel() {
         Log.e("pop", "суперметка! $this")
     }
 
-    data class CreateNewTaskState(
-        val employeeList: List<EmployeeUiModel>
-    )
+    fun onTaskCreateClick() {
+        if (state.titleInput.isBlank() || state.quantityInput.isBlank()) {
+            state = state.copy(errorState = "Заполните все поля.")
+            return
+        }
+        repository.createNewTask(
+            title = state.titleInput,
+            quantity = state.quantityInput,
+            onCreateSuccess = {
+                viewModelScope.launch {
+                    navigationChannel.send(NavigationEvent.OnTaskCreated)
+                }
+                state = state.copy(errorState = "")
+            },
+            onCreateFailure = { error ->
+                state = state.copy(errorState = error)
+            })
+    }
 
     private fun getAllStaff(
         db: FirebaseFirestore,
@@ -44,4 +69,27 @@ class CreateNewTaskViewModel @Inject constructor() : ViewModel() {
                 )
             }
     }
+
+    fun onTitleInputChanged(newInput: String) {
+        state = state.copy(
+            titleInput = newInput
+        )
+    }
+
+    fun onQuantityInputChanged(newInput: String) {
+        state = state.copy(
+            quantityInput = newInput
+        )
+    }
+
+    sealed interface NavigationEvent {
+        data object OnTaskCreated : NavigationEvent
+    }
+
+    data class CreateNewTaskState(
+        val employeeList: List<EmployeeUiModel>,
+        val errorState: String = "",
+        var titleInput: String = "",
+        val quantityInput: String = "",
+    )
 }

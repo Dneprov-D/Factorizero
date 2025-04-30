@@ -50,11 +50,13 @@ android {
 
 dependencies {
 
+    implementation(project(":feature:master:main"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:navigation"))
-    implementation(project(":core:ui"))
+    implementation(project(":core:common"))
     implementation(project(":core:model"))
-    implementation(project(":feature:master:main"))
+    implementation(project(":core:data"))
+    implementation(project(":core:ui"))
 
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.foundation.layout)

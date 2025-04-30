@@ -19,6 +19,7 @@ import javax.inject.Inject
 class CreateEmployeeViewModel @Inject constructor(
     private val repository: LoginRepository
 ) : ViewModel() {
+
     var state by mutableStateOf(RegisterScreenState())
         private set
 

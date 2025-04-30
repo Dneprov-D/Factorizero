@@ -81,7 +81,7 @@ fun InputFieldPassword(passwordInput: String, onPasswordInputChanged: (String) -
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Next
+                imeAction = ImeAction.Done
             ),
             visualTransformation = PasswordVisualTransformation(),
             keyboardActions = KeyboardActions()
