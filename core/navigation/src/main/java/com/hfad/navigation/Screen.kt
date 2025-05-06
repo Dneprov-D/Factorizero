@@ -39,7 +39,8 @@ sealed class Screen() {
     @Serializable
     data class TaskDetailsScreen(
         val key: String,
-        val title: String
+        val title: String,
+        val quantity: String
     )
 
     @Serializable

@@ -90,7 +90,8 @@ fun NavGraphBuilder.tasksTabNavGraph(
                     navController.navigate(
                         Screen.TaskDetailsScreen(
                             key = it.key,
-                            title = it.title
+                            title = it.title,
+                            quantity = it.quantity
                         )
                     )
                 },
@@ -109,7 +110,11 @@ fun NavGraphBuilder.tasksTabNavGraph(
             )
         }
         composable<Screen.TaskDetailsScreen> {
-            TaskDetailsScreen()
+            TaskDetailsScreen(
+
+
+
+            )
         }
     }
 }
