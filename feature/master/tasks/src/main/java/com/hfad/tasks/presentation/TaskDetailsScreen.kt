@@ -19,8 +19,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -35,16 +37,25 @@ import com.hfad.main.presentation.employeepack.EmployeeDetailsViewModel
 import com.hfad.model.Employee
 import com.hfad.model.WorkTask
 import com.hfad.ui.R
+import com.hfad.ui.profile.uimodel.TaskUiModel
 
 @Composable
 fun TaskDetailsScreen(
     viewModel: TaskDetailsViewModel = hiltViewModel(),
     onEditTaskClick: (WorkTask) -> Unit
 ) {
+   TaskDetailsScreenContent(
+       state = viewModel.state,
+       onEditTaskClick = onEditTaskClick
+   )
+}
 
-    val state = viewModel.state
-    val textColor = MaterialTheme.colorScheme.onBackground
 
+@Composable
+fun TaskDetailsScreenContent(
+    state: TaskDetailsViewModel.TaskDetailsScreenState,
+    onEditTaskClick: (WorkTask) -> Unit
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -58,7 +69,7 @@ fun TaskDetailsScreen(
             ) {
                 Image(
                     modifier = Modifier
-                        .size(240.dp)
+                        .size(160.dp)
                         .clip(RoundedCornerShape(8.dp)),
                     painter = painterResource(id = R.drawable.drawing),
                     contentDescription = null,
@@ -71,10 +82,19 @@ fun TaskDetailsScreen(
                         fontSize = 25.sp,
                     )
                     Spacer(modifier = Modifier.width(5.dp))
-                    Text(
-                        text = state.task.quantity,
-                        fontSize = 20.sp
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Количество: ",
+                            fontSize = 16.sp,
+                            color = Color.Gray
+                        )
+                        Text(
+                            text = state.task.quantity,
+                            fontSize = 16.sp
+                        )
+                    }
                     IconButton(
                         onClick = {
                             onEditTaskClick(
@@ -95,3 +115,17 @@ fun TaskDetailsScreen(
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun TaskDetailsPreview() {
+    TaskDetailsScreenContent(
+        state = TaskDetailsViewModel.TaskDetailsScreenState(
+            task = TaskUiModel(
+                title = "Task 1",
+                quantity = "10",
+                key = "1"
+            )
+        ),
+        onEditTaskClick = {}
+    )
+}

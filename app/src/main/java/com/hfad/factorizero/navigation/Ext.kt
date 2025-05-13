@@ -111,9 +111,14 @@ fun NavGraphBuilder.tasksTabNavGraph(
         }
         composable<Screen.TaskDetailsScreen> {
             TaskDetailsScreen(
+                onEditTaskClick = {
+                    // TODO 123
 
 
 
+
+
+                }
             )
         }
     }
@@ -124,7 +129,9 @@ fun NavDestination?.isRouteInHierarchy(route: KClass<*>) =
         it.hasRoute(route)
     } ?: false
 
-fun NavController.navigateToBottomNavigationDestination(bottomNavigationDestination: BottomNavigationDestination) {
+fun NavController.navigateToBottomNavigationDestination(
+    bottomNavigationDestination: BottomNavigationDestination
+) {
     val bottomNavigationNavOptions = navOptions {
         popUpTo(0) {
             saveState = true

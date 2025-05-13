@@ -81,3 +81,16 @@ fun TaskCard(
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun TaskCardW() {
+    TaskCard(
+        task = TaskUiModel(
+            title = "Задача 1",
+            quantity = "10",
+            key = "1"
+        ),
+        onCardClicked = {}
+    )
+}

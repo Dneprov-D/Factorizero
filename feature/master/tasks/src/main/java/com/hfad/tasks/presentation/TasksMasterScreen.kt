@@ -82,7 +82,8 @@ fun TasksMasterScreen(
                             onTaskClick(
                                 WorkTask(
                                     key = it.key,
-                                    title = it.title
+                                    title = it.title,
+                                    quantity = it.quantity
                                 )
                             )
                         }
