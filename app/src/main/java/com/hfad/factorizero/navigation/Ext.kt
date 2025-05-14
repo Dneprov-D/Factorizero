@@ -112,12 +112,9 @@ fun NavGraphBuilder.tasksTabNavGraph(
         composable<Screen.TaskDetailsScreen> {
             TaskDetailsScreen(
                 onEditTaskClick = {
-                    // TODO 123
-
-
-
-
-
+                    // TODO TaskEditScreen
+                    // TODO TaskEditScreen
+                    // TODO TaskEditScreen
                 }
             )
         }

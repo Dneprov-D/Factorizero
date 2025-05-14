@@ -32,6 +32,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import buttons.FzButton
+import buttons.FzButtonLeadingIconPreview
 import buttons.FzOutlinedButton
 import com.hfad.main.presentation.employeepack.EmployeeDetailsViewModel
 import com.hfad.model.Employee
@@ -44,10 +46,10 @@ fun TaskDetailsScreen(
     viewModel: TaskDetailsViewModel = hiltViewModel(),
     onEditTaskClick: (WorkTask) -> Unit
 ) {
-   TaskDetailsScreenContent(
-       state = viewModel.state,
-       onEditTaskClick = onEditTaskClick
-   )
+    TaskDetailsScreenContent(
+        state = viewModel.state,
+        onEditTaskClick = onEditTaskClick
+    )
 }
 
 
@@ -56,6 +58,9 @@ fun TaskDetailsScreenContent(
     state: TaskDetailsViewModel.TaskDetailsScreenState,
     onEditTaskClick: (WorkTask) -> Unit
 ) {
+
+    val textColor = MaterialTheme.colorScheme.onBackground
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -86,7 +91,7 @@ fun TaskDetailsScreenContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Количество: ",
+                            text = stringResource(com.hfad.tasks.R.string.quantitiy),
                             fontSize = 16.sp,
                             color = Color.Gray
                         )
@@ -95,22 +100,34 @@ fun TaskDetailsScreenContent(
                             fontSize = 16.sp
                         )
                     }
-                    IconButton(
-                        onClick = {
-                            onEditTaskClick(
-                                WorkTask(
-                                    key = state.task.key
-                                )
+                    FzOutlinedButton(
+                        onClick = {},
+                        text = { Text(stringResource(com.hfad.tasks.R.string.Reduct)) },
+                        leadingIcon = {
+                            Icon(
+                                Icons.Default.Edit,
+                                contentDescription = null
                             )
-                        },
-                    ) {
-                        Icon(
-                            Icons.Default.Edit,
-                            contentDescription = null
-                        )
-                    }
+                        }
+                    )
                 }
             }
+        }
+        item {
+            Text(
+                text = stringResource(com.hfad.tasks.R.string.AtWork),
+                modifier = Modifier
+                    .fillMaxWidth(),
+                color = textColor,
+                fontSize = 25.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Default
+            )
+            Text(
+                text = stringResource(com.hfad.tasks.R.string.NoOne),
+                fontSize = 16.sp,
+                color = Color.Gray
+            )
         }
     }
 }
