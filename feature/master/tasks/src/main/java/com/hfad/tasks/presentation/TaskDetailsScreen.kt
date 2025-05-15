@@ -1,6 +1,9 @@
 package com.hfad.tasks.presentation
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTransformGestures
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,17 +15,26 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.rounded.EditNote
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -31,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
 import buttons.FzButtonLeadingIconPreview
@@ -58,28 +71,30 @@ fun TaskDetailsScreenContent(
     state: TaskDetailsViewModel.TaskDetailsScreenState,
     onEditTaskClick: (WorkTask) -> Unit
 ) {
-
     val textColor = MaterialTheme.colorScheme.onBackground
+    var isFullScreenImageVisible by remember { mutableStateOf(false) }
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(15.dp)
-    ) {
-        item {
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(15.dp)
-            ) {
-                Image(
+    Box(modifier = Modifier.fillMaxSize()) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(15.dp)
+        ) {
+            item {
+                Row(
                     modifier = Modifier
-                        .size(160.dp)
-                        .clip(RoundedCornerShape(8.dp)),
-                    painter = painterResource(id = R.drawable.drawing),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop
-                )
+                        .fillMaxSize()
+                        .padding(15.dp)
+                ) {
+                    Image(
+                        modifier = Modifier
+                            .size(160.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                            .clickable { isFullScreenImageVisible = true },
+                        painter = painterResource(id = R.drawable.drawing),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop
+                    )
                 Spacer(modifier = Modifier.width(15.dp))
                 Column {
                     Text(
@@ -101,7 +116,9 @@ fun TaskDetailsScreenContent(
                         )
                     }
                     FzOutlinedButton(
-                        onClick = {},
+                        onClick = {
+                            
+                        },
                         text = { Text(stringResource(com.hfad.tasks.R.string.Reduct)) },
                         leadingIcon = {
                             Icon(
@@ -111,23 +128,95 @@ fun TaskDetailsScreenContent(
                         }
                     )
                 }
+                }
+            }
+            item {
+                Text(
+                    text = stringResource(com.hfad.tasks.R.string.AtWork),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    color = textColor,
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Default
+                )
+                Text(
+                    text = stringResource(com.hfad.tasks.R.string.NoOne),
+                    fontSize = 16.sp,
+                    color = Color.Gray
+                )
             }
         }
-        item {
-            Text(
-                text = stringResource(com.hfad.tasks.R.string.AtWork),
+
+        if (isFullScreenImageVisible) {
+            FullScreenImage(
+                imageResId = R.drawable.drawing,
+                onDismiss = { isFullScreenImageVisible = false }
+            )
+        }
+    }
+}
+
+@Composable
+fun FullScreenImage(
+    imageResId: Int,
+    onDismiss: () -> Unit
+) {
+    var scale by rememberSaveable { mutableStateOf(1f) }
+    var offsetX by rememberSaveable { mutableStateOf(0f) }
+    var offsetY by rememberSaveable { mutableStateOf(0f) }
+
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .zIndex(10f),
+        color = Color.Black.copy(alpha = 0.9f)
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Image(
+                painter = painterResource(id = imageResId),
+                contentDescription = null,
+                contentScale = ContentScale.Fit,
                 modifier = Modifier
-                    .fillMaxWidth(),
-                color = textColor,
-                fontSize = 25.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Default
+                    .fillMaxSize()
+                    .graphicsLayer(
+                        scaleX = scale,
+                        scaleY = scale,
+                        translationX = offsetX,
+                        translationY = offsetY
+                    )
+                    .pointerInput(Unit) {
+                        detectTransformGestures { _, pan, zoom, _ ->
+                            scale = (scale * zoom).coerceIn(1f, 5f)
+                            
+                            val maxX = (scale - 1) * size.width / 2
+                            val maxY = (scale - 1) * size.height / 2
+                            
+                            offsetX = (offsetX + pan.x).coerceIn(-maxX, maxX)
+                            offsetY = (offsetY + pan.y).coerceIn(-maxY, maxY)
+                        }
+                    }
             )
-            Text(
-                text = stringResource(com.hfad.tasks.R.string.NoOne),
-                fontSize = 16.sp,
-                color = Color.Gray
-            )
+            
+            IconButton(
+                onClick = {
+                    onDismiss()
+                    scale = 1f
+                    offsetX = 0f
+                    offsetY = 0f
+                },
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(16.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Закрыть",
+                    tint = Color.White
+                )
+            }
         }
     }
 }
