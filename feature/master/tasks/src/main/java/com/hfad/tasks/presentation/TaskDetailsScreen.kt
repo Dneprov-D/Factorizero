@@ -190,12 +190,12 @@ fun FullScreenImage(
                     .pointerInput(Unit) {
                         detectTransformGestures { _, pan, zoom, _ ->
                             scale = (scale * zoom).coerceIn(1f, 5f)
-                            
+
                             val maxX = (scale - 1) * size.width / 2
                             val maxY = (scale - 1) * size.height / 2
-                            
-                            offsetX = (offsetX + pan.x).coerceIn(-maxX, maxX)
-                            offsetY = (offsetY + pan.y).coerceIn(-maxY, maxY)
+
+                            offsetX = (offsetX + pan.x * scale).coerceIn(-maxX, maxX)
+                            offsetY = (offsetY + pan.y * scale).coerceIn(-maxY, maxY)
                         }
                     }
             )
