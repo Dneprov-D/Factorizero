@@ -117,7 +117,7 @@ fun TaskDetailsScreenContent(
                     }
                     FzOutlinedButton(
                         onClick = {
-                            
+
                         },
                         text = { Text(stringResource(com.hfad.tasks.R.string.Reduct)) },
                         leadingIcon = {
@@ -168,8 +168,7 @@ fun FullScreenImage(
 
     Surface(
         modifier = Modifier
-            .fillMaxSize()
-            .zIndex(10f),
+            .fillMaxSize(),
         color = Color.Black.copy(alpha = 0.9f)
     ) {
         Box(
@@ -199,13 +198,10 @@ fun FullScreenImage(
                         }
                     }
             )
-            
+
             IconButton(
                 onClick = {
                     onDismiss()
-                    scale = 1f
-                    offsetX = 0f
-                    offsetY = 0f
                 },
                 modifier = Modifier
                     .align(Alignment.TopEnd)
@@ -213,7 +209,7 @@ fun FullScreenImage(
             ) {
                 Icon(
                     imageVector = Icons.Default.Close,
-                    contentDescription = "Закрыть",
+                    contentDescription = null,
                     tint = Color.White
                 )
             }
