@@ -17,25 +17,20 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.7"
+        kotlinCompilerExtensionVersion = "2.2.0"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
-    }
-    kotlin {
-        jvmToolchain(11)
     }
     buildTypes {
         release {
@@ -46,19 +41,13 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
 dependencies {
     
     implementation(project(":core:navigation"))
     implementation(project(":core:model"))
+    implementation(project(":core:common"))
 
     // Firebase
     implementation(platform(libs.firebase.bom))
@@ -67,7 +56,6 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.hilt.android)
-    implementation(project(":core:common"))
     kapt(libs.hilt.android.compiler)
 
     implementation(libs.androidx.compose.foundation)

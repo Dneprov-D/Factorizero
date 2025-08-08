@@ -26,10 +26,6 @@ android {
         }
     }
 
-    kotlin {
-        jvmToolchain(11)
-    }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -44,11 +40,19 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-
-    buildFeatures {
-        compose = true
+    kotlinOptions {
+        jvmTarget = "11"
     }
 
+//    kotlin {
+//        compilerOptions {
+//            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+//        }
+//    }
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -86,7 +90,6 @@ dependencies {
     implementation(libs.compose.material)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.preview)
-//    implementation(libs.compose.gradlePlugin)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlin.metadata.jvm)
 
