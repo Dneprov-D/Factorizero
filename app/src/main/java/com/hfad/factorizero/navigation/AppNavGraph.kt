@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.auth
+import com.google.firebase.Firebase
 import com.hfad.authorization.presentation.LoginScreen
 import com.hfad.common.compose.navigateToNewRoot
 import com.hfad.main.presentation.employeepack.CreateNewEmployeeScreen

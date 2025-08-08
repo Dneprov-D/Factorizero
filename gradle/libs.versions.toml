@@ -31,7 +31,6 @@ firebaseCommonKtx = "21.0.0"
 hiltViewModel = "1.2.0"
 firebaseCommonKtxVersion = "21.0.0"
 coilCompose = "3.0.4"
-#goTrue = "1.3.2"
 supabaseAuth = "2.177.0"
 
 [libraries]
