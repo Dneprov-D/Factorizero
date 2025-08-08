@@ -1,13 +1,16 @@
 [versions]
-agp = "8.3.2"
-firebaseBom = "33.7.0"
-hiltAndroid = "2.51.1"
-kotlin = "1.9.21"
+agp = "8.6.1"
+firebaseBom = "34.0.0"
+hiltAndroid = "2.56.2"
+kotlin = "2.2.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-activityCompose = "1.9.3"
-composeBom = "2024.11.00"
+activityCompose = "1.10.1"
+composeBom = "2025.07.00"
+kotlinMetadataJvm = "2.2.0"
+ktorClientAndroid = "3.2.2"
+supabaseBom = "3.2.1"
 navigationCompose = "2.8.2"
 retrofit = "2.9.0"
 okhttp3 = "4.12.0"
@@ -15,14 +18,14 @@ gsonConverter = "2.9.0"
 loggingInterceptor = "4.9.0"
 glide = "1.0.0-beta01"
 parcelize = "1.9.21"
-room = "2.6.1"
+room = "2.7.2"
 jetbrainsKotlinJvm = "1.9.21"
-coreKtx = "1.15.0"
-appcompat = "1.7.0"
+coreKtx = "1.16.0"
+appcompat = "1.7.1"
 material = "1.12.0"
-composeMaterial = "1.7.5"
+composeMaterial = "1.8.3"
 serialization = "1.6.3"
-googleServicesVersion = "4.4.2"
+googleServicesVersion = "4.4.3"
 bomVersion = "33.7.0"
 firebaseCommonKtx = "21.0.0"
 hiltViewModel = "1.2.0"
@@ -31,6 +34,8 @@ coilCompose = "3.0.4"
 
 [libraries]
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+kotlin-metadata-jvm = { module = "org.jetbrains.kotlin:kotlin-metadata-jvm", version.ref = "kotlinMetadataJvm" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientAndroid" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-core = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -53,6 +58,7 @@ firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth"}
 
 
+
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -67,6 +73,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 compose-material = { group = "androidx.compose.material", name = "material", version.ref = "composeMaterial" }
 compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "composeMaterial" }
 compose-ui-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "composeMaterial" }
+#compose-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
 firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx", version.ref = "firebaseCommonKtxVersion" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilCompose" }
@@ -74,11 +81,12 @@ coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref 
 
 
 [plugins]
+compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-daggerHilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid"}
-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize"}
+daggerHilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
+parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize" }
 jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
-googleServices = { id = "com.google.gms.google-services", version.ref = "googleServicesVersion"}
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+googleServices = { id = "com.google.gms.google-services", version.ref = "googleServicesVersion" }

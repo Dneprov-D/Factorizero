@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.parcelize)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.googleServices)
+    alias(libs.plugins.compose)
     kotlin("kapt")
 }
 
@@ -15,7 +16,7 @@ android {
     defaultConfig {
         applicationId = "com.hfad.factorizero"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -23,6 +24,10 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+    }
+
+    kotlin {
+        jvmToolchain(11)
     }
 
     buildTypes {
@@ -34,19 +39,16 @@ android {
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.7"
-    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -70,6 +72,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:common"))
 
+    //Core
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.foundation)
@@ -83,7 +86,9 @@ dependencies {
     implementation(libs.compose.material)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.preview)
+//    implementation(libs.compose.gradlePlugin)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlin.metadata.jvm)
 
     // Firebase
     implementation(platform(libs.firebase.bom))

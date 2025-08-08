@@ -2,12 +2,11 @@ package com.hfad.data.repository
 
 import android.util.Log
 import androidx.navigation.NavHostController
+import com.google.firebase.Firebase
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.firestore
 import com.hfad.common.compose.navigateToNewRoot
 import com.hfad.model.Employee
 import com.hfad.model.WorkTask

@@ -3,12 +3,13 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.daggerHilt)
+    alias(libs.plugins.compose)
     kotlin("kapt")
 }
 
 android {
     namespace = "com.hfad.data"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -32,6 +33,9 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+    kotlin {
+        jvmToolchain(11)
     }
     buildTypes {
         release {

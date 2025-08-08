@@ -8,5 +8,5 @@ plugins {
     alias(libs.plugins.androidLibrary) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.googleServices) apply false
-
+    alias(libs.plugins.compose) apply false
 }
