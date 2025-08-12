@@ -40,49 +40,42 @@ fun MasterMainScreen(
     onEmployeeClick: (Employee) -> Unit
 ) {
     val state = viewModel.state
-    val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
 
-    Scaffold(
+    Column(
         modifier = Modifier
-            .background(color = backgroundColor)
-    ) { innerPadding ->
-        Column(
+            .fillMaxSize()
+    ) {
+        Text(
+            text = stringResource(R.string.EmployeeText),
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+                .padding(7.dp)
+                .fillMaxWidth(),
+            color = textColor,
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Default,
+        )
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
         ) {
-            Text(
-                text = stringResource(R.string.EmployeeText),
-                modifier = Modifier
-                    .padding(7.dp)
-                    .fillMaxWidth(),
-                color = textColor,
-                fontSize = 25.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Default,
-            )
-            
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            ) {
-                items(state.employeeList) { employee ->
-                    EmployeeCard(
-                        employee = employee,
-                        onCardClicked = {
-                            onEmployeeClick(
-                                Employee(
-                                    key = it.key,
-                                    name = it.name,
-                                    surname = it.surname,
-                                    jobTitle = it.jobTitle
-                                )
+            items(state.employeeList) { employee ->
+                EmployeeCard(
+                    employee = employee,
+                    onCardClicked = {
+                        onEmployeeClick(
+                            Employee(
+                                key = it.key,
+                                name = it.name,
+                                surname = it.surname,
+                                jobTitle = it.jobTitle
                             )
-                        }
-                    )
-                }
+                        )
+                    }
+                )
             }
         }
     }

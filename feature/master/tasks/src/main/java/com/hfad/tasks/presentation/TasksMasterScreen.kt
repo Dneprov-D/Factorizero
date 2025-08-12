@@ -2,6 +2,7 @@ package com.hfad.tasks.presentation
 
 import Icons.FzIcons
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,24 +42,11 @@ fun TasksMasterScreen(
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
 
-    Scaffold(
-        modifier = Modifier
-            .background(color = backgroundColor),
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    onFabClick()
-                },
-                containerColor = LightColorScheme.tertiary
-            ) {
-                Icon(FzIcons.Add, contentDescription = null)
-            }
-        }
-    ) { innerPadding ->
+    Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .background(backgroundColor)
         ) {
             Text(
                 text = stringResource(R.string.TasksInWorkText),
@@ -89,6 +77,18 @@ fun TasksMasterScreen(
                         }
                     )
                 }
+            }
+        }
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp)
+        ) {
+            FloatingActionButton(
+                onClick = onFabClick,
+                containerColor = LightColorScheme.tertiary
+            ) {
+                Icon(FzIcons.Add, contentDescription = null)
             }
         }
     }
