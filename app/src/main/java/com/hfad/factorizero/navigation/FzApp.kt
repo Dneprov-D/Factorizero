@@ -60,6 +60,8 @@ fun FzApp() {
                             IconButton(onClick = { navController.navigateUp() }) {
                                 Icon(
                                     imageVector = Icons.FzIcons.ArrowBack,
+                                    modifier = Modifier
+                                        .padding(top = 25.dp),
                                     contentDescription = null
                                 )
                             }
@@ -75,7 +77,6 @@ fun FzApp() {
                 NavigationBar(
                     modifier = Modifier
                         .height(100.dp)
-//                        .navigationBarsPadding()
                 ) {
                     items.forEach { destination ->
                         val selected = currentDestination.isRouteInHierarchy(destination.route)
