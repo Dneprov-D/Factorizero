@@ -3,6 +3,7 @@
     <string name="EmployeeText">Сотрудники</string>
     <string name="Done">Готово</string>
     <string name="TasksText">Задачи</string>
+    <string name="Reduct">Изменить</string>
     <string name="TasksInWorkText">Задачи в работе</string>
     <string name="EditTasksText">Изменить задачи</string>
     <string name="NewTaskText">Новая задача</string>

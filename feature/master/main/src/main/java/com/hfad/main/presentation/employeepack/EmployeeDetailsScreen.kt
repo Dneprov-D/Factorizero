@@ -75,7 +75,7 @@ fun EmployeeDetailsScreen(
                         text = state.employee.jobTitle,
                         fontSize = 20.sp
                     )
-                    IconButton(
+                    FzOutlinedButton(
                         onClick = {
                             onEditClick(
                                 Employee(
@@ -86,12 +86,14 @@ fun EmployeeDetailsScreen(
                                 )
                             )
                         },
-                    ) {
-                        Icon(
-                            Icons.Default.Edit,
-                            contentDescription = null
-                        )
-                    }
+                        text = { Text(stringResource(com.hfad.main.R.string.Reduct)) },
+                        leadingIcon = {
+                            Icon(
+                                Icons.Default.Edit,
+                                contentDescription = null
+                            )
+                        }
+                    )
                 }
             }
 
