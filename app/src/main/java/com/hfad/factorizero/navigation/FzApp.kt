@@ -37,40 +37,41 @@ fun FzApp() {
         topBar = {
             if (shouldShowTopBar(currentDestination))
                 Surface(
-                shape = RoundedCornerShape(bottomEnd = 40.dp),
-                color = LightColorScheme.tertiary,
-                elevation = 0.dp
-            ) {
-                TopAppBar(
-                    modifier = Modifier
-                        .height(80.dp),
-                    title = {
-                        Box(
-                            modifier = Modifier
-                                .padding(start = 130.dp, top = 25.dp)
-                        ) {
-                            Text(
-                                text = stringResource(R.string.app_name),
-                                modifier = Modifier.align(Alignment.BottomEnd)
-                            )
-                        }
-                    },
-                    navigationIcon = {
-                        if (shouldShowArrowBack(currentDestination))
-                            IconButton(onClick = { navController.navigateUp() }) {
-                                Icon(
-                                    imageVector = Icons.FzIcons.ArrowBack,
-                                    modifier = Modifier
-                                        .padding(top = 25.dp),
-                                    contentDescription = null
+                    shape = RoundedCornerShape(bottomEnd = 40.dp),
+                    color = LightColorScheme.tertiary,
+                    elevation = 0.dp
+                ) {
+                    TopAppBar(
+                        modifier = Modifier
+                            .height(80.dp),
+                        title = {
+                            Box(
+                                modifier = Modifier
+                                    .padding(start = 130.dp, top = 25.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.app_name),
+                                    modifier = Modifier.align(Alignment.BottomEnd)
                                 )
                             }
-                    },
-                    backgroundColor = Color.Transparent,
-                    contentColor = Color.White,
-                    elevation = 0.dp
-                )
-            }
+                        },
+                        navigationIcon = {
+                            if (shouldShowArrowBack(currentDestination))
+                                IconButton(
+                                    onClick = { navController.navigateUp() },
+                                    modifier = Modifier.padding(top = 25.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.FzIcons.ArrowBack,
+                                        contentDescription = null
+                                    )
+                                }
+                        },
+                        backgroundColor = Color.Transparent,
+                        contentColor = Color.White,
+                        elevation = 0.dp
+                    )
+                }
         },
         bottomBar = {
             if (shouldShowBottomBar(currentDestination)) {
