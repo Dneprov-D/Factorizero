@@ -120,6 +120,38 @@ class LoginRepository @Inject constructor(
             }
     }
 
+    fun editTask(
+        key: String,
+        title: String,
+        quantity: String,
+        onEditSuccess: () -> Unit,
+        onEditFailure: (String) -> Unit
+    ) {
+        val fireStore = Firebase.firestore
+        val db = fireStore.collection("tasks")
+//        val key = db.document().id
+
+        if (title.isBlank() || quantity.isBlank()) {
+            onEditFailure("Заполните все поля.")
+            return
+        }
+        db.document(key)
+            .set(
+                WorkTask(
+                    key = key,
+                    title = title,
+                    quantity = quantity
+                ),
+                SetOptions.merge()
+            )
+            .addOnFailureListener { e ->
+                onEditFailure(e.message ?: "Ошибка при обновлении сотрудника")
+            }
+            .addOnSuccessListener {
+                onEditSuccess()
+            }
+    }
+
     fun createNewTask(
         title: String,
         quantity: String,
@@ -180,10 +212,25 @@ class LoginRepository @Inject constructor(
         Log.e("LogLogin", "Sign Out")
     }
 
+    fun deleteTask(
+        key: String,
+        onDeleteSuccess: () -> Unit,
+        onDeleteFailure: (String) -> Unit
+    ) {
+        val fireStore = Firebase.firestore
+        val db = fireStore.collection("tasks")
+
+        db.document(key).delete()
+            .addOnSuccessListener {
+                onDeleteSuccess()
+            }
+            .addOnFailureListener { e ->
+                onDeleteFailure(e.message ?: "Ошибка при удалении записи")
+            }
+    }
+
     fun deleteAccount(
         key: String,
-        email: String,
-        password: String,
         onDeleteSuccess: () -> Unit,
         onDeleteFailure: (String) -> Unit
     ) {

@@ -37,11 +37,18 @@ sealed class Screen() {
     data object CreateNewEmployeeScreen : Screen()
 
     @Serializable
+    data class EditTaskScreen(
+        val key: String,
+        val title: String,
+        val quantity: String
+    ) : Screen()
+
+    @Serializable
     data class TaskDetailsScreen(
         val key: String,
         val title: String,
         val quantity: String
-    )
+    ) : Screen()
 
     @Serializable
     data object EmployeeTabScreen : Screen()

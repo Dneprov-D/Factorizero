@@ -1,4 +1,4 @@
-package com.hfad.main.presentation.employeepack
+package com.hfad.tasks.presentation
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.hfad.data.repository.LoginRepository
 import com.hfad.navigation.Screen
-import com.hfad.ui.profile.uimodel.EmployeeUiModel
+import com.hfad.ui.profile.uimodel.TaskUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -17,35 +17,33 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EditEmployeeViewModel @Inject constructor(
+class EditTaskViewModel @Inject constructor(
     private val repository: LoginRepository,
     stateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val args = stateHandle.toRoute<Screen.EditEmployeeScreen>()
+
+    private val args = stateHandle.toRoute<Screen.EditTaskScreen>()
     private val navigationChannel = Channel<NavigationEvent>()
     val navigationEventsChannelFlow = navigationChannel.receiveAsFlow()
 
     var state by mutableStateOf(
-        EditScreenState(
-            employee = EmployeeUiModel(
+        EditTaskState(
+            task = TaskUiModel(
                 key = args.key,
-                name = args.name,
-                surname = args.surname,
-                jobTitle = args.jobTitle,
+                title = args.title,
+                quantity = args.quantity
             ),
-            nameInput = args.name,
-            surnameInput = args.surname,
-            jobTitleInput = args.jobTitle
+            titleInput = args.title,
+            quantityInput = args.quantity
         )
     )
         private set
 
-    fun onEditEmployeeClick() {
-        repository.editAnEmployee(
-            key = state.employee.key,
-            name = state.nameInput,
-            surname = state.surnameInput,
-            jobTitle = state.jobTitleInput,
+    fun onEditTaskClick() {
+        repository.editTask(
+            key = state.task.key,
+            title = state.title,
+            quantity = state.quantity,
             onEditSuccess = {
                 viewModelScope.launch {
                     navigationChannel.send(NavigationEvent.OnEdited)
@@ -58,9 +56,9 @@ class EditEmployeeViewModel @Inject constructor(
         )
     }
 
-    fun onDeleteAccountClick() {
-        repository.deleteAccount(
-            key = state.employee.key,
+    fun onDeleteTaskClick() {
+        repository.deleteTask(
+            key = state.task.key,
             onDeleteSuccess = {
                 viewModelScope.launch {
                     navigationChannel.send(NavigationEvent.OnDeleted)
@@ -74,28 +72,19 @@ class EditEmployeeViewModel @Inject constructor(
     }
 
     private fun shouldButtonEnabled() =
-        state.nameInput.isNotBlank()
-                && state.surnameInput.isNotBlank()
-                && state.jobTitleInput.isNotBlank()
+        state.titleInput.isNotBlank()
+                && state.quantityInput.isNotBlank()
 
-
-    fun onNameInputChanged(newInput: String) {
+    fun onTitleInputChanged(newInput: String) {
         state = state.copy(
-            nameInput = newInput,
+            titleInput = newInput,
             isButtonEnabled = shouldButtonEnabled()
         )
     }
 
-    fun onSurnameInputChanged(newInput: String) {
+    fun onQuantityInputChanged(newInput: String) {
         state = state.copy(
-            surnameInput = newInput,
-            isButtonEnabled = shouldButtonEnabled()
-        )
-    }
-
-    fun onJobTitleInputChanged(newInput: String) {
-        state = state.copy(
-            jobTitleInput = newInput,
+            quantityInput = newInput,
             isButtonEnabled = shouldButtonEnabled()
         )
     }
@@ -105,15 +94,14 @@ class EditEmployeeViewModel @Inject constructor(
         data object OnDeleted : NavigationEvent
     }
 
-    data class EditScreenState(
-        val employee: EmployeeUiModel,
+    data class EditTaskState(
+        val task: TaskUiModel,
         val key: String = "",
-        val emailInput: String = "",
-        val passwordInput: String = "",
+        val title: String = "",
+        val quantity: String = "",
+        val titleInput: String = "",
+        val quantityInput: String = "",
         val errorState: String = "",
-        val nameInput: String = "",
-        val surnameInput: String = "",
-        val jobTitleInput: String = "",
         val isButtonEnabled: Boolean = false
     )
 }
