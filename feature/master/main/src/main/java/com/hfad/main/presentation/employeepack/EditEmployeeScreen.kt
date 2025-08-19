@@ -129,6 +129,7 @@ fun EditEmployeeScreen(
         )
 
         Spacer(modifier = Modifier.height(10.dp))
+
         if (state.errorState.isNotBlank()) {
             Text(
                 text = state.errorState,
@@ -146,6 +147,7 @@ fun EditEmployeeScreen(
         )
 
         Spacer(modifier = Modifier.height(10.dp))
+
         FzRedOutlinedButton(
             onClick = {
                 showDeleteDialog = true

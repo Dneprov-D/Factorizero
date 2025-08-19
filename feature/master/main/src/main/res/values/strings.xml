@@ -12,9 +12,12 @@
     <string name="SelectAnEmployee">Выберите сотрудника</string>
     <string name="Register">Зарегистрировать</string>
     <string name="EditProfile">Редактирование профиля</string>
+    <string name="EditTask">Редактирование задачи</string>
     <string name="ApplyEdit">Сохранить изменения</string>
     <string name="DeleteAccount">Удалить аккаунт</string>
+    <string name="DeleteTask">Удалить задачу</string>
     <string name="SureDeleteAccount">Вы уверены, что хотите удалить этот профиль?</string>
+    <string name="SureDeleteTask">Вы уверены, что хотите удалить эту задачу?</string>
     <string name="ConfirmDelete">Подтверждение удаления</string>
     <string name="No">Нет</string>
     <string name="Yes">Да</string>

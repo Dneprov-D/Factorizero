@@ -59,18 +59,7 @@ fun TaskDetailsScreen(
     viewModel: TaskDetailsViewModel = hiltViewModel(),
     onEditTaskClick: (WorkTask) -> Unit
 ) {
-    TaskDetailsScreenContent(
-        state = viewModel.state,
-        onEditTaskClick = onEditTaskClick
-    )
-}
-
-
-@Composable
-fun TaskDetailsScreenContent(
-    state: TaskDetailsViewModel.TaskDetailsScreenState,
-    onEditTaskClick: (WorkTask) -> Unit
-) {
+    val state = viewModel.state
     val textColor = MaterialTheme.colorScheme.onBackground
     var isFullScreenImageVisible by remember { mutableStateOf(false) }
 
@@ -117,7 +106,13 @@ fun TaskDetailsScreenContent(
                     }
                     FzOutlinedButton(
                         onClick = {
-
+                            onEditTaskClick(
+                                WorkTask(
+                                    key = state.task.key,
+                                    title = state.task.title,
+                                    quantity = state.task.quantity
+                                    )
+                            )
                         },
                         text = { Text(stringResource(com.hfad.tasks.R.string.Reduct)) },
                         leadingIcon = {
@@ -216,18 +211,18 @@ fun FullScreenImage(
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun TaskDetailsPreview() {
-    TaskDetailsScreenContent(
-        state = TaskDetailsViewModel.TaskDetailsScreenState(
-            task = TaskUiModel(
-                title = "Task 1",
-                quantity = "10",
-                key = "1"
-            )
-        ),
-        onEditTaskClick = {}
-    )
-}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun TaskDetailsPreview() {
+//    TaskDetailsScreenContent(
+//        state = TaskDetailsViewModel.TaskDetailsScreenState(
+//            task = TaskUiModel(
+//                title = "Task 1",
+//                quantity = "10",
+//                key = "1"
+//            )
+//        ),
+//        onEditTaskClick = {}
+//    )
+//}

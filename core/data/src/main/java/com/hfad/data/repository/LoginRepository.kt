@@ -135,6 +135,7 @@ class LoginRepository @Inject constructor(
             onEditFailure("Заполните все поля.")
             return
         }
+
         db.document(key)
             .set(
                 WorkTask(
@@ -145,7 +146,7 @@ class LoginRepository @Inject constructor(
                 SetOptions.merge()
             )
             .addOnFailureListener { e ->
-                onEditFailure(e.message ?: "Ошибка при обновлении сотрудника")
+                onEditFailure(e.message ?: "Ошибка при обновлении задачи.")
             }
             .addOnSuccessListener {
                 onEditSuccess()

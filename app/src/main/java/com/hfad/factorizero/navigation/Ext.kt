@@ -18,6 +18,7 @@ import com.hfad.profile.MasterProfileScreen
 import com.hfad.navigation.Screen
 import com.hfad.navigation.TopLevelScreens
 import com.hfad.tasks.presentation.CreateNewTaskScreen
+import com.hfad.tasks.presentation.EditTaskScreen
 import com.hfad.tasks.presentation.TaskDetailsScreen
 import com.hfad.tasks.presentation.TasksMasterScreen
 import kotlin.reflect.KClass
@@ -112,9 +113,23 @@ fun NavGraphBuilder.tasksTabNavGraph(
         composable<Screen.TaskDetailsScreen> {
             TaskDetailsScreen(
                 onEditTaskClick = {
-                    // TODO TaskEditScreen
-                    // TODO TaskEditScreen
-                    // TODO TaskEditScreen
+                    navController.navigate(
+                        Screen.EditTaskScreen(
+                            key = it.key,
+                            title = it.title,
+                            quantity = it.quantity
+                        )
+                    )
+                }
+            )
+        }
+        composable<Screen.EditTaskScreen> {
+            EditTaskScreen(
+                onEdited = {
+                    navController.navigateToNewRoot(Screen.TasksMasterScreen)
+                },
+                onDeleted = {
+                    navController.navigateToNewRoot(Screen.TasksMasterScreen)
                 }
             )
         }

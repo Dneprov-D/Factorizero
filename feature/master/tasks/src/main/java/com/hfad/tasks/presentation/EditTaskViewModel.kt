@@ -42,8 +42,8 @@ class EditTaskViewModel @Inject constructor(
     fun onEditTaskClick() {
         repository.editTask(
             key = state.task.key,
-            title = state.title,
-            quantity = state.quantity,
+            title = state.titleInput,
+            quantity = state.quantityInput,
             onEditSuccess = {
                 viewModelScope.launch {
                     navigationChannel.send(NavigationEvent.OnEdited)
