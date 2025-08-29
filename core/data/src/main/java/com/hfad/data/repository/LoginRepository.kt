@@ -63,7 +63,6 @@ class LoginRepository @Inject constructor(
             onRegisterFailure("Заполните все поля.")
             return
         }
-
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

@@ -18,7 +18,7 @@ val FzErrorContainer = Color(0xFFFFDAD6)
 
 val FzSurfaceDim = Color(0xFFE0D9CC)
 val FzSurfaceBright = Color(0xFFFFF9EE)
-val FzSurface = Color(0xFFFFF9EE)
+val FzSurface = Color(0xFFFFF6CC)
 
 // Dark Theme Colors
 val FzPrimaryDark = Color(0xFFDBC66E)

@@ -50,7 +50,6 @@ fun NavGraphBuilder.employeeTabNavGraph(
                 }
             )
         }
-
         composable<Screen.EmployeeDetailsScreen> {
             EmployeeDetailsScreen(
                 onEditClick = {
@@ -65,7 +64,6 @@ fun NavGraphBuilder.employeeTabNavGraph(
                 }
             )
         }
-
         composable<Screen.EditEmployeeScreen> {
             EditEmployeeScreen(
                 onEdited = {

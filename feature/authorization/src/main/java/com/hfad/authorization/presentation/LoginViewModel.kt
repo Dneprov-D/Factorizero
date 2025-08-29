@@ -64,9 +64,9 @@ class LoginViewModel @Inject constructor(
         )
     }
 
-    fun onSignOutClick() {
-        repository.signOut()
-    }
+//    fun onSignOutClick() {
+//        repository.signOut()
+//    }
     
     fun onCreateEmployeeAccountClick() {
         viewModelScope.launch {

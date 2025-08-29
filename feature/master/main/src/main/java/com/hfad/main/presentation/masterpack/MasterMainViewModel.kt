@@ -50,4 +50,9 @@ class MasterMainViewModel @Inject constructor() : ViewModel() {
                 )
             }
     }
+
+    fun refreshEmployees() {
+        val db = Firebase.firestore
+        getAllStaff(db)
+    }
 }
