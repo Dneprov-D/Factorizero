@@ -24,26 +24,6 @@ class LoginViewModel @Inject constructor(
     var loginState by mutableStateOf(LoginScreenState())
         private set
 
-    fun onCreateAccountClick() {
-        if (loginState.emailInput.isBlank() || loginState.passwordInput.isBlank()) {
-            loginState = loginState.copy(errorState = "Для регистрации мастера, введите логин и пароль.")
-            return
-        }
-        repository.createAnAccount(
-            email = loginState.emailInput,
-            password = loginState.passwordInput,
-            onSignUpSuccess = {
-                viewModelScope.launch {
-                    navigationChannel.send(NavigationEvent.OnRegistered)
-                }
-                loginState = loginState.copy(errorState = "")
-            },
-            onSignUpFailure = { error ->
-                loginState = loginState.copy(errorState = error)
-            }
-        )
-    }
-
     fun onSignInClick() {
         if (loginState.emailInput.isBlank() || loginState.passwordInput.isBlank()) {
             loginState = loginState.copy(errorState = "Логин и пароль не могут быть пустыми.")
@@ -64,10 +44,12 @@ class LoginViewModel @Inject constructor(
         )
     }
 
-//    fun onSignOutClick() {
-//        repository.signOut()
-//    }
-    
+    fun onCreateMasterAccountClick() {
+        viewModelScope.launch {
+            navigationChannel.send(NavigationEvent.OnRegisterMasterClicked)
+        }
+    }
+
     fun onCreateEmployeeAccountClick() {
         viewModelScope.launch {
             navigationChannel.send(NavigationEvent.OnRegisterEmployeeClicked)
@@ -85,10 +67,9 @@ class LoginViewModel @Inject constructor(
 
 sealed interface NavigationEvent {
     data object OnSignedIn : NavigationEvent
-
     data object OnRegistered : NavigationEvent
-
     data object OnRegisterEmployeeClicked : NavigationEvent
+    data object OnRegisterMasterClicked : NavigationEvent
 }
 
 data class LoginScreenState(
@@ -96,3 +77,22 @@ data class LoginScreenState(
     val passwordInput: String = "",
     val errorState: String = ""
 )
+
+
+//        if (loginState.emailInput.isBlank() || loginState.passwordInput.isBlank()) {
+//            loginState = loginState.copy(errorState = "Для регистрации мастера, введите логин и пароль.")
+//            return
+//        }
+//        repository.createAnAccount(
+//            email = loginState.emailInput,
+//            password = loginState.passwordInput,
+//            onSignUpSuccess = {
+//                viewModelScope.launch {
+//                    navigationChannel.send(NavigationEvent.OnRegistered)
+//                }
+//                loginState = loginState.copy(errorState = "")
+//            },
+//            onSignUpFailure = { error ->
+//                loginState = loginState.copy(errorState = error)
+//            }
+//        )

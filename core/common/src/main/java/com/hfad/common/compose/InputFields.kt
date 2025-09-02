@@ -90,6 +90,39 @@ fun InputFieldPassword(passwordInput: String, onPasswordInputChanged: (String) -
 }
 
 @Composable
+fun InputFieldPasswordNext(passwordInput: String, onPasswordInputChanged: (String) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        OutlinedTextField(
+            leadingIcon = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Rounded.Password,
+                        contentDescription = null
+                    )
+                }
+            },
+            value = passwordInput,
+            onValueChange = { onPasswordInputChanged(it) },
+            label = { Text(stringResource(com.hfad.common.R.string.PasswordText)) },
+            shape = MaterialTheme.shapes.small,
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
+            ),
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardActions = KeyboardActions()
+        )
+    }
+}
+
+@Composable
 fun InputFieldName(nameInput: String, onNameInputChanged: (String) -> Unit) {
     Column(
         modifier = Modifier

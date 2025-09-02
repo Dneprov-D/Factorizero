@@ -9,6 +9,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
 import com.hfad.common.compose.navigateToNewRoot
 import com.hfad.model.Employee
+import com.hfad.model.Master
 import com.hfad.model.WorkTask
 import com.hfad.navigation.Screen
 import javax.inject.Inject
@@ -42,6 +43,50 @@ class LoginRepository @Inject constructor(
             }
             .addOnFailureListener {
                 onSignUpFailure(it.message ?: "Произошла ошибка регистрации")
+            }
+    }
+
+    fun createMasterAccount(
+        master: Master,
+        email: String,
+        password: String,
+        name: String,
+        surname: String,
+        jobTitle: String,
+        onRegisterSuccess: () -> Unit,
+        onRegisterFailure: (String) -> Unit
+    ) {
+        if (email.isBlank() || password.isBlank()) {
+            onRegisterFailure("Login and Password cannot be empty")
+            return
+        }
+        val fireStore = Firebase.firestore
+        val db = fireStore.collection("master")
+        val key = db.document().id
+
+        if (email.isBlank() || password.isBlank() || name.isBlank() || surname.isBlank()) {
+            onRegisterFailure("Заполните все поля.")
+            return
+        }
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    db.document(key)
+                        .set(
+                            master.copy(
+                                key = key,
+                                name = name,
+                                surname = surname,
+                                jobTitle = jobTitle
+                            )
+                        )
+                        .addOnFailureListener { e ->
+                            onRegisterFailure(e.message ?: "Ошибка при добавлении сотрудника")
+                        }
+                        .addOnSuccessListener {
+                            onRegisterSuccess()
+                        }
+                }
             }
     }
 

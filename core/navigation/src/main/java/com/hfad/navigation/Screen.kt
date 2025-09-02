@@ -18,6 +18,21 @@ sealed class Screen() {
     data object CreateNewTaskScreen : Screen()
 
     @Serializable
+    data object CreateNewEmployeeScreen : Screen()
+
+    @Serializable
+    data object CreateNewMasterScreen : Screen()
+
+    @Serializable
+    data object EmployeeTabScreen : Screen()
+
+    @Serializable
+    data object TasksTabScreen : Screen()
+
+    @Serializable
+    data object ProfileTabScreen : Screen()
+
+    @Serializable
     data class EmployeeDetailsScreen(
         val key: String,
         val name: String,
@@ -34,9 +49,6 @@ sealed class Screen() {
     ) : Screen()
 
     @Serializable
-    data object CreateNewEmployeeScreen : Screen()
-
-    @Serializable
     data class EditTaskScreen(
         val key: String,
         val title: String,
@@ -49,15 +61,6 @@ sealed class Screen() {
         val title: String,
         val quantity: String
     ) : Screen()
-
-    @Serializable
-    data object EmployeeTabScreen : Screen()
-
-    @Serializable
-    data object TasksTabScreen : Screen()
-
-    @Serializable
-    data object ProfileTabScreen : Screen()
 
     @Serializable
     data class MainScreenDataObject(

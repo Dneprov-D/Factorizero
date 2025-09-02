@@ -14,6 +14,7 @@ import com.google.firebase.Firebase
 import com.hfad.authorization.presentation.LoginScreen
 import com.hfad.common.compose.navigateToNewRoot
 import com.hfad.main.presentation.employeepack.CreateNewEmployeeScreen
+import com.hfad.main.presentation.masterpack.CreateNewMasterScreen
 import com.hfad.navigation.Screen
 
 @Composable
@@ -43,17 +44,26 @@ fun AppNavGraph(
 
         composable<Screen.LoginScreen> {
             LoginScreen(
-                onNavigateToMainScreen = {
-//                    navController.navigateToNewRoot(Screen.MainMasterScreen) TODO не нужно
-                },
+                onNavigateToMainScreen = {},
                 onRegisterEmployeeClick = {
                     navController.navigate(Screen.CreateNewEmployeeScreen)
+                },
+                onRegisterMasterClick = {
+                    navController.navigate(Screen.CreateNewMasterScreen)
                 }
             )
         }
 
         composable<Screen.CreateNewEmployeeScreen> {
             CreateNewEmployeeScreen(
+                onRegistered = {
+                    navController.navigate(Screen.MainMasterScreen)
+                }
+            )
+        }
+
+        composable<Screen.CreateNewMasterScreen> {
+            CreateNewMasterScreen(
                 onRegistered = {
                     navController.navigate(Screen.MainMasterScreen)
                 }

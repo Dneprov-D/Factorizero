@@ -1,4 +1,4 @@
-package com.hfad.main.presentation.employeepack
+package com.hfad.main.presentation.masterpack
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -42,10 +42,11 @@ import com.hfad.common.compose.InputFieldPasswordNext
 import com.hfad.common.compose.InputFieldSurname
 import com.hfad.common.compose.ObserveAsEvents
 import com.hfad.main.R
+import com.hfad.navigation.Screen
 
 @Composable
-fun CreateNewEmployeeScreen(
-    viewModel: CreateEmployeeViewModel = hiltViewModel(),
+fun CreateNewMasterScreen(
+    viewModel: CreateMasterViewModel = hiltViewModel(),
     onRegistered: () -> Unit
 ) {
     val uiState = viewModel.state
@@ -63,8 +64,8 @@ fun CreateNewEmployeeScreen(
     )
 
     ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
-        when (event) {
-            is CreateEmployeeViewModel.NavigationEvent.OnRegistered -> onRegistered()
+        when(event) {
+            is CreateMasterViewModel.NavigationEvent.OnRegistered -> onRegistered()
         }
     }
 
@@ -126,7 +127,7 @@ fun CreateNewEmployeeScreen(
 
         FzButton(
             onClick = {
-                viewModel.onCreateEmployeeClick()
+                viewModel.onCreateMasterClick()
             },
             text = { Text(text = stringResource(R.string.Register)) },
             enabled = uiState.isButtonEnabled

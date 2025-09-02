@@ -30,7 +30,8 @@ import com.hfad.navigation.Screen
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
     onNavigateToMainScreen: () -> Unit,
-    onRegisterEmployeeClick: () -> Unit
+    onRegisterEmployeeClick: () -> Unit,
+    onRegisterMasterClick: () -> Unit
 ) {
     val uiState = viewModel.loginState
     val backgroundColor = MaterialTheme.colorScheme.background
@@ -48,6 +49,10 @@ fun LoginScreen(
 
             is NavigationEvent.OnRegisterEmployeeClicked -> {
                 onRegisterEmployeeClick()
+            }
+
+            is NavigationEvent.OnRegisterMasterClicked -> {
+                onRegisterMasterClick()
             }
         }
     }
@@ -102,7 +107,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(10.dp))
         FzButton(
             onClick = {
-                viewModel.onCreateAccountClick()
+                viewModel.onCreateMasterAccountClick()
             },
             text = { Text(text = stringResource(R.string.RegisterMaster)) }
         )

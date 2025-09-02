@@ -4,7 +4,8 @@ import kotlin.reflect.KClass
 
 enum class TopLevelScreens(val route: KClass<*>) {
     LOGIN_SCREEN(route = Screen.LoginScreen::class),
-    REGISTER_SCREEN(route = Screen.CreateNewEmployeeScreen::class)
+    REGISTER_SCREEN(route = Screen.CreateNewEmployeeScreen::class),
+    REGISTER_MASTER_SCREEN(route = Screen.CreateNewMasterScreen::class)
 }
 
 enum class NoArrowBackScreens(val route: KClass<*>) {
