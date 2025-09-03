@@ -12,50 +12,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
 import com.hfad.authorization.R
-import com.hfad.common.compose.InputFieldLogin
-import com.hfad.common.compose.InputFieldPassword
 import com.hfad.common.compose.ObserveAsEvents
-import com.hfad.navigation.Screen
 
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
-    onNavigateToMainScreen: () -> Unit,
-    onRegisterEmployeeClick: () -> Unit,
-    onRegisterMasterClick: () -> Unit
+    onMasterClick: () -> Unit,
+    onEmployeeClick: () -> Unit
 ) {
-    val uiState = viewModel.loginState
     val backgroundColor = MaterialTheme.colorScheme.background
     val textColor = MaterialTheme.colorScheme.onBackground
-
-    ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
-        when (event) {
-            is NavigationEvent.OnSignedIn -> {
-                onNavigateToMainScreen()
-            }
-
-            is NavigationEvent.OnRegistered -> {
-                onNavigateToMainScreen()
-            }
-
-            is NavigationEvent.OnRegisterEmployeeClicked -> {
-                onRegisterEmployeeClick()
-            }
-
-            is NavigationEvent.OnRegisterMasterClicked -> {
-                onRegisterMasterClick()
-            }
-        }
-    }
 
     Column(
         modifier = Modifier
@@ -73,51 +46,21 @@ fun LoginScreen(
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = stringResource(R.string.EnterToProfileText),
+            text = stringResource(R.string.MasterOrEmployee),
             fontSize = 17.sp,
             color = textColor
         )
 
-        InputFieldLogin(
-            emailInput = uiState.emailInput,
-            onEmailInputChanged = viewModel::onEmailInputChanged
-        )
-
-        InputFieldPassword(
-            passwordInput = uiState.passwordInput,
-            onPasswordInputChanged = viewModel::onPasswordInputChanged
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-        if (uiState.errorState.isNotBlank()) {
-            Text(
-                text = uiState.errorState,
-                color = Color.Red,
-                textAlign = TextAlign.Center
-            )
-        }
-        FzButton(
-            onClick = {
-                viewModel.onSignInClick()
-
-            },
-            text = { Text(text = stringResource(R.string.LogIn)) }
-        )
-
         Spacer(modifier = Modifier.height(10.dp))
         FzButton(
-            onClick = {
-                viewModel.onCreateMasterAccountClick()
-            },
-            text = { Text(text = stringResource(R.string.RegisterMaster)) }
+            onClick = onMasterClick,
+            text = { Text(text = stringResource(R.string.MasterText)) }
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(5.dp))
         FzButton(
-            onClick = {
-                viewModel.onCreateEmployeeAccountClick()
-            },
-            text = { Text(text = stringResource(R.string.RegisterEmployee)) }
+            onClick = onEmployeeClick,
+            text = { Text(text = stringResource(R.string.EmployeeText)) }
         )
     }
 }

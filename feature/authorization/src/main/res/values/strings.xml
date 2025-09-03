@@ -15,4 +15,5 @@
     <string name="DeleteAnAccount">Удалить профиль</string>
     <string name="CreateAnAccountFailure">Произошла ошибка регистрации</string>
     <string name="JobTitle">Должность</string>
+    <string name="MasterOrEmployee">Выберите кто входит:</string>
 </resources>

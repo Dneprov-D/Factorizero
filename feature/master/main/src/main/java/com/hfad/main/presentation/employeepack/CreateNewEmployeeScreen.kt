@@ -37,7 +37,6 @@ import coil3.compose.rememberAsyncImagePainter
 import com.hfad.common.compose.InputFieldJobTitle
 import com.hfad.common.compose.InputFieldLogin
 import com.hfad.common.compose.InputFieldName
-import com.hfad.common.compose.InputFieldPassword
 import com.hfad.common.compose.InputFieldPasswordNext
 import com.hfad.common.compose.InputFieldSurname
 import com.hfad.common.compose.ObserveAsEvents

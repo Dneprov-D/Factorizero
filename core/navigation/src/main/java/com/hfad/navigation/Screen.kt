@@ -9,6 +9,12 @@ sealed class Screen() {
     data object LoginScreen : Screen()
 
     @Serializable
+    data object LoginAsMasterScreen : Screen()
+
+    @Serializable
+    data object LoginAsEmployeeScreen : Screen()
+
+    @Serializable
     data object MainMasterScreen : Screen()
 
     @Serializable

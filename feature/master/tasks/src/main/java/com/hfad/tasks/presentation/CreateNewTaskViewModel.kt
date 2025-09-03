@@ -10,7 +10,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.hfad.data.repository.LoginRepository
-import com.hfad.main.presentation.employeepack.CreateEmployeeViewModel.NavigationEvent
 import com.hfad.model.Employee
 import com.hfad.ui.profile.uimodel.EmployeeUiModel
 import com.hfad.ui.profile.uimodel.toUiModel

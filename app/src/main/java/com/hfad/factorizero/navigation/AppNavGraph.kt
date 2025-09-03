@@ -3,8 +3,6 @@ package com.hfad.factorizero.navigation
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -12,6 +10,8 @@ import androidx.navigation.compose.composable
 import com.google.firebase.auth.auth
 import com.google.firebase.Firebase
 import com.hfad.authorization.presentation.LoginScreen
+import com.hfad.authorization.presentation.employee.LoginAsEmployeeScreen
+import com.hfad.authorization.presentation.master.LoginAsMasterScreen
 import com.hfad.common.compose.navigateToNewRoot
 import com.hfad.main.presentation.employeepack.CreateNewEmployeeScreen
 import com.hfad.main.presentation.masterpack.CreateNewMasterScreen
@@ -44,9 +44,19 @@ fun AppNavGraph(
 
         composable<Screen.LoginScreen> {
             LoginScreen(
-                onNavigateToMainScreen = {},
-                onRegisterEmployeeClick = {
-                    navController.navigate(Screen.CreateNewEmployeeScreen)
+                onMasterClick = {
+                    navController.navigate(Screen.LoginAsMasterScreen)
+                },
+                onEmployeeClick = {
+                    navController.navigate(Screen.LoginAsEmployeeScreen)
+                }
+            )
+        }
+
+        composable<Screen.LoginAsMasterScreen> {
+            LoginAsMasterScreen(
+                onNavigateToMainScreen = {
+                    navController.navigateToNewRoot(Screen.MainMasterScreen)
                 },
                 onRegisterMasterClick = {
                     navController.navigate(Screen.CreateNewMasterScreen)
@@ -54,10 +64,21 @@ fun AppNavGraph(
             )
         }
 
+        composable<Screen.LoginAsEmployeeScreen> {
+            LoginAsEmployeeScreen(
+                onNavigateToMainScreen = {
+                    navController.navigateToNewRoot(Screen.MainMasterScreen)
+                },
+                onRegisterEmployeeClick = {
+                    navController.navigate(Screen.CreateNewEmployeeScreen)
+                }
+            )
+        }
+
         composable<Screen.CreateNewEmployeeScreen> {
             CreateNewEmployeeScreen(
                 onRegistered = {
-                    navController.navigate(Screen.MainMasterScreen)
+                    navController.navigateToNewRoot(Screen.MainMasterScreen)
                 }
             )
         }
@@ -65,7 +86,7 @@ fun AppNavGraph(
         composable<Screen.CreateNewMasterScreen> {
             CreateNewMasterScreen(
                 onRegistered = {
-                    navController.navigate(Screen.MainMasterScreen)
+                    navController.navigateToNewRoot(Screen.MainMasterScreen)
                 }
             )
         }
