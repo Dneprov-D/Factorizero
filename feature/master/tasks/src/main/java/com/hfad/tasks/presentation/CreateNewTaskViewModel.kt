@@ -57,7 +57,7 @@ class CreateNewTaskViewModel @Inject constructor(
     private fun getAllStaff(
         db: FirebaseFirestore,
     ) {
-        db.collection("stuff")
+        db.collection("staff")
             .get()
             .addOnSuccessListener { task ->
                 val staffList = task.toObjects(Employee::class.java)

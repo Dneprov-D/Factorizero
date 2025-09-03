@@ -104,7 +104,7 @@ class LoginRepository @Inject constructor(
         onRegisterFailure: (String) -> Unit
     ) {
         val fireStore = Firebase.firestore
-        val db = fireStore.collection("stuff")
+        val db = fireStore.collection("staff")
         val key = db.document().id
 
         if (email.isBlank() || password.isBlank() || name.isBlank() || surname.isBlank()) {
@@ -145,7 +145,7 @@ class LoginRepository @Inject constructor(
         onEditFailure: (String) -> Unit
     ) {
         val fireStore = Firebase.firestore
-        val db = fireStore.collection("stuff")
+        val db = fireStore.collection("staff")
 
         if (name.isBlank() || surname.isBlank() || (jobTitle.isBlank())) {
             onEditFailure("Заполните все поля.")
@@ -286,7 +286,7 @@ class LoginRepository @Inject constructor(
         onDeleteFailure: (String) -> Unit
     ) {
         val fireStore = Firebase.firestore
-        val db = fireStore.collection("stuff")
+        val db = fireStore.collection("staff")
 
         db.document(key).delete()
             .addOnSuccessListener {
