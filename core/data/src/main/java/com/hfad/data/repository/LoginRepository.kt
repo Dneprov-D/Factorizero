@@ -71,13 +71,16 @@ class LoginRepository @Inject constructor(
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    val uid = task.result.user?.uid ?: ""
+                    Log.d("FirebaseUID", "Создан мастер с uid: $uid")
                     db.document(key)
                         .set(
                             master.copy(
                                 key = key,
                                 name = name,
                                 surname = surname,
-                                jobTitle = jobTitle
+                                jobTitle = jobTitle,
+                                uid = uid
                             )
                         )
                         .addOnFailureListener { e ->
@@ -111,13 +114,16 @@ class LoginRepository @Inject constructor(
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    val uid = task.result.user?.uid ?: ""
+                    Log.d("FirebaseUID", "Создан сотрудник с uid: $uid")
                     db.document(key)
                         .set(
                             employee.copy(
                                 key = key,
                                 name = name,
                                 surname = surname,
-                                jobTitle = jobTitle
+                                jobTitle = jobTitle,
+                                uid = uid
                             )
                         )
                         .addOnFailureListener { e ->

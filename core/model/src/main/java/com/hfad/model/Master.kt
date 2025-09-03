@@ -5,5 +5,6 @@ data class Master(
     val imageUrl: String = "",
     val name: String = "",
     val surname: String = "",
-    val jobTitle: String = ""
+    val jobTitle: String = "",
+    val uid: String = ""
 )
