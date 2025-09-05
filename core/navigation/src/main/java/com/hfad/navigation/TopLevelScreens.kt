@@ -15,3 +15,7 @@ enum class NoArrowBackScreens(val route: KClass<*>) {
     TASKS_SCREEN(route = Screen.TasksMasterScreen::class),
     PROFILE_SCREEN(route = Screen.ProfileTabScreen::class)
 }
+
+enum class NoEmployeeTabScreens(val route: KClass<*>) {
+
+}

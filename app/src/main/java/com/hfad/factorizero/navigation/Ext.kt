@@ -14,6 +14,7 @@ import com.hfad.main.presentation.employeepack.EditEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
 import com.hfad.main.presentation.masterpack.MasterMainScreen
 import com.hfad.navigation.NoArrowBackScreens
+import com.hfad.navigation.NoEmployeeTabScreens
 import com.hfad.profile.MasterProfileScreen
 import com.hfad.navigation.Screen
 import com.hfad.navigation.TopLevelScreens
@@ -177,6 +178,14 @@ fun shouldShowArrowBack(currentDestination: NavDestination?) =
             destination.hasRoute(screen.route)
         }
     } == true
+
+fun shouldShowEmployeeTab(currentDestination: NavDestination?) =
+    currentDestination?.let { destination ->
+        NoEmployeeTabScreens.entries.none { screen ->
+            destination.hasRoute(screen.route)
+        }
+    } == true
+
 
 fun NavController.navigateToEmployeeTab(navOptions: NavOptions) =
     navigate(route = Screen.EmployeeTabScreen, navOptions)
