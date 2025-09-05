@@ -1,4 +1,4 @@
-package com.hfad.main
+package com.hfad.profile
 
 import org.junit.Test
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="EmployeeText">Сотрудники</string>
+    <string name="Done">Готово</string>
+    <string name="TasksText">Задачи</string>
+    <string name="Reduct">Изменить</string>
+    <string name="TasksInWorkText">Задачи в работе</string>
+    <string name="EditTasksText">Изменить задачи</string>
+    <string name="NewTaskText">Новая задача</string>
+    <string name="AddPhoto">Добавьте фото</string>
+    <string name="AddDraw">Добавьте чертёж</string>
+    <string name="SelectAnEmployee">Выберите сотрудника</string>
+    <string name="Register">Зарегистрировать</string>
+    <string name="EditProfile">Редактирование профиля</string>
+    <string name="EditTask">Редактирование задачи</string>
+    <string name="ApplyEdit">Сохранить изменения</string>
+    <string name="DeleteAccount">Удалить аккаунт</string>
+    <string name="DeleteTask">Удалить задачу</string>
+    <string name="SureDeleteAccount">Вы уверены, что хотите удалить этот профиль?</string>
+    <string name="SureDeleteTask">Вы уверены, что хотите удалить эту задачу?</string>
+    <string name="ConfirmDelete">Подтверждение удаления</string>
+    <string name="No">Нет</string>
+    <string name="Yes">Да</string>
+</resources>
