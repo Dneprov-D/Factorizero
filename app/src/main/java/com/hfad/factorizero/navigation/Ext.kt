@@ -10,6 +10,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import androidx.navigation.navigation
+import com.hfad.main.presentation.MainEmployeeScreen
 import com.hfad.main.presentation.employeepack.EditEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
 import com.hfad.main.presentation.masterpack.MasterMainScreen
@@ -24,6 +25,7 @@ import com.hfad.tasks.presentation.TaskDetailsScreen
 import com.hfad.tasks.presentation.TasksMasterScreen
 import kotlin.reflect.KClass
 
+//Master version
 fun NavGraphBuilder.profileTabNavGraph(
 ) {
     composable<Screen.ProfileTabScreen> {
@@ -134,6 +136,19 @@ fun NavGraphBuilder.tasksTabNavGraph(
         }
     }
 }
+//Employee version
+fun NavGraphBuilder.employeeMainTabNavGraph(
+    navController: NavHostController
+) {
+    composable<Screen.MainEmployeeScreen> {
+        MainEmployeeScreen(
+            onTaskClick = {}
+        )
+    }
+    composable<Screen.EmployeeProfileScreen> {
+      //TODO profile
+    }
+}
 
 fun NavDestination?.isRouteInHierarchy(route: KClass<*>) =
     this?.hierarchy?.any {
@@ -186,6 +201,11 @@ fun shouldShowEmployeeTab(currentDestination: NavDestination?) =
         }
     } == true
 
+fun NavController.navigateToEmployeeMainTab(navOptions: NavOptions) =
+    navigate(route = Screen.MainEmployeeScreen, navOptions)
+
+fun NavController.navigateToEmployeeProfileTab(navOptions: NavOptions) =
+    navigate(route = Screen.EmployeeProfileScreen, navOptions)
 
 fun NavController.navigateToEmployeeTab(navOptions: NavOptions) =
     navigate(route = Screen.EmployeeTabScreen, navOptions)

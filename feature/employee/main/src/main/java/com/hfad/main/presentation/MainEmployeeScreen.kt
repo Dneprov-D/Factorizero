@@ -1,4 +1,4 @@
-package com.hfad.tasks.presentation
+package com.hfad.main.presentation
 
 import Icons.FzIcons
 import androidx.compose.foundation.background
@@ -29,10 +29,9 @@ import com.hfad.model.WorkTask
 import com.hfad.ui.profile.TaskCard
 
 @Composable
-fun TasksMasterScreen(
-    viewModel: TasksMasterViewModel = hiltViewModel(),
-    onTaskClick: (WorkTask) -> Unit,
-    onFabClick: () -> Unit,
+fun MainEmployeeScreen(
+    viewModel: MainEmployeeScreenViewModel = hiltViewModel(),
+    onTaskClick: (WorkTask) -> Unit
 ) {
     val state = viewModel.state
     val backgroundColor = MaterialTheme.colorScheme.background
@@ -45,7 +44,7 @@ fun TasksMasterScreen(
                 .background(backgroundColor)
         ) {
             Text(
-                text = stringResource(R.string.TasksInWorkText),
+                text = stringResource(R.string.AssignedTasksText),
                 modifier = Modifier
                     .padding(7.dp)
                     .fillMaxWidth(),
@@ -73,18 +72,6 @@ fun TasksMasterScreen(
                         }
                     )
                 }
-            }
-        }
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp)
-        ) {
-            FloatingActionButton(
-                onClick = onFabClick,
-                containerColor = LightColorScheme.tertiary
-            ) {
-                Icon(FzIcons.Add, contentDescription = null)
             }
         }
     }

@@ -1,0 +1,45 @@
+package com.hfad.main.presentation
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
+import com.hfad.model.WorkTask
+import com.hfad.ui.profile.uimodel.TaskUiModel
+import com.hfad.ui.profile.uimodel.toUiModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+class MainEmployeeScreenViewModel @Inject constructor() : ViewModel() {
+
+    var state by mutableStateOf(MainEmployeeScreenState(emptyList()))
+        private set
+
+    init {
+        val db = Firebase.firestore
+        getTasks(db)
+    }
+
+    data class MainEmployeeScreenState(
+        val tasksList: List<TaskUiModel>
+    )
+
+    private fun getTasks(
+        db: FirebaseFirestore,
+    ) {
+        db.collection("tasks")
+            .get()
+            .addOnSuccessListener { task ->
+                val tasksList = task.toObjects(WorkTask::class.java)
+                state = state.copy(
+                    tasksList = tasksList.map {
+                        it.toUiModel()
+                    }
+                )
+            }
+    }
+}

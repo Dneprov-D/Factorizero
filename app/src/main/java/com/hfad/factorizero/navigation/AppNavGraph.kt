@@ -13,7 +13,7 @@ import com.hfad.authorization.presentation.LoginScreen
 import com.hfad.authorization.presentation.employee.LoginAsEmployeeScreen
 import com.hfad.authorization.presentation.master.LoginAsMasterScreen
 import com.hfad.common.compose.navigateToNewRoot
-import com.hfad.main.presentation.employeepack.CreateNewEmployeeScreen
+import com.hfad.main.presentation.CreateNewEmployeeScreen
 import com.hfad.main.presentation.masterpack.CreateNewMasterScreen
 import com.hfad.navigation.Screen
 
@@ -67,7 +67,7 @@ fun AppNavGraph(
         composable<Screen.LoginAsEmployeeScreen> {
             LoginAsEmployeeScreen(
                 onNavigateToMainScreen = {
-//                    navController.navigateToNewRoot() //TODO
+                    navController.navigateToNewRoot(Screen.MainEmployeeScreen)
                 },
                 onRegisterEmployeeClick = {
                     navController.navigate(Screen.CreateNewEmployeeScreen)
@@ -78,7 +78,7 @@ fun AppNavGraph(
         composable<Screen.CreateNewEmployeeScreen> {
             CreateNewEmployeeScreen(
                 onRegistered = {
-//                    navController.navigateToNewRoot() //TODO
+                    navController.navigateToNewRoot(Screen.MainEmployeeScreen)
                 }
             )
         }
@@ -90,9 +90,11 @@ fun AppNavGraph(
                 }
             )
         }
-
+            //Master ver.
         employeeTabNavGraph(navController)
         tasksTabNavGraph(navController)
         profileTabNavGraph()
+            //Employee ver.
+        employeeMainTabNavGraph(navController)
     }
 }

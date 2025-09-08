@@ -74,7 +74,7 @@ fun FzApp() {
                 }
         },
         bottomBar = {
-            if (shouldShowBottomBar(currentDestination)) {
+            if (shouldShowBottomBar(currentDestination) && shouldShowEmployeeTab(currentDestination)) {
                 NavigationBar(
                     modifier = Modifier
                         .height(100.dp)

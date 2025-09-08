@@ -18,6 +18,9 @@ sealed class Screen() {
     data object MainMasterScreen : Screen()
 
     @Serializable
+    data object MainEmployeeScreen : Screen()
+
+    @Serializable
     data object TasksMasterScreen : Screen()
 
     @Serializable
@@ -37,6 +40,9 @@ sealed class Screen() {
 
     @Serializable
     data object ProfileTabScreen : Screen()
+
+    @Serializable
+    data object EmployeeProfileScreen : Screen()
 
     @Serializable
     data class EmployeeDetailsScreen(
