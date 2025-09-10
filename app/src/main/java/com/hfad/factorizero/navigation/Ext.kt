@@ -15,10 +15,10 @@ import com.hfad.main.presentation.employeepack.EditEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
 import com.hfad.main.presentation.masterpack.MasterMainScreen
 import com.hfad.navigation.NoArrowBackScreens
-import com.hfad.navigation.NoEmployeeTabScreens
 import com.hfad.profile.MasterProfileScreen
 import com.hfad.navigation.Screen
 import com.hfad.navigation.TopLevelScreens
+import com.hfad.profile.EmployeeProfileScreen
 import com.hfad.tasks.presentation.CreateNewTaskScreen
 import com.hfad.tasks.presentation.EditTaskScreen
 import com.hfad.tasks.presentation.TaskDetailsScreen
@@ -140,13 +140,28 @@ fun NavGraphBuilder.tasksTabNavGraph(
 fun NavGraphBuilder.employeeMainTabNavGraph(
     navController: NavHostController
 ) {
-    composable<Screen.MainEmployeeScreen> {
-        MainEmployeeScreen(
-            onTaskClick = {}
-        )
+    navigation<Screen.EmployeeMainTabScreen>(
+        startDestination = Screen.MainEmployeeScreen
+    ) {
+        composable<Screen.MainEmployeeScreen> {
+            MainEmployeeScreen(
+                onTaskClick = {}
+            )
+        }
     }
-    composable<Screen.EmployeeProfileScreen> {
-      //TODO profile
+}
+
+fun NavGraphBuilder.employeeProfileTabNavGraph(
+    navController: NavController
+) {
+    navigation<Screen.EmployeeProfileTabScreen>(
+        startDestination = Screen.EmployeeProfileScreen
+    ) {
+        composable<Screen.EmployeeProfileScreen> {
+            EmployeeProfileScreen(
+            //TODO
+            )
+        }
     }
 }
 
@@ -156,7 +171,8 @@ fun NavDestination?.isRouteInHierarchy(route: KClass<*>) =
     } ?: false
 
 fun NavController.navigateToBottomNavigationDestination(
-    bottomNavigationDestination: BottomNavigationDestination
+    masterBottomNavigationDestination: MasterBottomNavigationDestination,
+    employeeBottomNavigationDestination: EmployeeBottomNavigationDestination
 ) {
     val bottomNavigationNavOptions = navOptions {
         popUpTo(0) {
@@ -165,11 +181,14 @@ fun NavController.navigateToBottomNavigationDestination(
         launchSingleTop = true
         restoreState = true
     }
-
-    when (bottomNavigationDestination) {
-        BottomNavigationDestination.EMPLOYEE_TAB -> navigateToEmployeeTab(bottomNavigationNavOptions)
-        BottomNavigationDestination.TASKS_TAB -> navigateToTasksTab(bottomNavigationNavOptions)
-        BottomNavigationDestination.PROFILE_TAB -> navigateToProfileTab(bottomNavigationNavOptions)
+    when(employeeBottomNavigationDestination) {
+        EmployeeBottomNavigationDestination.EMPLOYEE_MAIN_TAB -> navigateToEmployeeTab(bottomNavigationNavOptions)
+        EmployeeBottomNavigationDestination.EMPLOYEE_PROFILE_TAB-> navigateToEmployeeTab(bottomNavigationNavOptions)
+    }
+    when (masterBottomNavigationDestination) {
+        MasterBottomNavigationDestination.EMPLOYEE_TAB -> navigateToEmployeeTab(bottomNavigationNavOptions)
+        MasterBottomNavigationDestination.TASKS_TAB -> navigateToTasksTab(bottomNavigationNavOptions)
+        MasterBottomNavigationDestination.PROFILE_TAB -> navigateToProfileTab(bottomNavigationNavOptions)
     }
 }
 
@@ -190,13 +209,6 @@ fun shouldShowTopBar(currentDestination: NavDestination?) =
 fun shouldShowArrowBack(currentDestination: NavDestination?) =
     currentDestination?.let { destination ->
         NoArrowBackScreens.entries.none { screen ->
-            destination.hasRoute(screen.route)
-        }
-    } == true
-
-fun shouldShowEmployeeTab(currentDestination: NavDestination?) =
-    currentDestination?.let { destination ->
-        NoEmployeeTabScreens.entries.none { screen ->
             destination.hasRoute(screen.route)
         }
     } == true
@@ -222,7 +234,7 @@ fun NavController.navigateToNewRoot(destination: Any) {
         is Screen -> destination::class.qualifiedName ?: destination.toString()
         else -> destination.toString()
     }
-    
+
     navigate(route) {
         popUpTo(0) {
             inclusive = true

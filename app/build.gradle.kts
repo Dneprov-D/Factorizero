@@ -66,6 +66,7 @@ dependencies {
     implementation(project(":feature:master:tasks"))
     implementation(project(":feature:master:profile"))
     implementation(project(":feature:employee:main"))
+    implementation(project(":feature:employee:profile"))
     implementation(project(":feature:authorization"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:data"))

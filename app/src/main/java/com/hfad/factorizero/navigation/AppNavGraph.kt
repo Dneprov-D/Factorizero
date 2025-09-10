@@ -96,5 +96,6 @@ fun AppNavGraph(
         profileTabNavGraph()
             //Employee ver.
         employeeMainTabNavGraph(navController)
+        employeeProfileTabNavGraph(navController)
     }
 }

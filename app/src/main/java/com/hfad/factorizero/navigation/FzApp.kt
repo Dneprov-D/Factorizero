@@ -31,7 +31,7 @@ import com.hfad.navigation.Screen
 fun FzApp() {
     val navController = rememberNavController()
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
-    val items: List<BottomNavigationDestination> = BottomNavigationDestination.entries
+    val items: List<MasterBottomNavigationDestination> = MasterBottomNavigationDestination.entries
 
     Scaffold(
         topBar = {
@@ -74,7 +74,7 @@ fun FzApp() {
                 }
         },
         bottomBar = {
-            if (shouldShowBottomBar(currentDestination) && shouldShowEmployeeTab(currentDestination)) {
+            if (shouldShowBottomBar(currentDestination)) {
                 NavigationBar(
                     modifier = Modifier
                         .height(100.dp)

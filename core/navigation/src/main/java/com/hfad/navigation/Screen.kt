@@ -45,6 +45,12 @@ sealed class Screen() {
     data object EmployeeProfileScreen : Screen()
 
     @Serializable
+    data object EmployeeProfileTabScreen : Screen()
+
+    @Serializable
+    data object EmployeeMainTabScreen : Screen()
+
+    @Serializable
     data class EmployeeDetailsScreen(
         val key: String,
         val name: String,
