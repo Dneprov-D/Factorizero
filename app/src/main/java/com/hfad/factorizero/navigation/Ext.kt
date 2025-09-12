@@ -14,6 +14,7 @@ import com.hfad.main.presentation.MainEmployeeScreen
 import com.hfad.main.presentation.employeepack.EditEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
 import com.hfad.main.presentation.masterpack.MasterMainScreen
+import com.hfad.navigation.EmployeeTabsScreens
 import com.hfad.navigation.NoArrowBackScreens
 import com.hfad.profile.MasterProfileScreen
 import com.hfad.navigation.Screen
@@ -171,8 +172,7 @@ fun NavDestination?.isRouteInHierarchy(route: KClass<*>) =
     } ?: false
 
 fun NavController.navigateToBottomNavigationDestination(
-    masterBottomNavigationDestination: MasterBottomNavigationDestination,
-    employeeBottomNavigationDestination: EmployeeBottomNavigationDestination
+    bottomNavigationDestination: BottomNavigationDestination,
 ) {
     val bottomNavigationNavOptions = navOptions {
         popUpTo(0) {
@@ -181,16 +181,20 @@ fun NavController.navigateToBottomNavigationDestination(
         launchSingleTop = true
         restoreState = true
     }
-    when(employeeBottomNavigationDestination) {
-        EmployeeBottomNavigationDestination.EMPLOYEE_MAIN_TAB -> navigateToEmployeeTab(bottomNavigationNavOptions)
-        EmployeeBottomNavigationDestination.EMPLOYEE_PROFILE_TAB-> navigateToEmployeeTab(bottomNavigationNavOptions)
-    }
-    when (masterBottomNavigationDestination) {
-        MasterBottomNavigationDestination.EMPLOYEE_TAB -> navigateToEmployeeTab(bottomNavigationNavOptions)
-        MasterBottomNavigationDestination.TASKS_TAB -> navigateToTasksTab(bottomNavigationNavOptions)
-        MasterBottomNavigationDestination.PROFILE_TAB -> navigateToProfileTab(bottomNavigationNavOptions)
+    when (bottomNavigationDestination) {
+        BottomNavigationDestination.EMPLOYEE_TAB -> navigateToEmployeeTab(bottomNavigationNavOptions)
+        BottomNavigationDestination.TASKS_TAB -> navigateToTasksTab(bottomNavigationNavOptions)
+        BottomNavigationDestination.PROFILE_TAB -> navigateToProfileTab(bottomNavigationNavOptions)
+        BottomNavigationDestination.EMPLOYEE_MAIN_TAB -> navigateToEmployeeMainTab(bottomNavigationNavOptions)
+        BottomNavigationDestination.EMPLOYEE_PROFILE_TAB-> navigateToEmployeeProfileTab(bottomNavigationNavOptions)
     }
 }
+fun shouldShowEmployeeTabs(currentDestination: NavDestination?) =
+    currentDestination?.let { destination ->
+        EmployeeTabsScreens.entries.none { screen ->
+            destination.hasRoute(screen.route)
+        }
+    } == true
 
 fun shouldShowBottomBar(currentDestination: NavDestination?) =
     currentDestination?.let { destination ->

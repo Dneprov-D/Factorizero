@@ -9,7 +9,7 @@ import com.hfad.navigation.R
 import com.hfad.navigation.Screen
 import kotlin.reflect.KClass
 
-enum class MasterBottomNavigationDestination(
+enum class BottomNavigationDestination(
     val icon: ImageVector,
     val titleResId: Int,
     val route: KClass<*>
@@ -30,5 +30,17 @@ enum class MasterBottomNavigationDestination(
         icon = Icons.Outlined.PermContactCalendar,
         titleResId = R.string.navigation_item_profile,
         route = Screen.ProfileTabScreen::class
+    ),
+
+    EMPLOYEE_PROFILE_TAB(
+        icon = Icons.Outlined.PermContactCalendar,
+        titleResId = R.string.navigation_item_profile,
+        route = Screen.EmployeeProfileScreen::class
+    ),
+
+    EMPLOYEE_MAIN_TAB(
+        icon = Icons.Outlined.LocalOffer,
+        titleResId = R.string.navigation_item_tasks,
+        route = Screen.EmployeeMainTabScreen::class
     )
 }

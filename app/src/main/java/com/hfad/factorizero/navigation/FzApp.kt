@@ -26,12 +26,26 @@ import androidx.navigation.compose.rememberNavController
 import com.hfad.designsystem.components.theme.LightColorScheme
 import com.hfad.factorizero.R
 import com.hfad.navigation.Screen
+import com.hfad.navigation.EmployeeTabsScreens
 
 @Composable
 fun FzApp() {
     val navController = rememberNavController()
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
-    val items: List<MasterBottomNavigationDestination> = MasterBottomNavigationDestination.entries
+    val items: List<BottomNavigationDestination> =
+        if (currentDestination?.let { dest ->
+                EmployeeTabsScreens.entries.any { screen ->
+                    dest.route == screen.route.qualifiedName
+                }
+            } == true
+        ) {
+            listOf(
+                BottomNavigationDestination.EMPLOYEE_PROFILE_TAB,
+                BottomNavigationDestination.EMPLOYEE_MAIN_TAB
+            )
+        } else {
+            BottomNavigationDestination.entries
+        }
 
     Scaffold(
         topBar = {
