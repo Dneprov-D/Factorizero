@@ -32,15 +32,15 @@ enum class BottomNavigationDestination(
         route = Screen.ProfileTabScreen::class
     ),
 
-    EMPLOYEE_PROFILE_TAB(
-        icon = Icons.Outlined.PermContactCalendar,
-        titleResId = R.string.navigation_item_profile,
-        route = Screen.EmployeeProfileScreen::class
-    ),
-
     EMPLOYEE_MAIN_TAB(
         icon = Icons.Outlined.LocalOffer,
         titleResId = R.string.navigation_item_tasks,
         route = Screen.EmployeeMainTabScreen::class
+    ),
+
+    EMPLOYEE_PROFILE_TAB(
+        icon = Icons.Outlined.PermContactCalendar,
+        titleResId = R.string.navigation_item_profile,
+        route = Screen.EmployeeProfileScreen::class
     )
 }
