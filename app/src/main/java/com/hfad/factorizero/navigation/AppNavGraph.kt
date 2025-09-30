@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.google.firebase.auth.auth
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.hfad.authorization.presentation.LoginScreen
 import com.hfad.authorization.presentation.employee.LoginAsEmployeeScreen
 import com.hfad.authorization.presentation.master.LoginAsMasterScreen
@@ -25,12 +26,38 @@ fun AppNavGraph(
 ) {
 
     LaunchedEffect(Unit) {
-        Log.e("pop", "navGraph LaunchedEffect")
-        Firebase.auth.addAuthStateListener {
-            Log.e("pop", "auth ${it.currentUser}")
-            if (it.currentUser != null) {
-                navController.navigateToNewRoot(Screen.MainMasterScreen)
-            } else if (it.currentUser == null) {
+        Firebase.auth.addAuthStateListener { auth ->
+            val user = auth.currentUser
+            if (user != null) {
+                val uid = user.uid
+                val db = FirebaseFirestore.getInstance()
+                
+                db.collection("master")
+                    .whereEqualTo("uid", uid)
+                    .get()
+                    .addOnSuccessListener { masterDocuments ->
+                        if (!masterDocuments.isEmpty) {
+                            navController.navigateToNewRoot(Screen.MainMasterScreen)
+                        } else {
+                            db.collection("staff")
+                                .whereEqualTo("uid", uid)
+                                .get()
+                                .addOnSuccessListener { staffDocuments ->
+                                    if (!staffDocuments.isEmpty) {
+                                        navController.navigateToNewRoot(Screen.MainEmployeeScreen)
+                                    } else {
+                                        navController.navigateToNewRoot(Screen.LoginScreen)
+                                    }
+                                }
+                                .addOnFailureListener { exception ->
+                                    navController.navigateToNewRoot(Screen.LoginScreen)
+                                }
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        navController.navigateToNewRoot(Screen.LoginScreen)
+                    }
+            } else {
                 navController.navigateToNewRoot(Screen.LoginScreen)
             }
         }
@@ -90,11 +117,13 @@ fun AppNavGraph(
                 }
             )
         }
-            //Master ver.
+
+        // Master ver.
         employeeTabNavGraph(navController)
         tasksTabNavGraph(navController)
         profileTabNavGraph()
-            //Employee ver.
+
+        // Employee ver.
         employeeMainTabNavGraph(navController)
         employeeProfileTabNavGraph(navController)
     }

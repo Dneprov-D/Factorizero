@@ -40,8 +40,8 @@ fun FzApp() {
             } == true
         ) {
             listOf(
-                BottomNavigationDestination.EMPLOYEE_PROFILE_TAB,
-                BottomNavigationDestination.EMPLOYEE_MAIN_TAB
+                BottomNavigationDestination.EMPLOYEE_MAIN_TAB,
+                BottomNavigationDestination.EMPLOYEE_PROFILE_TAB
             )
         } else {
             BottomNavigationDestination.entries
