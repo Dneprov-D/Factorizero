@@ -22,3 +22,10 @@ enum class EmployeeTabsScreens(val route: KClass<*>) {
     EMPLOYEE_MAIN_TAB(route = Screen.MainEmployeeScreen::class),
     EMPLOYEE_PROFILE_TAB(route = Screen.EmployeeProfileScreen::class)
 }
+
+enum class MasterTabsScreens(val route: KClass<*>) {
+    EMPLOYEE_TAB(route = Screen.EmployeeTabScreen::class),
+    TASKS_TAB(route = Screen.TasksMasterScreen::class),
+    PROFILE_TAB(route = Screen.ProfileTabScreen::class),
+    MAIN_MASTER(route = Screen.MainMasterScreen::class)
+}

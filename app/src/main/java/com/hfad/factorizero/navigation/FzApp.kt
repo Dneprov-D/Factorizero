@@ -27,25 +27,37 @@ import com.hfad.designsystem.components.theme.LightColorScheme
 import com.hfad.factorizero.R
 import com.hfad.navigation.Screen
 import com.hfad.navigation.EmployeeTabsScreens
+import com.hfad.navigation.MasterTabsScreens
 
 @Composable
 fun FzApp() {
     val navController = rememberNavController()
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
-    val items: List<BottomNavigationDestination> =
-        if (currentDestination?.let { dest ->
-                EmployeeTabsScreens.entries.any { screen ->
-                    dest.route == screen.route.qualifiedName
-                }
-            } == true
-        ) {
-            listOf(
-                BottomNavigationDestination.EMPLOYEE_MAIN_TAB,
-                BottomNavigationDestination.EMPLOYEE_PROFILE_TAB
-            )
-        } else {
-            BottomNavigationDestination.entries
+
+    val isEmployeeScreen = currentDestination?.let { dest ->
+        EmployeeTabsScreens.entries.any { screen ->
+            dest.route == screen.route.qualifiedName
         }
+    } == true
+
+    val isMasterScreen = currentDestination?.let { dest ->
+        MasterTabsScreens.entries.any { screen ->
+            dest.route == screen.route.qualifiedName
+        }
+    } == true
+
+    val items: List<BottomNavigationDestination> = when {
+        isEmployeeScreen -> listOf(
+            BottomNavigationDestination.EMPLOYEE_MAIN_TAB,
+            BottomNavigationDestination.EMPLOYEE_PROFILE_TAB
+        )
+        isMasterScreen -> listOf(
+            BottomNavigationDestination.EMPLOYEE_TAB,
+            BottomNavigationDestination.TASKS_TAB,
+            BottomNavigationDestination.PROFILE_TAB
+        )
+        else -> emptyList()
+    }
 
     Scaffold(
         topBar = {
