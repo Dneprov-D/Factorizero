@@ -189,12 +189,6 @@ fun NavController.navigateToBottomNavigationDestination(
         BottomNavigationDestination.EMPLOYEE_PROFILE_TAB-> navigateToEmployeeProfileTab(bottomNavigationNavOptions)
     }
 }
-fun shouldShowEmployeeTabs(currentDestination: NavDestination?) =
-    currentDestination?.let { destination ->
-        EmployeeTabsScreens.entries.none { screen ->
-            destination.hasRoute(screen.route)
-        }
-    } == true
 
 fun shouldShowBottomBar(currentDestination: NavDestination?) =
     currentDestination?.let { destination ->

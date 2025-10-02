@@ -34,17 +34,13 @@ fun FzApp() {
     val navController = rememberNavController()
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
 
-    val isEmployeeScreen = currentDestination?.let { dest ->
-        EmployeeTabsScreens.entries.any { screen ->
-            dest.route == screen.route.qualifiedName
-        }
-    } == true
+    val isEmployeeScreen = EmployeeTabsScreens.entries.any { screen ->
+        currentDestination.isRouteInHierarchy(screen.route)
+    }
 
-    val isMasterScreen = currentDestination?.let { dest ->
-        MasterTabsScreens.entries.any { screen ->
-            dest.route == screen.route.qualifiedName
-        }
-    } == true
+    val isMasterScreen = MasterTabsScreens.entries.any { screen ->
+        currentDestination.isRouteInHierarchy(screen.route)
+    }
 
     val items: List<BottomNavigationDestination> = when {
         isEmployeeScreen -> listOf(
