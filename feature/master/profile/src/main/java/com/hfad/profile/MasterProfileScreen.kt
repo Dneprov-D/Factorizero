@@ -25,14 +25,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzRedOutlinedButton
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun MasterProfileScreen(
     viewModel: MasterProfileViewModel = hiltViewModel()
 ) {
-
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
     val textColor = MaterialTheme.colorScheme.onBackground
+    val email = FirebaseAuth.getInstance().currentUser?.email ?: ""
 
     Column(
         modifier = Modifier
@@ -48,6 +49,20 @@ fun MasterProfileScreen(
                 text = stringResource(R.string.textProfile),
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Default,
+                color = textColor
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = email,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
                 fontFamily = FontFamily.Default,
                 color = textColor
             )

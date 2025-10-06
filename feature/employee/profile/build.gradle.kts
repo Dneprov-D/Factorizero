@@ -67,6 +67,9 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.preview)
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+
     // Dagger Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.viewModel)

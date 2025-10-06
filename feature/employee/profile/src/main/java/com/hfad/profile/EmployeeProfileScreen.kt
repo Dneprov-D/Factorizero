@@ -13,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -24,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.firebase.auth.FirebaseAuth
 import buttons.FzRedOutlinedButton
 
 @Composable
@@ -33,7 +33,8 @@ fun EmployeeProfileScreen(
 
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
     val textColor = MaterialTheme.colorScheme.onBackground
-
+    val email = FirebaseAuth.getInstance().currentUser?.email ?: ""
+    
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,6 +49,20 @@ fun EmployeeProfileScreen(
                 text = stringResource(R.string.textProfile),
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Default,
+                color = textColor
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = email,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
                 fontFamily = FontFamily.Default,
                 color = textColor
             )
