@@ -1,4 +1,4 @@
-package com.hfad.tasks.presentation
+package com.hfad.main.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -47,9 +47,8 @@ import com.hfad.model.WorkTask
 import com.hfad.ui.R
 
 @Composable
-fun TaskDetailsScreen(
-    viewModel: TaskDetailsViewModel = hiltViewModel(),
-    onEditTaskClick: (WorkTask) -> Unit
+fun EmployeeTaskDetailsScreen(
+    viewModel: EmployeeTaskDetailsScreenViewModel = hiltViewModel()
 ) {
     val state = viewModel.state
     val textColor = MaterialTheme.colorScheme.onBackground
@@ -76,65 +75,30 @@ fun TaskDetailsScreen(
                         contentDescription = null,
                         contentScale = ContentScale.Crop
                     )
-                Spacer(modifier = Modifier.width(15.dp))
-                Column {
-                    Text(
-                        text = state.task.title,
-                        fontSize = 25.sp,
-                    )
-                    Spacer(modifier = Modifier.width(5.dp))
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    Spacer(modifier = Modifier.width(15.dp))
+                    Column {
                         Text(
-                            text = stringResource(com.hfad.tasks.R.string.quantitiy),
-                            fontSize = 16.sp,
-                            color = Color.Gray
+                            text = state.task.title,
+                            fontSize = 25.sp,
                         )
-                        Text(
-                            text = state.task.quantity,
-                            fontSize = 16.sp
-                        )
-                    }
-                    FzOutlinedButton(
-                        onClick = {
-                            onEditTaskClick(
-                                WorkTask(
-                                    key = state.task.key,
-                                    title = state.task.title,
-                                    quantity = state.task.quantity
-                                    )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = stringResource(com.hfad.main.R.string.quantitiy),
+                                fontSize = 16.sp,
+                                color = Color.Gray
                             )
-                        },
-                        text = { Text(stringResource(com.hfad.tasks.R.string.Reduct)) },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Default.Edit,
-                                contentDescription = null
+                            Text(
+                                text = state.task.quantity,
+                                fontSize = 16.sp
                             )
                         }
-                    )
+                    }
                 }
-                }
-            }
-            item {
-                Text(
-                    text = stringResource(com.hfad.tasks.R.string.AtWork),
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    color = textColor,
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Default
-                )
-                Text(
-                    text = stringResource(com.hfad.tasks.R.string.NoOne),
-                    fontSize = 16.sp,
-                    color = Color.Gray
-                )
             }
         }
-
         if (isFullScreenImageVisible) {
             FullScreenImage(
                 imageResId = R.drawable.drawing,
@@ -203,18 +167,3 @@ fun FullScreenImage(
         }
     }
 }
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun TaskDetailsPreview() {
-//    TaskDetailsScreenContent(
-//        state = TaskDetailsViewModel.TaskDetailsScreenState(
-//            task = TaskUiModel(
-//                title = "Task 1",
-//                quantity = "10",
-//                key = "1"
-//            )
-//        ),
-//        onEditTaskClick = {}
-//    )
-//}

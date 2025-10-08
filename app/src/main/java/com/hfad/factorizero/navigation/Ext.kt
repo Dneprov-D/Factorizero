@@ -10,6 +10,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import androidx.navigation.navigation
+import com.hfad.main.presentation.EmployeeTaskDetailsScreen
 import com.hfad.main.presentation.MainEmployeeScreen
 import com.hfad.main.presentation.employeepack.EditEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
@@ -146,8 +147,19 @@ fun NavGraphBuilder.employeeMainTabNavGraph(
     ) {
         composable<Screen.MainEmployeeScreen> {
             MainEmployeeScreen(
-                onTaskClick = {}
+                onTaskClick = {
+                    navController.navigate(
+                        Screen.EmployeeTaskDetailsScreen(
+                            key = it.key,
+                            title = it.title,
+                            quantity = it.quantity
+                        )
+                    )
+                }
             )
+        }
+        composable<Screen.EmployeeTaskDetailsScreen> {
+            EmployeeTaskDetailsScreen()
         }
     }
 }

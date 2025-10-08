@@ -81,6 +81,13 @@ sealed class Screen() {
     ) : Screen()
 
     @Serializable
+    data class EmployeeTaskDetailsScreen(
+        val key: String,
+        val title: String,
+        val quantity: String
+    ) : Screen()
+
+    @Serializable
     data class MainScreenDataObject(
         val uid: String = "",
         val email: String = ""

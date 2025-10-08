@@ -1,4 +1,4 @@
-package com.hfad.tasks.presentation
+package com.hfad.main.presentation
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,7 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class TaskDetailsViewModel @Inject constructor(
+class EmployeeTaskDetailsScreenViewModel @Inject constructor(
     stateHandle: SavedStateHandle
 ) : ViewModel() {
     private val args = stateHandle.toRoute<Screen.TaskDetailsScreen>()

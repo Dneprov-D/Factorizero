@@ -22,4 +22,9 @@
     <string name="ConfirmDelete">Подтверждение удаления</string>
     <string name="No">Нет</string>
     <string name="Yes">Да</string>
+    <string name="TaskTitle">Название</string>
+    <string name="TaskQuantity">Количество деталей</string>
+    <string name="quantitiy">"Количество: "</string>
+    <string name="NoOne">"Задача не назначена ни одному сотруднику."</string>
+    <string name="AtWork">В работе у сотрудников:</string>
 </resources>

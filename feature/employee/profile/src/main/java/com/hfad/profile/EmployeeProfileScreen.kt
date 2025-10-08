@@ -34,7 +34,7 @@ fun EmployeeProfileScreen(
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
     val textColor = MaterialTheme.colorScheme.onBackground
     val email = FirebaseAuth.getInstance().currentUser?.email ?: ""
-    
+
     Column(
         modifier = Modifier
             .fillMaxSize()

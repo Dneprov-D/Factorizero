@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EmployeeDetailsViewModel @Inject constructor(
-    stateHandle: SavedStateHandle
+    private val stateHandle: SavedStateHandle
 ) : ViewModel() {
     private val args = stateHandle.toRoute<Screen.EmployeeDetailsScreen>()
 
