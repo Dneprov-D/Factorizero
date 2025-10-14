@@ -1,8 +1,10 @@
 package com.hfad.main.presentation
 
+import Icons.FzIcons
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTransformGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +19,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -42,6 +46,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import buttons.FzButton
 import buttons.FzOutlinedButton
 import com.hfad.model.WorkTask
 import com.hfad.ui.R
@@ -51,7 +56,6 @@ fun EmployeeTaskDetailsScreen(
     viewModel: EmployeeTaskDetailsScreenViewModel = hiltViewModel()
 ) {
     val state = viewModel.state
-    val textColor = MaterialTheme.colorScheme.onBackground
     var isFullScreenImageVisible by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -97,14 +101,46 @@ fun EmployeeTaskDetailsScreen(
                         }
                     }
                 }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 30.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconButton(
+                        onClick = {},
+                        modifier = Modifier.size(80.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Remove,
+                            contentDescription = null,
+                            modifier = Modifier.size(50.dp)
+                        )
+                    }
+
+                    //TODO
+
+                    IconButton(
+                        onClick = {},
+                        modifier = Modifier.size(80.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Add,
+                            contentDescription = null,
+                            modifier = Modifier.size(50.dp)
+                        )
+                    }
+                }
             }
         }
-        if (isFullScreenImageVisible) {
-            FullScreenImage(
-                imageResId = R.drawable.drawing,
-                onDismiss = { isFullScreenImageVisible = false }
-            )
-        }
+    }
+    if (isFullScreenImageVisible) {
+        FullScreenImage(
+            imageResId = R.drawable.drawing,
+            onDismiss = { isFullScreenImageVisible = false }
+        )
     }
 }
 

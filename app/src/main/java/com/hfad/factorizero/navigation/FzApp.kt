@@ -3,9 +3,7 @@ package com.hfad.factorizero.navigation
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.Icon
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.IconButton
@@ -69,7 +67,7 @@ fun FzApp() {
                         title = {
                             Box(
                                 modifier = Modifier
-                                    .padding(start = 130.dp, top = 25.dp)
+                                    .padding(top = 25.dp)
                             ) {
                                 Text(
                                     text = stringResource(R.string.app_name),
