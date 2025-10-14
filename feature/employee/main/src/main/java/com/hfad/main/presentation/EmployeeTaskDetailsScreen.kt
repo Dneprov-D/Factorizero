@@ -56,6 +56,19 @@ import buttons.FzOutlinedButton
 import com.hfad.model.WorkTask
 import com.hfad.ui.R
 import androidx.core.content.edit
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.rememberTextMeasurer
 
 @Composable
 fun EmployeeTaskDetailsScreen(
@@ -69,6 +82,28 @@ fun EmployeeTaskDetailsScreen(
     var doneCount by rememberSaveable(taskKey) { mutableStateOf(prefs.getInt(taskKey, 0)) }
     val totalQuantityText = state.task.quantity
     val totalQuantity = remember(totalQuantityText) { totalQuantityText.toIntOrNull() }
+    val focusManager = LocalFocusManager.current
+    val focusRequester = remember { FocusRequester() }
+    var editorText by rememberSaveable(taskKey) { mutableStateOf(doneCount.toString()) }
+    val isInvalidInput = remember(editorText, totalQuantity) {
+        val v = editorText.toIntOrNull()
+        totalQuantity != null && v != null && v > totalQuantity
+    }
+    val editorTextStyle = TextStyle(
+        fontSize = 32.sp,
+        fontWeight = FontWeight.Bold,
+        color = if (isInvalidInput) Color.Red else MaterialTheme.colorScheme.onSurface,
+        textAlign = TextAlign.End
+    )
+    val textMeasurer = rememberTextMeasurer()
+    val density = LocalDensity.current
+    val measuredTextWidthPx = remember(editorText, editorTextStyle) {
+        textMeasurer.measure(
+            text = editorText.ifEmpty { "0" },
+            style = editorTextStyle
+        ).size.width
+    }
+    val inputWidth = with(density) { measuredTextWidthPx.toDp() } + 8.dp
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -127,8 +162,10 @@ fun EmployeeTaskDetailsScreen(
                             if (newValue != doneCount) {
                                 doneCount = newValue
                                 prefs.edit { putInt(taskKey, doneCount) }
+                                editorText = doneCount.toString()
                             } else {
                                 prefs.edit { putInt(taskKey, doneCount) }
+                                editorText = doneCount.toString()
                             }
                         },
                         modifier = Modifier.size(80.dp)
@@ -140,17 +177,61 @@ fun EmployeeTaskDetailsScreen(
                         )
                     }
 
-                    Text(
-                        text = buildAnnotatedString {
-                            append("${doneCount} / ")
-                            withStyle(style = SpanStyle(color = Color.Gray)) {
-                                append(totalQuantityText)
-                            }
-                        },
-                        fontSize = 32.sp,
-                        fontWeight = FontWeight.Bold,
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(horizontal = 6.dp)
-                    )
+                    ) {
+                        BasicTextField(
+                            value = editorText,
+                            onValueChange = { new ->
+                                val filtered = new.filter { it.isDigit() }
+                                editorText = filtered
+                            },
+                            singleLine = true,
+                            textStyle = editorTextStyle,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Number,
+                                imeAction = ImeAction.Done
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onDone = {
+                                    val v = editorText.toIntOrNull()
+                                    if (v != null) {
+                                        if (totalQuantity == null || v <= totalQuantity) {
+                                            doneCount = v
+                                            prefs.edit { putInt(taskKey, doneCount) }
+                                            focusManager.clearFocus()
+                                        } else {
+                                            // Ошибочное значение: не применяем, остаё��ся в фокусе
+                                        }
+                                    } else {
+                                        doneCount = 0
+                                        editorText = "0"
+                                        prefs.edit { putInt(taskKey, doneCount) }
+                                        focusManager.clearFocus()
+                                    }
+                                }
+                            ),
+                            modifier = Modifier
+                                .alignByBaseline()
+                                .widthIn(min = 24.dp, max = inputWidth)
+                                .clickable { focusRequester.requestFocus() }
+                                .focusRequester(focusRequester)
+                        )
+                        Text(
+                            text = " / ",
+                            fontSize = 32.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.alignByBaseline()
+                        )
+                        Text(
+                            text = totalQuantityText,
+                            fontSize = 32.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Gray,
+                            modifier = Modifier.alignByBaseline()
+                        )
+                    }
 
                     IconButton(
                         onClick = {
@@ -162,8 +243,10 @@ fun EmployeeTaskDetailsScreen(
                             if (newValue != doneCount) {
                                 doneCount = newValue
                                 prefs.edit { putInt(taskKey, doneCount) }
+                                editorText = doneCount.toString()
                             } else {
                                 prefs.edit { putInt(taskKey, doneCount) }
+                                editorText = doneCount.toString()
                             }
                         },
                         modifier = Modifier.size(80.dp)
