@@ -45,18 +45,28 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.platform.LocalContext
+import android.content.Context
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
 import buttons.FzOutlinedButton
 import com.hfad.model.WorkTask
 import com.hfad.ui.R
+import androidx.core.content.edit
 
 @Composable
 fun EmployeeTaskDetailsScreen(
     viewModel: EmployeeTaskDetailsScreenViewModel = hiltViewModel()
 ) {
     val state = viewModel.state
-    var isFullScreenImageVisible by remember { mutableStateOf(false) }
+    var isFullScreenImageVisible by rememberSaveable { mutableStateOf(false) }
+
+    val context = LocalContext.current
+    val prefs = remember { context.getSharedPreferences("employee_task_prefs", Context.MODE_PRIVATE) }
+    val taskKey = remember(state.task.title, state.task.quantity) { "done_count_${state.task.title}_${state.task.quantity}" }
+    var doneCount by rememberSaveable(taskKey) { mutableStateOf(prefs.getInt(taskKey, 0)) }
+    val totalQuantityText = state.task.quantity
+    val totalQuantity = remember(totalQuantityText) { totalQuantityText.toIntOrNull() }
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -110,7 +120,15 @@ fun EmployeeTaskDetailsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(
-                        onClick = {},
+                        onClick = {
+                            val newValue = (doneCount - 1).coerceAtLeast(0)
+                            if (newValue != doneCount) {
+                                doneCount = newValue
+                                prefs.edit { putInt(taskKey, doneCount) }
+                            } else {
+                                prefs.edit { putInt(taskKey, doneCount) }
+                            }
+                        },
                         modifier = Modifier.size(80.dp)
                     ) {
                         Icon(
@@ -120,10 +138,27 @@ fun EmployeeTaskDetailsScreen(
                         )
                     }
 
-                    //TODO
+                    Text(
+                        text = "${doneCount} / ${totalQuantityText}",
+                        fontSize = 32.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(horizontal = 6.dp)
+                    )
 
                     IconButton(
-                        onClick = {},
+                        onClick = {
+                            val newValue = if (totalQuantity != null) {
+                                (doneCount + 1).coerceAtMost(totalQuantity)
+                            } else {
+                                doneCount + 1
+                            }
+                            if (newValue != doneCount) {
+                                doneCount = newValue
+                                prefs.edit { putInt(taskKey, doneCount) }
+                            } else {
+                                prefs.edit { putInt(taskKey, doneCount) }
+                            }
+                        },
                         modifier = Modifier.size(80.dp)
                     ) {
                         Icon(
