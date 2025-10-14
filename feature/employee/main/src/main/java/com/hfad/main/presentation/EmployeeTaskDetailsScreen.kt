@@ -43,6 +43,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalContext
@@ -60,7 +63,6 @@ fun EmployeeTaskDetailsScreen(
 ) {
     val state = viewModel.state
     var isFullScreenImageVisible by rememberSaveable { mutableStateOf(false) }
-
     val context = LocalContext.current
     val prefs = remember { context.getSharedPreferences("employee_task_prefs", Context.MODE_PRIVATE) }
     val taskKey = remember(state.task.title, state.task.quantity) { "done_count_${state.task.title}_${state.task.quantity}" }
@@ -139,7 +141,12 @@ fun EmployeeTaskDetailsScreen(
                     }
 
                     Text(
-                        text = "${doneCount} / ${totalQuantityText}",
+                        text = buildAnnotatedString {
+                            append("${doneCount} / ")
+                            withStyle(style = SpanStyle(color = Color.Gray)) {
+                                append(totalQuantityText)
+                            }
+                        },
                         fontSize = 32.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(horizontal = 6.dp)
