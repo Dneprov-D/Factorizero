@@ -23,12 +23,63 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
                 key = args.key,
                 title = args.title,
                 quantity = args.quantity
-            )
+            ),
+            doneCount = 0,
+            editorText = "0",
+            isFullScreenImageVisible = false
         )
     )
         private set
 
+    fun updateDoneCount(newCount: Int) {
+        state = state.copy(
+            doneCount = newCount,
+            editorText = newCount.toString()
+        )
+    }
+
+    fun updateEditorText(newText: String) {
+        state = state.copy(editorText = newText.filter { it.isDigit() })
+    }
+
+    fun validateAndSaveEditorText(totalQuantity: Int?) {
+        val v = state.editorText.toIntOrNull()
+        if (v != null) {
+            if (totalQuantity == null || v <= totalQuantity) {
+                updateDoneCount(v)
+            }
+            // Если значение ошибочное, остаёмся в фокусе (не очищаем состояние)
+        } else {
+            updateDoneCount(0)
+        }
+    }
+
+    fun incrementCount(totalQuantity: Int?) {
+        val newValue = if (totalQuantity != null) {
+            (state.doneCount + 1).coerceAtMost(totalQuantity)
+        } else {
+            state.doneCount + 1
+        }
+        if (newValue != state.doneCount) {
+            updateDoneCount(newValue)
+        }
+    }
+
+    fun decrementCount() {
+        val newValue = (state.doneCount - 1).coerceAtLeast(0)
+        if (newValue != state.doneCount) {
+            updateDoneCount(newValue)
+        }
+    }
+
+    fun setFullScreenImageVisible(visible: Boolean) {
+        state = state.copy(isFullScreenImageVisible = visible)
+    }
+
     data class TaskDetailsScreenState(
-        val task: TaskUiModel
+        val task: TaskUiModel,
+        val doneCount: Int,
+        val editorText: String,
+        val isFullScreenImageVisible: Boolean
     )
 }

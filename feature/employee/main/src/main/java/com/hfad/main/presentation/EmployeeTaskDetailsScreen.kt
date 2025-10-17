@@ -75,31 +75,28 @@ fun EmployeeTaskDetailsScreen(
     viewModel: EmployeeTaskDetailsScreenViewModel = hiltViewModel()
 ) {
     val state = viewModel.state
-    var isFullScreenImageVisible by rememberSaveable { mutableStateOf(false) }
-    val context = LocalContext.current
-    val prefs = remember { context.getSharedPreferences("employee_task_prefs", Context.MODE_PRIVATE) }
-    val taskKey = remember(state.task.title, state.task.quantity) { "done_count_${state.task.title}_${state.task.quantity}" }
-    var doneCount by rememberSaveable(taskKey) { mutableStateOf(prefs.getInt(taskKey, 0)) }
     val totalQuantityText = state.task.quantity
     val totalQuantity = remember(totalQuantityText) { totalQuantityText.toIntOrNull() }
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
-    var editorText by rememberSaveable(taskKey) { mutableStateOf(doneCount.toString()) }
-    val isInvalidInput = remember(editorText, totalQuantity) {
-        val v = editorText.toIntOrNull()
+
+    val isInvalidInput = remember(state.editorText, totalQuantity) {
+        val v = state.editorText.toIntOrNull()
         totalQuantity != null && v != null && v > totalQuantity
     }
+
     val editorTextStyle = TextStyle(
         fontSize = 32.sp,
         fontWeight = FontWeight.Bold,
         color = if (isInvalidInput) Color.Red else MaterialTheme.colorScheme.onSurface,
         textAlign = TextAlign.End
     )
+
     val textMeasurer = rememberTextMeasurer()
     val density = LocalDensity.current
-    val measuredTextWidthPx = remember(editorText, editorTextStyle) {
+    val measuredTextWidthPx = remember(state.editorText, editorTextStyle) {
         textMeasurer.measure(
-            text = editorText.ifEmpty { "0" },
+            text = state.editorText.ifEmpty { "0" },
             style = editorTextStyle
         ).size.width
     }
@@ -121,7 +118,7 @@ fun EmployeeTaskDetailsScreen(
                         modifier = Modifier
                             .size(160.dp)
                             .clip(RoundedCornerShape(8.dp))
-                            .clickable { isFullScreenImageVisible = true },
+                            .clickable { viewModel.setFullScreenImageVisible(true) },
                         painter = painterResource(id = R.drawable.drawing),
                         contentDescription = null,
                         contentScale = ContentScale.Crop
@@ -157,17 +154,7 @@ fun EmployeeTaskDetailsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(
-                        onClick = {
-                            val newValue = (doneCount - 1).coerceAtLeast(0)
-                            if (newValue != doneCount) {
-                                doneCount = newValue
-                                prefs.edit { putInt(taskKey, doneCount) }
-                                editorText = doneCount.toString()
-                            } else {
-                                prefs.edit { putInt(taskKey, doneCount) }
-                                editorText = doneCount.toString()
-                            }
-                        },
+                        onClick = { viewModel.decrementCount() },
                         modifier = Modifier.size(80.dp)
                     ) {
                         Icon(
@@ -182,10 +169,9 @@ fun EmployeeTaskDetailsScreen(
                         modifier = Modifier.padding(horizontal = 6.dp)
                     ) {
                         BasicTextField(
-                            value = editorText,
+                            value = state.editorText,
                             onValueChange = { new ->
-                                val filtered = new.filter { it.isDigit() }
-                                editorText = filtered
+                                viewModel.updateEditorText(new)
                             },
                             singleLine = true,
                             textStyle = editorTextStyle,
@@ -195,21 +181,8 @@ fun EmployeeTaskDetailsScreen(
                             ),
                             keyboardActions = KeyboardActions(
                                 onDone = {
-                                    val v = editorText.toIntOrNull()
-                                    if (v != null) {
-                                        if (totalQuantity == null || v <= totalQuantity) {
-                                            doneCount = v
-                                            prefs.edit { putInt(taskKey, doneCount) }
-                                            focusManager.clearFocus()
-                                        } else {
-                                            // Ошибочное значение: не применяем, остаё��ся в фокусе
-                                        }
-                                    } else {
-                                        doneCount = 0
-                                        editorText = "0"
-                                        prefs.edit { putInt(taskKey, doneCount) }
-                                        focusManager.clearFocus()
-                                    }
+                                    viewModel.validateAndSaveEditorText(totalQuantity)
+                                    focusManager.clearFocus()
                                 }
                             ),
                             modifier = Modifier
@@ -234,21 +207,7 @@ fun EmployeeTaskDetailsScreen(
                     }
 
                     IconButton(
-                        onClick = {
-                            val newValue = if (totalQuantity != null) {
-                                (doneCount + 1).coerceAtMost(totalQuantity)
-                            } else {
-                                doneCount + 1
-                            }
-                            if (newValue != doneCount) {
-                                doneCount = newValue
-                                prefs.edit { putInt(taskKey, doneCount) }
-                                editorText = doneCount.toString()
-                            } else {
-                                prefs.edit { putInt(taskKey, doneCount) }
-                                editorText = doneCount.toString()
-                            }
-                        },
+                        onClick = { viewModel.incrementCount(totalQuantity) },
                         modifier = Modifier.size(80.dp)
                     ) {
                         Icon(
@@ -261,10 +220,11 @@ fun EmployeeTaskDetailsScreen(
             }
         }
     }
-    if (isFullScreenImageVisible) {
+
+    if (state.isFullScreenImageVisible) {
         FullScreenImage(
             imageResId = R.drawable.drawing,
-            onDismiss = { isFullScreenImageVisible = false }
+            onDismiss = { viewModel.setFullScreenImageVisible(false) }
         )
     }
 }
