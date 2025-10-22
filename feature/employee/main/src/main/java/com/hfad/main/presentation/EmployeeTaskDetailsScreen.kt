@@ -66,6 +66,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.RadioButton
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.rememberTextMeasurer
@@ -79,7 +80,6 @@ fun EmployeeTaskDetailsScreen(
     val totalQuantity = remember(totalQuantityText) { totalQuantityText.toIntOrNull() }
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
-
     val isInvalidInput = remember(state.editorText, totalQuantity) {
         val v = state.editorText.toIntOrNull()
         totalQuantity != null && v != null && v > totalQuantity
@@ -142,6 +142,42 @@ fun EmployeeTaskDetailsScreen(
                                 text = state.task.quantity,
                                 fontSize = 16.sp
                             )
+                        }
+                    }
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 5.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Шаг изменения:",
+                        fontSize = 16.sp,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        val multipliers = listOf(1, 2, 5, 10)
+                        multipliers.forEach { multiplier ->
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                modifier = Modifier.clickable { viewModel.setMultiplier(multiplier) }
+                            ) {
+                                Text(
+                                    text = "x$multiplier"
+                                )
+                                RadioButton(
+                                    selected = state.selectedMultiplier == multiplier,
+                                    onClick = { viewModel.setMultiplier(multiplier) }
+                                )
+                            }
                         }
                     }
                 }

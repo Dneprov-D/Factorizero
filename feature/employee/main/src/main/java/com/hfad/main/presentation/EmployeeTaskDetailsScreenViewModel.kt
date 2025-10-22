@@ -26,7 +26,8 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
             ),
             doneCount = 0,
             editorText = "0",
-            isFullScreenImageVisible = false
+            isFullScreenImageVisible = false,
+            selectedMultiplier = 1
         )
     )
         private set
@@ -48,17 +49,21 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
             if (totalQuantity == null || v <= totalQuantity) {
                 updateDoneCount(v)
             }
-            // Если значение ошибочное, остаёмся в фокусе (не очищаем состояние)
         } else {
             updateDoneCount(0)
         }
     }
 
+    fun setMultiplier(multiplier: Int) {
+        state = state.copy(selectedMultiplier = multiplier)
+    }
+
     fun incrementCount(totalQuantity: Int?) {
+        val incrementValue = state.selectedMultiplier
         val newValue = if (totalQuantity != null) {
-            (state.doneCount + 1).coerceAtMost(totalQuantity)
+            (state.doneCount + incrementValue).coerceAtMost(totalQuantity)
         } else {
-            state.doneCount + 1
+            state.doneCount + incrementValue
         }
         if (newValue != state.doneCount) {
             updateDoneCount(newValue)
@@ -66,7 +71,8 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
     }
 
     fun decrementCount() {
-        val newValue = (state.doneCount - 1).coerceAtLeast(0)
+        val decrementValue = state.selectedMultiplier
+        val newValue = (state.doneCount - decrementValue).coerceAtLeast(0)
         if (newValue != state.doneCount) {
             updateDoneCount(newValue)
         }
@@ -80,6 +86,7 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
         val task: TaskUiModel,
         val doneCount: Int,
         val editorText: String,
-        val isFullScreenImageVisible: Boolean
+        val isFullScreenImageVisible: Boolean,
+        val selectedMultiplier: Int
     )
 }
