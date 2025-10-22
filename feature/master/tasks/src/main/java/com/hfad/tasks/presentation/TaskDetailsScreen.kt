@@ -96,6 +96,20 @@ fun TaskDetailsScreen(
                             fontSize = 16.sp
                         )
                     }
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(com.hfad.tasks.R.string.Done),
+                            fontSize = 16.sp,
+                            color = Color.Gray
+                        )
+                        Text(
+                            text = state.task.doneCount.toString(),
+                            fontSize = 16.sp
+                        )
+                    }
                     FzOutlinedButton(
                         onClick = {
                             onEditTaskClick(
