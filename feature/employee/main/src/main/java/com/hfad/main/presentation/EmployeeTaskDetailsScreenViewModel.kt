@@ -1,11 +1,15 @@
 package com.hfad.main.presentation
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.navigation.toRoute
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
+import com.hfad.data.repository.LoginRepository
 import com.hfad.navigation.Screen
 import com.hfad.ui.profile.uimodel.TaskUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EmployeeTaskDetailsScreenViewModel @Inject constructor(
-    stateHandle: SavedStateHandle
+    stateHandle: SavedStateHandle,
+    private val loginRepository: LoginRepository
 ) : ViewModel() {
     private val args = stateHandle.toRoute<Screen.TaskDetailsScreen>()
 
@@ -22,25 +27,77 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
             task = TaskUiModel(
                 key = args.key,
                 title = args.title,
-                quantity = args.quantity
+                quantity = args.quantity,
+                doneCount = 0
             ),
-            doneCount = 0,
             editorText = "0",
             isFullScreenImageVisible = false,
-            selectedMultiplier = 1
+            selectedMultiplier = 1,
+            isLoading = true
         )
     )
         private set
 
-    fun updateDoneCount(newCount: Int) {
-        state = state.copy(
+    init {
+        loadTask()
+    }
+
+    fun loadTask() {
+        loginRepository.loadTask(
+            key = state.task.key,
+            onLoadSuccess = { workTask ->
+                state = state.copy(
+                    task = state.task.copy(doneCount = workTask.doneCount),
+                    editorText = workTask.doneCount.toString(),
+                    isLoading = false
+                )
+            },
+            onLoadFailure = { error ->
+                Log.e("Firebase", "Error loading task: $error")
+                state = state.copy(
+                    task = state.task.copy(doneCount = args.doneCount),
+                    editorText = args.doneCount.toString(),
+                    isLoading = false
+                )
+            }
+        )
+    }
+
+    private fun updateDoneCount(newCount: Int) {
+        if (newCount != state.task.doneCount) {
+            state = state.copy(
+                task = state.task.copy(doneCount = newCount),
+                editorText = newCount.toString()
+            )
+            saveToFirebase(newCount)
+        }
+    }
+
+    private fun saveToFirebase(newCount: Int) {
+        loginRepository.updateDoneCount(
+            key = state.task.key,
             doneCount = newCount,
-            editorText = newCount.toString()
+            onUpdateSuccess = {
+                Log.d("Firebase", "Successfully updated doneCount to $newCount")
+            },
+            onUpdateFailure = { error ->
+                Log.e("Firebase", "Error updating done count: $error")
+            }
         )
     }
 
     fun updateEditorText(newText: String) {
-        state = state.copy(editorText = newText.filter { it.isDigit() })
+        val filteredText = newText.filter { it.isDigit() }
+        state = state.copy(editorText = filteredText)
+
+        val v = filteredText.toIntOrNull()
+        val totalQuantity = state.task.quantity.toIntOrNull()
+
+        if (v != null && v != state.task.doneCount) {
+            if (totalQuantity == null || v <= totalQuantity) {
+                updateDoneCount(v)
+            }
+        }
     }
 
     fun validateAndSaveEditorText(totalQuantity: Int?) {
@@ -49,7 +106,7 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
             if (totalQuantity == null || v <= totalQuantity) {
                 updateDoneCount(v)
             }
-        } else {
+        } else if (state.task.doneCount != 0) {
             updateDoneCount(0)
         }
     }
@@ -61,21 +118,17 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
     fun incrementCount(totalQuantity: Int?) {
         val incrementValue = state.selectedMultiplier
         val newValue = if (totalQuantity != null) {
-            (state.doneCount + incrementValue).coerceAtMost(totalQuantity)
+            (state.task.doneCount + incrementValue).coerceAtMost(totalQuantity)
         } else {
-            state.doneCount + incrementValue
+            state.task.doneCount + incrementValue
         }
-        if (newValue != state.doneCount) {
-            updateDoneCount(newValue)
-        }
+        updateDoneCount(newValue)
     }
 
     fun decrementCount() {
         val decrementValue = state.selectedMultiplier
-        val newValue = (state.doneCount - decrementValue).coerceAtLeast(0)
-        if (newValue != state.doneCount) {
-            updateDoneCount(newValue)
-        }
+        val newValue = (state.task.doneCount - decrementValue).coerceAtLeast(0)
+        updateDoneCount(newValue)
     }
 
     fun setFullScreenImageVisible(visible: Boolean) {
@@ -84,9 +137,9 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
 
     data class TaskDetailsScreenState(
         val task: TaskUiModel,
-        val doneCount: Int,
         val editorText: String,
         val isFullScreenImageVisible: Boolean,
-        val selectedMultiplier: Int
+        val selectedMultiplier: Int,
+        val isLoading: Boolean = false
     )
 }

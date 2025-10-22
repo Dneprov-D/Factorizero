@@ -222,7 +222,8 @@ class LoginRepository @Inject constructor(
                 WorkTask(
                     key = key,
                     title = title,
-                    quantity = quantity
+                    quantity = quantity,
+                    doneCount = 0
                 )
             )
             .addOnFailureListener { e ->
@@ -230,6 +231,25 @@ class LoginRepository @Inject constructor(
             }
             .addOnSuccessListener {
                 onCreateSuccess()
+            }
+    }
+
+    fun updateDoneCount(
+        key: String,
+        doneCount: Int,
+        onUpdateSuccess: () -> Unit,
+        onUpdateFailure: (String) -> Unit
+    ) {
+        val fireStore = Firebase.firestore
+        val db = fireStore.collection("tasks")
+
+        db.document(key)
+            .update("doneCount", doneCount)
+            .addOnSuccessListener {
+                onUpdateSuccess()
+            }
+            .addOnFailureListener { e ->
+                onUpdateFailure(e.message ?: "Ошибка при обновлении количества")
             }
     }
 
@@ -261,6 +281,44 @@ class LoginRepository @Inject constructor(
     fun signOut() {
         auth.signOut()
         Log.e("LogLogin", "Sign Out")
+    }
+
+    fun loadTask(
+        key: String,
+        onLoadSuccess: (WorkTask) -> Unit,
+        onLoadFailure: (String) -> Unit
+    ) {
+        val fireStore = Firebase.firestore
+        val db = fireStore.collection("tasks")
+
+        db.document(key)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val key = document.getString("key") ?: ""
+                    val title = document.getString("title") ?: ""
+                    val quantity = document.getString("quantity") ?: ""
+                    val doneCount = document.getLong("doneCount")?.toInt() ?: 0
+
+                    if (key.isBlank() || title.isBlank() || quantity.isBlank()) {
+                        onLoadFailure("Неполные данные задачи")
+                        return@addOnSuccessListener
+                    }
+
+                    val task = WorkTask(
+                        key = key,
+                        title = title,
+                        quantity = quantity,
+                        doneCount = doneCount
+                    )
+                    onLoadSuccess(task)
+                } else {
+                    onLoadFailure("Задача не найдена")
+                }
+            }
+            .addOnFailureListener { exception ->
+                onLoadFailure("Ошибка при загрузке задачи: ${exception.message}")
+            }
     }
 
     fun deleteTask(

@@ -31,7 +31,8 @@ class EditTaskViewModel @Inject constructor(
             task = TaskUiModel(
                 key = args.key,
                 title = args.title,
-                quantity = args.quantity
+                quantity = args.quantity,
+                doneCount = args.doneCount
             ),
             titleInput = args.title,
             quantityInput = args.quantity

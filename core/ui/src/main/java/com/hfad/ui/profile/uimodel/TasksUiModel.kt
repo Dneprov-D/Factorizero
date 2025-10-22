@@ -6,13 +6,15 @@ import com.hfad.model.WorkTask
 data class TaskUiModel(
     val key: String,
     val title: String,
-    val quantity: String
+    val quantity: String,
+    val doneCount: Int
 )
 
 fun WorkTask.toUiModel(): TaskUiModel {
     return TaskUiModel(
         key = key,
         title = title,
-        quantity = quantity
+        quantity = quantity,
+        doneCount = doneCount
     )
 }

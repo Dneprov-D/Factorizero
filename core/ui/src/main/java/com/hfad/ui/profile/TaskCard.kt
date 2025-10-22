@@ -89,7 +89,8 @@ fun TaskCardW() {
         task = TaskUiModel(
             title = "Задача 1",
             quantity = "10",
-            key = "1"
+            key = "1",
+            doneCount = 2
         ),
         onCardClicked = {}
     )

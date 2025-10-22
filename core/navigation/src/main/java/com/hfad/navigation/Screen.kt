@@ -70,14 +70,16 @@ sealed class Screen() {
     data class EditTaskScreen(
         val key: String,
         val title: String,
-        val quantity: String
+        val quantity: String,
+        val doneCount: Int
     ) : Screen()
 
     @Serializable
     data class TaskDetailsScreen(
         val key: String,
         val title: String,
-        val quantity: String
+        val quantity: String,
+        val doneCount: Int = 0
     ) : Screen()
 
     @Serializable

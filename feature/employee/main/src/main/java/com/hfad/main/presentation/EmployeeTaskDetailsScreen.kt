@@ -80,6 +80,7 @@ fun EmployeeTaskDetailsScreen(
     val totalQuantity = remember(totalQuantityText) { totalQuantityText.toIntOrNull() }
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
+
     val isInvalidInput = remember(state.editorText, totalQuantity) {
         val v = state.editorText.toIntOrNull()
         totalQuantity != null && v != null && v > totalQuantity
@@ -149,7 +150,7 @@ fun EmployeeTaskDetailsScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 5.dp),
+                        .padding(vertical = 16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
@@ -171,7 +172,8 @@ fun EmployeeTaskDetailsScreen(
                                 modifier = Modifier.clickable { viewModel.setMultiplier(multiplier) }
                             ) {
                                 Text(
-                                    text = "x$multiplier"
+                                    text = "x$multiplier",
+                                    modifier = Modifier.padding(bottom = 4.dp)
                                 )
                                 RadioButton(
                                     selected = state.selectedMultiplier == multiplier,

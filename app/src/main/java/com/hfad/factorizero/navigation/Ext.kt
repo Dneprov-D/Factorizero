@@ -95,7 +95,8 @@ fun NavGraphBuilder.tasksTabNavGraph(
                         Screen.TaskDetailsScreen(
                             key = it.key,
                             title = it.title,
-                            quantity = it.quantity
+                            quantity = it.quantity,
+                            doneCount = it.doneCount
                         )
                     )
                 },
@@ -120,7 +121,8 @@ fun NavGraphBuilder.tasksTabNavGraph(
                         Screen.EditTaskScreen(
                             key = it.key,
                             title = it.title,
-                            quantity = it.quantity
+                            quantity = it.quantity,
+                            doneCount = it.doneCount
                         )
                     )
                 }
