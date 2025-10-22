@@ -27,4 +27,5 @@
     <string name="quantitiy">"Количество: "</string>
     <string name="NoOne">"Задача не назначена ни одному сотруднику."</string>
     <string name="AtWork">В работе у сотрудников:</string>
+    <string name="MassageToMasterReady">Сообщить о готовности</string>
 </resources>

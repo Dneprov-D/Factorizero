@@ -67,6 +67,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.RadioButton
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.rememberTextMeasurer
@@ -254,6 +255,27 @@ fun EmployeeTaskDetailsScreen(
                             modifier = Modifier.size(50.dp)
                         )
                     }
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    FzButton(
+                        onClick = {
+                            if (state.isTaskCompleted) {
+                                // TODO: Добавить логику отправки сообщения мастеру
+                            }
+                        },
+                        enabled = state.isTaskCompleted,
+                        text = {
+                            Text(
+                                stringResource(com.hfad.main.R.string.MassageToMasterReady)
+                            )
+                        }
+                    )
                 }
             }
         }

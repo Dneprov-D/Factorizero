@@ -33,7 +33,8 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
             editorText = "0",
             isFullScreenImageVisible = false,
             selectedMultiplier = 1,
-            isLoading = true
+            isLoading = true,
+            isTaskCompleted = false
         )
     )
         private set
@@ -49,7 +50,8 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
                 state = state.copy(
                     task = state.task.copy(doneCount = workTask.doneCount),
                     editorText = workTask.doneCount.toString(),
-                    isLoading = false
+                    isLoading = false,
+                    isTaskCompleted = workTask.doneCount.toString() == state.task.quantity
                 )
             },
             onLoadFailure = { error ->
@@ -57,7 +59,8 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
                 state = state.copy(
                     task = state.task.copy(doneCount = args.doneCount),
                     editorText = args.doneCount.toString(),
-                    isLoading = false
+                    isLoading = false,
+                    isTaskCompleted = args.doneCount.toString() == state.task.quantity
                 )
             }
         )
@@ -67,7 +70,8 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
         if (newCount != state.task.doneCount) {
             state = state.copy(
                 task = state.task.copy(doneCount = newCount),
-                editorText = newCount.toString()
+                editorText = newCount.toString(),
+                isTaskCompleted = newCount.toString() == state.task.quantity
             )
             saveToFirebase(newCount)
         }
@@ -88,7 +92,10 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
 
     fun updateEditorText(newText: String) {
         val filteredText = newText.filter { it.isDigit() }
-        state = state.copy(editorText = filteredText)
+        state = state.copy(
+            editorText = filteredText,
+            isTaskCompleted = filteredText == state.task.quantity
+        )
 
         val v = filteredText.toIntOrNull()
         val totalQuantity = state.task.quantity.toIntOrNull()
@@ -140,6 +147,7 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
         val editorText: String,
         val isFullScreenImageVisible: Boolean,
         val selectedMultiplier: Int,
-        val isLoading: Boolean = false
+        val isLoading: Boolean = false,
+        val isTaskCompleted: Boolean = false
     )
 }
