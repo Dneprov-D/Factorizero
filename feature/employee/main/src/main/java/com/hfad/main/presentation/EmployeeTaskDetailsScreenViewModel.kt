@@ -91,7 +91,7 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
     }
 
     fun updateEditorText(newText: String) {
-        val filteredText = newText.filter { it.isDigit() }
+        val filteredText = newText.filter { it.isDigit() }.take(5)
         state = state.copy(
             editorText = filteredText,
             isTaskCompleted = filteredText == state.task.quantity
