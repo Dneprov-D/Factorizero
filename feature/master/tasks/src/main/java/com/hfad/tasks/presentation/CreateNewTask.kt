@@ -91,7 +91,7 @@ fun CreateNewTaskScreen(
                 },
                 enabled = isFormValid,
                 modifier = Modifier.padding(end = 8.dp),
-                text = { Text(text = stringResource(R.string.Done)) }
+                text = { Text(text = stringResource(R.string.DoneText)) }
             )
         }
 

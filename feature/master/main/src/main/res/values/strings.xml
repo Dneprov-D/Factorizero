@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="EmployeeText">Сотрудники</string>
-    <string name="Done">Готово</string>
+    <string name="DoneText">Готово</string>
     <string name="TasksText">Задачи</string>
     <string name="Reduct">Изменить</string>
     <string name="TasksInWorkText">Задачи в работе</string>

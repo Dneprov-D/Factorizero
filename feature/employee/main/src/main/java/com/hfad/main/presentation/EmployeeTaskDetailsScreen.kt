@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalContext
 import android.content.Context
+import androidx.compose.foundation.layout.imePadding
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
 import buttons.FzOutlinedButton
@@ -104,16 +105,19 @@ fun EmployeeTaskDetailsScreen(
     }
     val inputWidth = with(density) { measuredTextWidthPx.toDp() } + 8.dp
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding()
+    ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(15.dp)
         ) {
             item {
                 Row(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .padding(15.dp)
                 ) {
                     Image(
@@ -187,7 +191,7 @@ fun EmployeeTaskDetailsScreen(
 
                 Row(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .padding(top = 30.dp),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
