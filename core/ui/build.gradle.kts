@@ -68,6 +68,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.hilt.android)
+    implementation(libs.espresso.core)
     kapt(libs.hilt.android.compiler)
 
     // Room
