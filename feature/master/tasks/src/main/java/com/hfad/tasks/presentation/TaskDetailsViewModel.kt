@@ -6,11 +6,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.hfad.data.repository.LoginRepository
 import com.hfad.navigation.Screen
 import com.hfad.ui.profile.uimodel.TaskUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,6 +23,9 @@ class TaskDetailsViewModel @Inject constructor(
     private val loginRepository: LoginRepository
 ) : ViewModel() {
     private val args = stateHandle.toRoute<Screen.TaskDetailsScreen>()
+    private val navigationChannel = Channel<NavigationEvent>()
+
+    val navigationEventsChannelFlow = navigationChannel.receiveAsFlow()
 
     var state by mutableStateOf(
         TaskDetailsScreenState(
@@ -63,15 +70,18 @@ class TaskDetailsViewModel @Inject constructor(
         loginRepository.closeTask(
             taskKey = state.task.key,
             onCloseSuccess = {
-                // Задача закрыта, можно выполнить навигацию
-                // Это будет обработано в Composable через колбэк
+                viewModelScope.launch {
+                    navigationChannel.send(NavigationEvent.OnClosed)
+                }
             },
             onCloseFailure = { error ->
                 Log.e("Firebase", "Error closing task: $error")
             }
         )
     }
-
+    sealed interface NavigationEvent {
+        data object OnClosed : NavigationEvent
+    }
     data class TaskDetailsScreenState(
         val task: TaskUiModel
     )

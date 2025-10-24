@@ -128,7 +128,7 @@ fun NavGraphBuilder.tasksTabNavGraph(
                         )
                     )
                 },
-                onCloseTaskSuccess = {
+                onClose = {
                     navController.popBackStack()
                 }
             )

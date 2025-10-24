@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import buttons.FzButton
 import buttons.FzOutlinedButton
+import com.hfad.common.compose.ObserveAsEvents
 import com.hfad.model.WorkTask
 import com.hfad.ui.R
 
@@ -52,11 +53,17 @@ import com.hfad.ui.R
 fun TaskDetailsScreen(
     viewModel: TaskDetailsViewModel = hiltViewModel(),
     onEditTaskClick: (WorkTask) -> Unit,
-    onCloseTaskSuccess: () -> Unit
+    onClose: () -> Unit
 ) {
     val state = viewModel.state
     val textColor = MaterialTheme.colorScheme.onBackground
     var isFullScreenImageVisible by remember { mutableStateOf(false) }
+
+    ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
+        when (event) {
+            TaskDetailsViewModel.NavigationEvent.OnClosed -> onClose()
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
