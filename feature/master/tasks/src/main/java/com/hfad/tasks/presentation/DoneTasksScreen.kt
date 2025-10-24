@@ -14,12 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hfad.common.compose.ObserveAsEvents
+import com.hfad.main.R
 import com.hfad.model.WorkTask
 import com.hfad.ui.profile.TaskCard
 
@@ -38,7 +40,7 @@ fun DoneTasksScreen(
                 .background(backgroundColor)
         ) {
             Text(
-                text = "Выполненные задачи",
+                text = stringResource(R.string.DoneTasksText),
                 modifier = Modifier
                     .padding(7.dp)
                     .fillMaxWidth(),
@@ -47,28 +49,32 @@ fun DoneTasksScreen(
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Default,
             )
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Нет выполненных задач",
-                    fontSize = 16.sp,
-                    color = Color.Gray
-                )
-            }
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            ) {
-                items(state.tasksList) { task ->
-                    TaskCard(
-                        task = task,
-                        onCardClicked = {}
+
+            if (state.tasksList.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = stringResource(R.string.ThereIsNoDoneTasks),
+                        fontSize = 16.sp,
+                        color = Color.Gray
                     )
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                ) {
+                    items(state.tasksList) { task ->
+                        TaskCard(
+                            task = task,
+                            onCardClicked = {}
+                        )
+                    }
                 }
             }
         }

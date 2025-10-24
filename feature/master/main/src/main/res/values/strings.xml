@@ -5,6 +5,8 @@
     <string name="TasksText">Задачи</string>
     <string name="Reduct">Изменить</string>
     <string name="TasksInWorkText">Задачи в работе</string>
+    <string name="DoneTasksText">Выполненные задачи</string>
+    <string name="ThereIsNoDoneTasks">Нет выполненных задач</string>
     <string name="EditTasksText">Изменить задачи</string>
     <string name="NewTaskText">Новая задача</string>
     <string name="AddPhoto">Добавьте фото</string>
