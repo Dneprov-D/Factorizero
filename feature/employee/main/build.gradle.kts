@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.hilt.viewModel)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.foundation.layout)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     kapt(libs.hilt.android.compiler)
 
     testImplementation(libs.junit)

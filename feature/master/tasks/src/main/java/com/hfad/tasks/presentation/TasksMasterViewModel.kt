@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
@@ -11,6 +12,12 @@ import com.hfad.model.WorkTask
 import com.hfad.ui.profile.uimodel.TaskUiModel
 import com.hfad.ui.profile.uimodel.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,26 +27,47 @@ class TasksMasterViewModel @Inject constructor() : ViewModel() {
         private set
 
     init {
-        val db = Firebase.firestore
-        getTasks(db)
+        getTasksFlow()
     }
 
     data class TasksMasterScreenState(
         val tasksList: List<TaskUiModel>
     )
 
-    private fun getTasks(
-        db: FirebaseFirestore,
-    ) {
-        db.collection("tasks")
-            .get()
-            .addOnSuccessListener { task ->
-                val tasksList = task.toObjects(WorkTask::class.java)
-                state = state.copy(
-                    tasksList = tasksList.map {
-                        it.toUiModel()
-                    }
-                )
+    private fun getTasksFlow() {
+        viewModelScope.launch {
+            tasksFlow()
+                .onStart {
+                    state = state.copy()
+                }
+                .catch { exception ->
+                    state = state.copy()
+                }
+                .collect { tasks ->
+                    state = state.copy(
+                        tasksList = tasks
+                    )
+                }
+        }
+    }
+
+    private fun tasksFlow(): Flow<List<TaskUiModel>> = callbackFlow {
+        val db = Firebase.firestore
+        val listenerRegistration = db.collection("tasks")
+            .addSnapshotListener { snapshot, error ->
+                error?.let {
+                    close(it)
+                    return@addSnapshotListener
+                }
+
+                snapshot?.let { querySnapshot ->
+                    val tasksList = querySnapshot.toObjects(WorkTask::class.java)
+                    trySend(tasksList.map { it.toUiModel() })
+                }
             }
+
+        awaitClose {
+            listenerRegistration.remove()
+        }
     }
 }
