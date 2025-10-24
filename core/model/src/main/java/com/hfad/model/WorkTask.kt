@@ -5,5 +5,6 @@ data class WorkTask(
     val imageUrl: String = "",
     val title: String = "",
     val quantity: String = "",
-    val doneCount: Int = 0
+    val doneCount: Int = 0,
+    val isDone: Boolean = false
 )

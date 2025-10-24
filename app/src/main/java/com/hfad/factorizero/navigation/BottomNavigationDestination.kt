@@ -1,6 +1,7 @@
 package com.hfad.factorizero.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Done
 import androidx.compose.material.icons.outlined.LocalOffer
 import androidx.compose.material.icons.outlined.People
 import androidx.compose.material.icons.outlined.PermContactCalendar
@@ -24,6 +25,12 @@ enum class BottomNavigationDestination(
         icon = Icons.Outlined.LocalOffer,
         titleResId = R.string.navigation_item_tasks,
         route = Screen.TasksMasterScreen::class
+    ),
+
+    DONE_TASKS_TAB(
+        icon = Icons.Outlined.Done,
+        titleResId = R.string.navigation_item_done,
+        route = Screen.DoneTasksTabScreen::class
     ),
 
     PROFILE_TAB(

@@ -77,6 +77,7 @@ dependencies {
     // Dagger Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.viewModel)
+    implementation(libs.androidx.compose.runtime)
     kapt(libs.hilt.android.compiler)
 
     testImplementation(libs.junit)

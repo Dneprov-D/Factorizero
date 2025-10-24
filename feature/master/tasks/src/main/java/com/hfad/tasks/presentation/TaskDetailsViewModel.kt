@@ -26,9 +26,9 @@ class TaskDetailsViewModel @Inject constructor(
                 key = args.key,
                 title = args.title,
                 quantity = args.quantity,
-                doneCount = 0
-            ),
-            isLoading = true
+                doneCount = 0,
+                isDone = false
+            )
         )
     )
         private set
@@ -45,23 +45,34 @@ class TaskDetailsViewModel @Inject constructor(
                     task = state.task.copy(
                         title = workTask.title,
                         quantity = workTask.quantity,
-                        doneCount = workTask.doneCount
-                    ),
-                    isLoading = false
+                        doneCount = workTask.doneCount,
+                        isDone = workTask.isDone
+                    )
                 )
             },
             onLoadFailure = { error ->
                 Log.e("Firebase", "Error loading task: $error")
                 state = state.copy(
-                    task = state.task.copy(doneCount = args.doneCount),
-                    isLoading = false
+                    task = state.task.copy(doneCount = args.doneCount)
                 )
             }
         )
     }
 
+    fun closeTask() {
+        loginRepository.closeTask(
+            taskKey = state.task.key,
+            onCloseSuccess = {
+                // Задача закрыта, можно выполнить навигацию
+                // Это будет обработано в Composable через колбэк
+            },
+            onCloseFailure = { error ->
+                Log.e("Firebase", "Error closing task: $error")
+            }
+        )
+    }
+
     data class TaskDetailsScreenState(
-        val task: TaskUiModel,
-        val isLoading: Boolean = false
+        val task: TaskUiModel
     )
 }

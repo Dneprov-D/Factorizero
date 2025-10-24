@@ -13,6 +13,7 @@ enum class TopLevelScreens(val route: KClass<*>) {
 enum class NoArrowBackScreens(val route: KClass<*>) {
     MAIN_SCREEN(route = Screen.MainMasterScreen::class),
     TASKS_SCREEN(route = Screen.TasksMasterScreen::class),
+    DONE_TASKS_TAB(route = Screen.DoneTasksTabScreen::class),
     PROFILE_SCREEN(route = Screen.ProfileTabScreen::class),
     EMPLOYEE_MAIN_TAB(route = Screen.MainEmployeeScreen::class),
     EMPLOYEE_PROFILE_TAB(route = Screen.EmployeeProfileScreen::class)
@@ -27,6 +28,7 @@ enum class EmployeeTabsScreens(val route: KClass<*>) {
 enum class MasterTabsScreens(val route: KClass<*>) {
     EMPLOYEE_TAB(route = Screen.EmployeeTabScreen::class),
     TASKS_TAB(route = Screen.TasksTabScreen::class),
+    DONE_TASKS_TAB(route = Screen.DoneTasksTabScreen::class),
     PROFILE_TAB(route = Screen.ProfileTabScreen::class),
     MAIN_MASTER(route = Screen.MainMasterScreen::class),
 }

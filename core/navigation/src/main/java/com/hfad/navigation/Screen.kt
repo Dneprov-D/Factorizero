@@ -39,6 +39,9 @@ sealed class Screen() {
     data object TasksTabScreen : Screen()
 
     @Serializable
+    data object DoneTasksTabScreen : Screen()
+
+    @Serializable
     data object ProfileTabScreen : Screen()
 
     @Serializable
@@ -71,7 +74,8 @@ sealed class Screen() {
         val key: String,
         val title: String,
         val quantity: String,
-        val doneCount: Int
+        val doneCount: Int,
+        val isDone: Boolean
     ) : Screen()
 
     @Serializable
@@ -79,7 +83,8 @@ sealed class Screen() {
         val key: String,
         val title: String,
         val quantity: String,
-        val doneCount: Int = 0
+        val doneCount: Int = 0,
+        val isDone: Boolean = false
     ) : Screen()
 
     @Serializable

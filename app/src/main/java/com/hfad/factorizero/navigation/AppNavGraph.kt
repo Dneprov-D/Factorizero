@@ -121,6 +121,7 @@ fun AppNavGraph(
         // Master ver.
         employeeTabNavGraph(navController)
         tasksTabNavGraph(navController)
+        doneTasksTabNavGraph(navController)
         profileTabNavGraph()
 
         // Employee ver.

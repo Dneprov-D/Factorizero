@@ -32,7 +32,8 @@ class EditTaskViewModel @Inject constructor(
                 key = args.key,
                 title = args.title,
                 quantity = args.quantity,
-                doneCount = args.doneCount
+                doneCount = args.doneCount,
+                isDone = args.isDone
             ),
             titleInput = args.title,
             quantityInput = args.quantity
@@ -103,6 +104,7 @@ class EditTaskViewModel @Inject constructor(
         val titleInput: String = "",
         val quantityInput: String = "",
         val errorState: String = "",
-        val isButtonEnabled: Boolean = false
+        val isButtonEnabled: Boolean = false,
+        val isDone: Boolean = false
     )
 }

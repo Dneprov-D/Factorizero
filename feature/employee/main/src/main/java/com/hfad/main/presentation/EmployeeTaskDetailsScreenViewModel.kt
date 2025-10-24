@@ -28,7 +28,8 @@ class EmployeeTaskDetailsScreenViewModel @Inject constructor(
                 key = args.key,
                 title = args.title,
                 quantity = args.quantity,
-                doneCount = 0
+                doneCount = 0,
+                isDone = false
             ),
             editorText = "0",
             isFullScreenImageVisible = false,

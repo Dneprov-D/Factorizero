@@ -203,6 +203,29 @@ class LoginRepository @Inject constructor(
             }
     }
 
+    fun closeTask(
+        taskKey: String,
+        onCloseSuccess: () -> Unit,
+        onCloseFailure: (String) -> Unit
+    ) {
+        val fireStore = Firebase.firestore
+        val db = fireStore.collection("tasks")
+
+        if (taskKey.isBlank()) {
+            onCloseFailure("Ключ задачи не может быть пустым")
+            return
+        }
+
+        db.document(taskKey)
+            .update("isDone", true)
+            .addOnSuccessListener {
+                onCloseSuccess()
+            }
+            .addOnFailureListener { e ->
+                onCloseFailure(e.message ?: "Ошибка при закрытии задачи")
+            }
+    }
+
     fun createNewTask(
         title: String,
         quantity: String,
@@ -223,7 +246,8 @@ class LoginRepository @Inject constructor(
                     key = key,
                     title = title,
                     quantity = quantity,
-                    doneCount = 0
+                    doneCount = 0,
+                    isDone = false
                 )
             )
             .addOnFailureListener { e ->

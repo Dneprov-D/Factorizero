@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.hfad.model.WorkTask
@@ -21,40 +20,39 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TasksMasterScreenViewModel @Inject constructor() : ViewModel() {
-    var state by mutableStateOf(TasksMasterScreenState(emptyList(), isLoading = true))
+class DoneTasksScreenViewModel @Inject constructor() : ViewModel() {
+    var state by mutableStateOf(DoneTasksScreenState(emptyList()))
         private set
 
     init {
-        observeActiveTasks()
+        observeDoneTasks()
     }
 
-    data class TasksMasterScreenState(
-        val tasksList: List<TaskUiModel>,
-        val isLoading: Boolean = false
+    data class DoneTasksScreenState(
+        val tasksList: List<TaskUiModel>
     )
 
-    private fun observeActiveTasks() {
+    private fun observeDoneTasks() {
         viewModelScope.launch {
-            activeTasksFlow()
+            doneTasksFlow()
                 .onStart {
-                    state = state.copy(isLoading = true)
+                    state = state.copy()
                 }
                 .catch { exception ->
-                    state = state.copy(isLoading = false)
+                    state = state.copy()
                 }
                 .collect { tasks ->
                     state = state.copy(
-                        tasksList = tasks,
-                        isLoading = false
+                        tasksList = tasks
                     )
                 }
         }
     }
 
-    private fun activeTasksFlow(): Flow<List<TaskUiModel>> = callbackFlow {
+    private fun doneTasksFlow(): Flow<List<TaskUiModel>> = callbackFlow {
         val db = Firebase.firestore
         val listenerRegistration = db.collection("tasks")
+            .whereEqualTo("isDone", true)
             .addSnapshotListener { snapshot, error ->
                 error?.let {
                     close(it)
@@ -63,10 +61,8 @@ class TasksMasterScreenViewModel @Inject constructor() : ViewModel() {
 
                 snapshot?.let { querySnapshot ->
                     val tasksList = querySnapshot.toObjects(WorkTask::class.java)
-                    val activeTasks = tasksList
-                        .filter { !it.isDone }
                         .map { it.toUiModel() }
-                    trySend(activeTasks)
+                    trySend(tasksList)
                 }
             }
 

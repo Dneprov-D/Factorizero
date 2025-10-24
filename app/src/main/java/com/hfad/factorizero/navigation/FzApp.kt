@@ -48,6 +48,7 @@ fun FzApp() {
         isMasterScreen -> listOf(
             BottomNavigationDestination.EMPLOYEE_TAB,
             BottomNavigationDestination.TASKS_TAB,
+            BottomNavigationDestination.DONE_TASKS_TAB,
             BottomNavigationDestination.PROFILE_TAB
         )
         else -> emptyList()
@@ -97,7 +98,7 @@ fun FzApp() {
             if (shouldShowBottomBar(currentDestination)) {
                 NavigationBar(
                     modifier = Modifier
-                        .height(100.dp)
+                        .height(110.dp)
                 ) {
                     items.forEach { destination ->
                         val selected = currentDestination.isRouteInHierarchy(destination.route)

@@ -1,4 +1,4 @@
-package com.hfad.ui.profile
+package com.hfad.ui.profile.uimodel
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -9,10 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material3.Card
@@ -26,16 +24,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import androidx.test.espresso.base.Default
-import com.hfad.designsystem.components.theme.FactorizeroTheme
-import com.hfad.navigation.Screen
 import com.hfad.ui.R
-import com.hfad.ui.profile.uimodel.EmployeeUiModel
-import com.hfad.ui.profile.uimodel.TaskUiModel
 
 @Composable
 fun TaskCard(
@@ -125,19 +116,4 @@ fun TaskCard(
 
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TaskCardW() {
-    TaskCard(
-        task = TaskUiModel(
-            title = "Задача 1",
-            quantity = "10",
-            key = "1",
-            doneCount = 2,
-            isDone = false
-        ),
-        onCardClicked = {}
-    )
 }

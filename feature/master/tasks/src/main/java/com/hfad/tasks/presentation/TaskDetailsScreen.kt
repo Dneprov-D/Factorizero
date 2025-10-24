@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -42,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import buttons.FzButton
 import buttons.FzOutlinedButton
 import com.hfad.model.WorkTask
 import com.hfad.ui.R
@@ -49,7 +51,8 @@ import com.hfad.ui.R
 @Composable
 fun TaskDetailsScreen(
     viewModel: TaskDetailsViewModel = hiltViewModel(),
-    onEditTaskClick: (WorkTask) -> Unit
+    onEditTaskClick: (WorkTask) -> Unit,
+    onCloseTaskSuccess: () -> Unit
 ) {
     val state = viewModel.state
     val textColor = MaterialTheme.colorScheme.onBackground
@@ -76,59 +79,78 @@ fun TaskDetailsScreen(
                         contentDescription = null,
                         contentScale = ContentScale.Crop
                     )
-                Spacer(modifier = Modifier.width(15.dp))
-                Column {
-                    Text(
-                        text = state.task.title,
-                        fontSize = 25.sp,
-                    )
-                    Spacer(modifier = Modifier.width(5.dp))
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    Spacer(modifier = Modifier.width(15.dp))
+                    Column {
                         Text(
-                            text = stringResource(com.hfad.tasks.R.string.quantitiy),
-                            fontSize = 16.sp,
-                            color = Color.Gray
+                            text = state.task.title,
+                            fontSize = 25.sp,
                         )
-                        Text(
-                            text = state.task.quantity,
-                            fontSize = 16.sp
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(5.dp))
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = stringResource(com.hfad.tasks.R.string.Done),
-                            fontSize = 16.sp,
-                            color = Color.Gray
-                        )
-                        Text(
-                            text = state.task.doneCount.toString(),
-                            fontSize = 16.sp
-                        )
-                    }
-                    FzOutlinedButton(
-                        onClick = {
-                            onEditTaskClick(
-                                WorkTask(
-                                    key = state.task.key,
-                                    title = state.task.title,
-                                    quantity = state.task.quantity
-                                    )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = stringResource(com.hfad.tasks.R.string.quantitiy),
+                                fontSize = 16.sp,
+                                color = Color.Gray
                             )
-                        },
-                        text = { Text(stringResource(com.hfad.tasks.R.string.Reduct)) },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Default.Edit,
-                                contentDescription = null
+                            Text(
+                                text = state.task.quantity,
+                                fontSize = 16.sp
                             )
                         }
-                    )
-                }
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = stringResource(com.hfad.tasks.R.string.Done),
+                                fontSize = 16.sp,
+                                color = Color.Gray
+                            )
+                            Text(
+                                text = state.task.doneCount.toString(),
+                                fontSize = 16.sp
+                            )
+                        }
+
+                        // Кнопка "Закрыть задачу" появляется только когда задача выполнена
+                        if (state.task.doneCount.toString() == state.task.quantity && !state.task.isDone) {
+                            Spacer(modifier = Modifier.height(8.dp))
+                            FzButton(
+                                onClick = {
+                                    viewModel.closeTask()
+                                },
+                                text = {
+                                    Text("Закрыть задачу")
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+                        FzOutlinedButton(
+                            onClick = {
+                                onEditTaskClick(
+                                    WorkTask(
+                                        key = state.task.key,
+                                        title = state.task.title,
+                                        quantity = state.task.quantity,
+                                        doneCount = state.task.doneCount,
+                                        isDone = state.task.isDone
+                                    )
+                                )
+                            },
+                            text = { Text(stringResource(com.hfad.tasks.R.string.Reduct)) },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Default.Edit,
+                                    contentDescription = null
+                                )
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
                 }
             }
             item {

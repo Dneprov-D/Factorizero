@@ -2,6 +2,7 @@
     <string name="app_name">Factorizero</string>
     <string name="navigation_item_employee">Сотрудники</string>
     <string name="navigation_item_tasks">Задачи</string>
+    <string name="navigation_item_done">Выполненные</string>
     <string name="navigation_item_main">Настройки</string>
     <string name="navigation_item_profile">Профиль</string>
 </resources>

@@ -22,6 +22,7 @@ import com.hfad.navigation.Screen
 import com.hfad.navigation.TopLevelScreens
 import com.hfad.profile.EmployeeProfileScreen
 import com.hfad.tasks.presentation.CreateNewTaskScreen
+import com.hfad.tasks.presentation.DoneTasksScreen
 import com.hfad.tasks.presentation.EditTaskScreen
 import com.hfad.tasks.presentation.TaskDetailsScreen
 import com.hfad.tasks.presentation.TasksMasterScreen
@@ -122,9 +123,13 @@ fun NavGraphBuilder.tasksTabNavGraph(
                             key = it.key,
                             title = it.title,
                             quantity = it.quantity,
-                            doneCount = it.doneCount
+                            doneCount = it.doneCount,
+                            isDone = it.isDone
                         )
                     )
+                },
+                onCloseTaskSuccess = {
+                    navController.popBackStack()
                 }
             )
         }
@@ -140,6 +145,15 @@ fun NavGraphBuilder.tasksTabNavGraph(
         }
     }
 }
+
+fun NavGraphBuilder.doneTasksTabNavGraph(
+    navController: NavHostController
+) {
+    composable<Screen.DoneTasksTabScreen> {
+        DoneTasksScreen()
+    }
+}
+
 //Employee version
 fun NavGraphBuilder.employeeMainTabNavGraph(
     navController: NavHostController
@@ -198,6 +212,7 @@ fun NavController.navigateToBottomNavigationDestination(
     when (bottomNavigationDestination) {
         BottomNavigationDestination.EMPLOYEE_TAB -> navigateToEmployeeTab(bottomNavigationNavOptions)
         BottomNavigationDestination.TASKS_TAB -> navigateToTasksTab(bottomNavigationNavOptions)
+        BottomNavigationDestination.DONE_TASKS_TAB -> navigateToDoneTasksTab(bottomNavigationNavOptions)
         BottomNavigationDestination.PROFILE_TAB -> navigateToProfileTab(bottomNavigationNavOptions)
         BottomNavigationDestination.EMPLOYEE_MAIN_TAB -> navigateToEmployeeMainTab(bottomNavigationNavOptions)
         BottomNavigationDestination.EMPLOYEE_PROFILE_TAB-> navigateToEmployeeProfileTab(bottomNavigationNavOptions)
@@ -236,6 +251,9 @@ fun NavController.navigateToEmployeeTab(navOptions: NavOptions) =
 
 fun NavController.navigateToTasksTab(navOptions: NavOptions) =
     navigate(route = Screen.TasksTabScreen, navOptions)
+
+fun NavController.navigateToDoneTasksTab(navOptions: NavOptions) =
+    navigate(route = Screen.DoneTasksTabScreen, navOptions)
 
 fun NavController.navigateToProfileTab(navOptions: NavOptions) =
     navigate(route = Screen.ProfileTabScreen, navOptions)
