@@ -52,7 +52,7 @@ class DoneTasksScreenViewModel @Inject constructor() : ViewModel() {
     private fun doneTasksFlow(): Flow<List<TaskUiModel>> = callbackFlow {
         val db = Firebase.firestore
         val listenerRegistration = db.collection("tasks")
-            .whereEqualTo("isDone", true)
+            .whereEqualTo("done", true)
             .addSnapshotListener { snapshot, error ->
                 error?.let {
                     close(it)

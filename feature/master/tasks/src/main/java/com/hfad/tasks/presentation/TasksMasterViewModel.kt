@@ -64,7 +64,7 @@ class TasksMasterScreenViewModel @Inject constructor() : ViewModel() {
                 snapshot?.let { querySnapshot ->
                     val tasksList = querySnapshot.toObjects(WorkTask::class.java)
                     val activeTasks = tasksList
-                        .filter { !it.isDone }
+                        .filter { !it.done }
                         .map { it.toUiModel() }
                     trySend(activeTasks)
                 }

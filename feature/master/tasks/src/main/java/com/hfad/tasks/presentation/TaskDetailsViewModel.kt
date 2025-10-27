@@ -34,7 +34,7 @@ class TaskDetailsViewModel @Inject constructor(
                 title = args.title,
                 quantity = args.quantity,
                 doneCount = 0,
-                isDone = false
+                done = false
             )
         )
     )
@@ -53,7 +53,7 @@ class TaskDetailsViewModel @Inject constructor(
                         title = workTask.title,
                         quantity = workTask.quantity,
                         doneCount = workTask.doneCount,
-                        isDone = workTask.isDone
+                        done = workTask.done
                     )
                 )
             },

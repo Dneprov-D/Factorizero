@@ -9,7 +9,7 @@ data class TaskUiModel(
     val title: String,
     val quantity: String,
     val doneCount: Int,
-    val isDone: Boolean
+    val done: Boolean
 )
 
 fun WorkTask.toUiModel(): TaskUiModel {
@@ -18,6 +18,6 @@ fun WorkTask.toUiModel(): TaskUiModel {
         title = title,
         quantity = quantity,
         doneCount = doneCount,
-        isDone = isDone
+        done = done
     )
 }

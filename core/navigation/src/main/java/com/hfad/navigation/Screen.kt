@@ -75,7 +75,7 @@ sealed class Screen() {
         val title: String,
         val quantity: String,
         val doneCount: Int,
-        val isDone: Boolean
+        val done: Boolean
     ) : Screen()
 
     @Serializable
@@ -84,7 +84,7 @@ sealed class Screen() {
         val title: String,
         val quantity: String,
         val doneCount: Int = 0,
-        val isDone: Boolean = false
+        val done: Boolean = false
     ) : Screen()
 
     @Serializable

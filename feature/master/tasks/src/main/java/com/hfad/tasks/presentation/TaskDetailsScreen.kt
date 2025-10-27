@@ -121,8 +121,7 @@ fun TaskDetailsScreen(
                             )
                         }
 
-                        // Кнопка "Закрыть задачу" появляется только когда задача выполнена
-                        if (state.task.doneCount.toString() == state.task.quantity && !state.task.isDone) {
+                        if (state.task.doneCount.toString() == state.task.quantity && !state.task.done) {
                             Spacer(modifier = Modifier.height(8.dp))
                             FzButton(
                                 onClick = {
@@ -144,7 +143,7 @@ fun TaskDetailsScreen(
                                         title = state.task.title,
                                         quantity = state.task.quantity,
                                         doneCount = state.task.doneCount,
-                                        isDone = state.task.isDone
+                                        done = state.task.done
                                     )
                                 )
                             },

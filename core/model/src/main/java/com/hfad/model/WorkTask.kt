@@ -6,5 +6,5 @@ data class WorkTask(
     val title: String = "",
     val quantity: String = "",
     val doneCount: Int = 0,
-    val isDone: Boolean = false
+    val done: Boolean = false
 )

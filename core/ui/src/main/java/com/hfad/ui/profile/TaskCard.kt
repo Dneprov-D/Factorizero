@@ -136,7 +136,7 @@ fun TaskCardW() {
             quantity = "10",
             key = "1",
             doneCount = 2,
-            isDone = false
+            done = false
         ),
         onCardClicked = {}
     )

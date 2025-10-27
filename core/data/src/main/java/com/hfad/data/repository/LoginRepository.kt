@@ -179,7 +179,6 @@ class LoginRepository @Inject constructor(
     ) {
         val fireStore = Firebase.firestore
         val db = fireStore.collection("tasks")
-//        val key = db.document().id
 
         if (title.isBlank() || quantity.isBlank()) {
             onEditFailure("Заполните все поля.")
@@ -211,13 +210,8 @@ class LoginRepository @Inject constructor(
         val fireStore = Firebase.firestore
         val db = fireStore.collection("tasks")
 
-        if (taskKey.isBlank()) {
-            onCloseFailure("Ключ задачи не может быть пустым")
-            return
-        }
-
         db.document(taskKey)
-            .update("isDone", true)
+            .update("done", true)
             .addOnSuccessListener {
                 onCloseSuccess()
             }
@@ -247,7 +241,7 @@ class LoginRepository @Inject constructor(
                     title = title,
                     quantity = quantity,
                     doneCount = 0,
-                    isDone = false
+                    done = false
                 )
             )
             .addOnFailureListener { e ->

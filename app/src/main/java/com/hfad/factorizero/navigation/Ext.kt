@@ -124,7 +124,7 @@ fun NavGraphBuilder.tasksTabNavGraph(
                             title = it.title,
                             quantity = it.quantity,
                             doneCount = it.doneCount,
-                            isDone = it.isDone
+                            done = it.done
                         )
                     )
                 },
