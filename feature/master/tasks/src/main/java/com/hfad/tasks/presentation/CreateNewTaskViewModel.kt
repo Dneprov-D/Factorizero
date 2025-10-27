@@ -15,6 +15,7 @@ import com.hfad.ui.profile.uimodel.EmployeeUiModel
 import com.hfad.ui.profile.uimodel.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,17 +30,26 @@ class CreateNewTaskViewModel @Inject constructor(
     var state by mutableStateOf(CreateNewTaskState(emptyList()))
         private set
 
+    // Флаг для блокировки
+    private var isButtonBlocked = false
+
     init {
         val db = Firebase.firestore
         getAllStaff(db)
-        Log.e("pop", "суперметка! $this")
     }
 
     fun onTaskCreateClick() {
+        if (isButtonBlocked) {
+            return
+        }
+
         if (state.titleInput.isBlank() || state.quantityInput.isBlank()) {
             state = state.copy(errorState = "Заполните все поля.")
             return
         }
+
+        isButtonBlocked = true
+
         repository.createNewTask(
             title = state.titleInput,
             quantity = state.quantityInput,
@@ -52,6 +62,11 @@ class CreateNewTaskViewModel @Inject constructor(
             onCreateFailure = { error ->
                 state = state.copy(errorState = error)
             })
+
+        viewModelScope.launch {
+            delay(2000)
+            isButtonBlocked = false
+        }
     }
 
     private fun getAllStaff(
