@@ -1,5 +1,6 @@
 package com.hfad.tasks.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTransformGestures
@@ -36,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -58,6 +60,7 @@ fun TaskDetailsScreen(
     val state = viewModel.state
     val textColor = MaterialTheme.colorScheme.onBackground
     var isFullScreenImageVisible by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     ObserveAsEvents(flow = viewModel.navigationEventsChannelFlow) { event ->
         when (event) {
@@ -126,6 +129,11 @@ fun TaskDetailsScreen(
                             FzButton(
                                 onClick = {
                                     viewModel.closeTask()
+                                    Toast.makeText(
+                                        context,
+                                        "Задача ${state.task.title} закрыта!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 },
                                 text = {
                                     Text(stringResource(com.hfad.tasks.R.string.Close))

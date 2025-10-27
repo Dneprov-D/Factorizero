@@ -1,6 +1,7 @@
 package com.hfad.tasks.presentation
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -24,7 +25,6 @@ class TaskDetailsViewModel @Inject constructor(
 ) : ViewModel() {
     private val args = stateHandle.toRoute<Screen.TaskDetailsScreen>()
     private val navigationChannel = Channel<NavigationEvent>()
-
     val navigationEventsChannelFlow = navigationChannel.receiveAsFlow()
 
     var state by mutableStateOf(
