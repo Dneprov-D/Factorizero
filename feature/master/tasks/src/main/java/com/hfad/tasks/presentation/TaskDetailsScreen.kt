@@ -128,7 +128,7 @@ fun TaskDetailsScreen(
                                     viewModel.closeTask()
                                 },
                                 text = {
-                                    Text("Закрыть задачу")
+                                    Text(stringResource(com.hfad.tasks.R.string.Close))
                                 },
                                 modifier = Modifier.fillMaxWidth()
                             )

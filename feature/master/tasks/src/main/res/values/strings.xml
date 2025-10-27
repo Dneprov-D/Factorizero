@@ -7,4 +7,5 @@
     <string name="NoOne">"Задача не назначена ни одному сотруднику."</string>
     <string name="Reduct">Изменить</string>
     <string name="Done">"Изготовлено: "</string>
+    <string name="Close">"Завершить!"</string>
 </resources>

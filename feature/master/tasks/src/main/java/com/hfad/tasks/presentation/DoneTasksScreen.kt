@@ -24,6 +24,7 @@ import com.hfad.common.compose.ObserveAsEvents
 import com.hfad.main.R
 import com.hfad.model.WorkTask
 import com.hfad.ui.profile.TaskCard
+import com.hfad.ui.profile.uimodel.DoneTaskCard
 
 @Composable
 fun DoneTasksScreen(
@@ -70,7 +71,7 @@ fun DoneTasksScreen(
                         .weight(1f)
                 ) {
                     items(state.tasksList) { task ->
-                        TaskCard(
+                        DoneTaskCard(
                             task = task,
                             onCardClicked = {}
                         )

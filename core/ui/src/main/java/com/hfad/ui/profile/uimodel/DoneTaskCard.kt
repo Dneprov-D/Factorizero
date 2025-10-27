@@ -24,12 +24,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hfad.ui.R
+import com.hfad.ui.profile.TaskCard
 
 @Composable
-fun TaskCard(
+fun DoneTaskCard(
     task: TaskUiModel,
     onCardClicked: (TaskUiModel) -> Unit
 ) {
@@ -39,6 +41,9 @@ fun TaskCard(
             .clickable { onCardClicked(task) },
         elevation = CardDefaults.cardElevation(
             defaultElevation = 7.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = Color(0xFFB1FFB1)
         )
     ) {
         Row(
@@ -55,9 +60,7 @@ fun TaskCard(
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
-
             Spacer(modifier = Modifier.width(25.dp))
-
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -79,41 +82,22 @@ fun TaskCard(
                         fontSize = 16.sp
                     )
                 }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Выполнено: ",
-                        fontSize = 16.sp,
-                        color = Color.Gray
-                    )
-                    Text(
-                        text = "${task.doneCount}",
-                        fontSize = 16.sp
-                    )
-                }
             }
-            Column(
-                modifier = Modifier
-                    .padding(end = 16.dp)
-            ) {
-                if (task.doneCount.toString() == task.quantity) {
-                    Icon(
-                        imageVector = Icons.Rounded.CheckCircle,
-                        contentDescription = "Заказ выполнен",
-                        tint = Color(0xFF1A881E),
-                        modifier = Modifier.size(32.dp)
-                    )
-                } else {
-                    Icon(
-                        imageVector = Icons.Rounded.Schedule,
-                        contentDescription = "Заказ в работе",
-                        tint = Color(0xFFFFA000),
-                        modifier = Modifier.size(32.dp)
-                    )
-                }
-            }
-
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DoneTaskCardW() {
+    DoneTaskCard(
+        task = TaskUiModel(
+            title = "Задача 1",
+            quantity = "10",
+            key = "1",
+            doneCount = 2,
+            done = false
+        ),
+        onCardClicked = {}
+    )
 }
