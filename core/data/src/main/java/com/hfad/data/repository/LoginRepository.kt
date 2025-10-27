@@ -93,6 +93,24 @@ class LoginRepository @Inject constructor(
             }
     }
 
+    fun deleteCompletedTasks() {
+        val fireStore = Firebase.firestore
+        val db = fireStore.collection("tasks")
+
+        db.whereEqualTo("done", true)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (querySnapshot.isEmpty) {
+                    return@addOnSuccessListener
+                }
+                val batch = fireStore.batch()
+                querySnapshot.documents.forEach { document ->
+                    batch.delete(document.reference)
+                }
+                batch.commit()
+            }
+    }
+
     fun createAnEmployee(
         employee: Employee,
         email: String,

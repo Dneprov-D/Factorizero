@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.viewModel)
     implementation(libs.androidx.compose.runtime)
+    implementation(libs.espresso.core)
     kapt(libs.hilt.android.compiler)
 
     testImplementation(libs.junit)

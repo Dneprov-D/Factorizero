@@ -23,4 +23,6 @@
     <string name="ConfirmDelete">Подтверждение удаления</string>
     <string name="No">Нет</string>
     <string name="Yes">Да</string>
+    <string name="clearHistory">Очистить историю</string>
+    <string name="ConfirmClearHistory">Вы уверены что хотите чистить историю?</string>
 </resources>
