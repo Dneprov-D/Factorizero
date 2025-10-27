@@ -32,6 +32,7 @@ class MainEmployeeScreenViewModel @Inject constructor() : ViewModel() {
 
     init {
         getTasksFlow()
+        observeActiveTasks()
     }
 
     data class MainEmployeeScreenState(
@@ -75,8 +76,43 @@ class MainEmployeeScreenViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    // Функция для ручного обновления
-    fun refreshTasks() {
-        getTasksFlow()
+    private fun observeActiveTasks() {
+        viewModelScope.launch {
+            activeTasksFlow()
+                .onStart {
+                    state = state.copy()
+                }
+                .catch { exception ->
+                    state = state.copy()
+                }
+                .collect { tasks ->
+                    state = state.copy(
+                        tasksList = tasks
+                    )
+                }
+        }
+    }
+
+    private fun activeTasksFlow(): Flow<List<TaskUiModel>> = callbackFlow {
+        val db = Firebase.firestore
+        val listenerRegistration = db.collection("tasks")
+            .addSnapshotListener { snapshot, error ->
+                error?.let {
+                    close(it)
+                    return@addSnapshotListener
+                }
+
+                snapshot?.let { querySnapshot ->
+                    val tasksList = querySnapshot.toObjects(WorkTask::class.java)
+                    val activeTasks = tasksList
+                        .filter { !it.done }
+                        .map { it.toUiModel() }
+                    trySend(activeTasks)
+                }
+            }
+
+        awaitClose {
+            listenerRegistration.remove()
+        }
     }
 }

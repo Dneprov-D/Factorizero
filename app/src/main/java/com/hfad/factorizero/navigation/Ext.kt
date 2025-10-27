@@ -15,6 +15,7 @@ import com.hfad.main.presentation.MainEmployeeScreen
 import com.hfad.main.presentation.employeepack.EditEmployeeScreen
 import com.hfad.main.presentation.employeepack.EmployeeDetailsScreen
 import com.hfad.main.presentation.masterpack.MasterMainScreen
+import com.hfad.navigation.DoneTasksScreens
 import com.hfad.navigation.EmployeeTabsScreens
 import com.hfad.navigation.NoArrowBackScreens
 import com.hfad.profile.MasterProfileScreen
@@ -236,6 +237,13 @@ fun shouldShowTopBar(currentDestination: NavDestination?) =
 fun shouldShowArrowBack(currentDestination: NavDestination?) =
     currentDestination?.let { destination ->
         NoArrowBackScreens.entries.none { screen ->
+            destination.hasRoute(screen.route)
+        }
+    } == true
+
+fun optionsButtonTopBar(currentDestination: NavDestination?) =
+    currentDestination?.let { destination ->
+        DoneTasksScreens.entries.none { screen ->
             destination.hasRoute(screen.route)
         }
     } == true

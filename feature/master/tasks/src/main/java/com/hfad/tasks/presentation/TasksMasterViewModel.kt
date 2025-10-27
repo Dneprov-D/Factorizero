@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TasksMasterScreenViewModel @Inject constructor() : ViewModel() {
-    var state by mutableStateOf(TasksMasterScreenState(emptyList(), isLoading = true))
+    var state by mutableStateOf(TasksMasterScreenState(emptyList()))
         private set
 
     init {
@@ -30,23 +30,21 @@ class TasksMasterScreenViewModel @Inject constructor() : ViewModel() {
     }
 
     data class TasksMasterScreenState(
-        val tasksList: List<TaskUiModel>,
-        val isLoading: Boolean = false
+        val tasksList: List<TaskUiModel>
     )
 
     private fun observeActiveTasks() {
         viewModelScope.launch {
             activeTasksFlow()
                 .onStart {
-                    state = state.copy(isLoading = true)
+                    state = state.copy()
                 }
                 .catch { exception ->
-                    state = state.copy(isLoading = false)
+                    state = state.copy()
                 }
                 .collect { tasks ->
                     state = state.copy(
-                        tasksList = tasks,
-                        isLoading = false
+                        tasksList = tasks
                     )
                 }
         }

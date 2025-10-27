@@ -32,3 +32,6 @@ enum class MasterTabsScreens(val route: KClass<*>) {
     PROFILE_TAB(route = Screen.ProfileTabScreen::class),
     MAIN_MASTER(route = Screen.MainMasterScreen::class),
 }
+enum class DoneTasksScreens(val route: KClass<*>) {
+    DONE_TASKS_TAB(route = Screen.DoneTasksTabScreen::class)
+}
