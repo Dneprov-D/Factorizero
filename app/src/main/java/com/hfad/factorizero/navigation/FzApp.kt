@@ -98,7 +98,7 @@ fun FzApp() {
             if (shouldShowBottomBar(currentDestination)) {
                 NavigationBar(
                     modifier = Modifier
-                        .height(110.dp)
+                        .height(100.dp)
                 ) {
                     items.forEach { destination ->
                         val selected = currentDestination.isRouteInHierarchy(destination.route)
@@ -111,9 +111,9 @@ fun FzApp() {
                             icon = {
                                 Icon(destination.icon, contentDescription = null)
                             },
-                            label = {
-                                Text(text = stringResource(id = destination.titleResId))
-                            },
+//                            label = {
+//                                Text(text = stringResource(id = destination.titleResId))
+//                            },
                             selectedContentColor = Color.Black,
                             unselectedContentColor = LightColorScheme.onTertiary
                         )

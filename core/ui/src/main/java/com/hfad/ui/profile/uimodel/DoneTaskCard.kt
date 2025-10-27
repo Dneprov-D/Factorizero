@@ -43,7 +43,7 @@ fun DoneTaskCard(
             defaultElevation = 7.dp
         ),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFB1FFB1)
+            containerColor = Color(0xFFB8FCBD)
         )
     ) {
         Row(
